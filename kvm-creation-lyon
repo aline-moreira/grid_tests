@@ -60,7 +60,7 @@ cd grid_tests
 
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH!!!!!!!!!
+    !!!!!!!!MOVA O DIRETORIO PARA A PASTA memoria DO TEST SYSBENCH!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     echo "Host;start;`date -u`" >> sysbench_host.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run && echo "Host;end;`date -u`" >> sysbench_host.log && sleep 30
 
