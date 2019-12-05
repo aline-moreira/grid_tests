@@ -53,7 +53,7 @@ cd grid_tests
 
     for cpu in {1,2,4,8,16,32,64,80}; do
         echo "Host;start;$cpu;`date -u`" >> sysbench_host.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=5 run
+        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run
         echo "Host;end;$cpu;`date -u`" >> sysbench_host.log;
         sleep 30;
     done;
@@ -123,7 +123,7 @@ git clone https://github.com/aline-moreira/grid_tests.git
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for cpu in {1,2,4,8,16,32,64,80}; do
         echo "Docker;start;$cpu;`date -u`" >> sysbench_docker.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=5 run
+        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run
         echo "Docker;end;$cpu;`date -u`" >> sysbench_docker.log;
         sleep 30;
     done;
@@ -206,7 +206,7 @@ git clone https://github.com/aline-moreira/grid_tests.git
 
     for cpu in {1,2,4,8,16,32,64,80}; do
         echo "MV;start;$cpu;`date -u`" >> sysbench_vm.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=5 run
+        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run
         echo "MV;end;$cpu;`date -u`" >> sysbench_vm.log;
         sleep 30;
     done;
@@ -289,7 +289,7 @@ git push
 
     for cpu in {1,2,4,8,16,32,64,80}; do
         echo "Docker sobre MV;start;$cpu;`date -u`" >> sysbench_docker_vm.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=5 run
+        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run
         echo "Docker sobre MV;end;$cpu;`date -u`" >> sysbench_docker_vm.log;
         sleep 30;
     done;
