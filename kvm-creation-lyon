@@ -84,7 +84,10 @@ sudo-g5k /grid5000/code/bin/g5k-setup-docker
 docker run -it debian:stable /bin/bash
 
 apt-get update -y
+apt-get install curl
+curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | bash
 apt-get install git wget vim sysbench -y
+
 
 git config --global user.email "alinesmoreiraicloud@gmail.com"
 git config --global user.name "Aline Moreira"
