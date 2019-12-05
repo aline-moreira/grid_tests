@@ -4,7 +4,7 @@ TEST_TIME=300
 ########################
 ### CONFIGURA O NODE ###
 ########################
-oarsub -I -l slash_22=1+{"virtual!='NO' AND cluster='lyon'"}/nodes=1,walltime=5
+oarsub -I -l slash_22=1+{"virtual!='NO' AND cluster='gemini'"}/nodes=1,walltime=5
 cp /grid5000/virt-images/debian10-x64-base.qcow2 /tmp/
 qemu-img create -f qcow2 -o backing_file=/tmp/debian10-x64-base.qcow2 /tmp/domain1.qcow2
 
