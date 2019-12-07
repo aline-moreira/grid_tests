@@ -34,27 +34,27 @@ cd grid_tests
             5000    # number of equations (problem sizes)
             10000   # leading dimensions
             100     # number of times to run a test (trials)
-            1000000 # alignment values (in KBytes)' > input_data
+            1000000 # alignment values (in KBytes)'input_data
 
     #Mova o diretorio para a pasta do linpack!!!!
 
     #Executa o linpack
-    date -u >> host.log && ./xlinpack_xeon32 < input_data >> host.log && date -u >> host.log
+    date -u -R >> host.log && ./xlinpack_xeon32 < input_data >> host.log && date -u -R >> host.log
 
     ######################################
     ### UTILIZANDO O SYSBENCH NO HOST ####
     ######################################
 
-    echo "Host;start;idle;`date -u`" >> idle_host.log && sleep 300 &&     echo "Host;end;idle;`date -u`" >> idle_host.log;
+    echo "Host;start;idle;`date -u -R`" >> idle_host.log && sleep 300 &&     echo "Host;end;idle;`date -u -R`" >> idle_host.log;
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     for cpu in {1,2,4,8,16,32,64,80}; do
-        echo "Host;start;$cpu;`date -u`" >> sysbench_host.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run
-        echo "Host;end;$cpu;`date -u`" >> sysbench_host.log;
+        echo "Host;start;$cpu;`date -u -R`" >> sysbench_host.log;
+        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > host_cpu"$cpu"_data.log;
+        echo "Host;end;$cpu;`date -u -R`" >> sysbench_host.log;
         sleep 30;
     done;
 
@@ -62,13 +62,13 @@ cd grid_tests
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA memoria DO TEST SYSBENCH!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    echo "Host;start;`date -u`" >> sysbench_host.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run && echo "Host;end;`date -u`" >> sysbench_host.log && sleep 30
+    echo "Host;start;`date -u -R`" >> sysbench_host.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > host_mem_data.log && echo "Host;end;`date -u -R`" >> sysbench_host.log && sleep 30
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH IO !!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     TOTAL_SIZE=5G
-    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Host;start;`date -u`" >> ../sysbench_host.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run && echo "Host;end;`date -u`" >> ../sysbench_host.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
+    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Host;start;`date -u -R`" >> ../sysbench_host.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run > host_io_data.log && echo "Host;end;`date -u -R`" >> ../sysbench_host.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
 
 #Agora adiciona no git
 git add *
@@ -113,34 +113,34 @@ git clone https://github.com/aline-moreira/grid_tests.git
     #Mova o diretorio para a pasta do linpack!!!!
 
     #Executa o linpack
-    date -u >> docker.log && ./xlinpack_xeon32 < input_data >> docker.log && date -u >> docker.log
+    date -u -R >> docker.log && ./xlinpack_xeon32 < input_data >> docker.log && date -u -R >> docker.log
 
     ########################################
     ### UTILIZANDO O SYSBENCH NO DOCKER ####
     ########################################
 
-    echo "Docker;start;idle;`date -u`" >> idle_docker.log && sleep 300 &&     echo "Docker;end;idle;`date -u`" >> idle_docker.log;
+    echo "Docker;start;idle;`date -u -R`" >> idle_docker.log && sleep 300 &&     echo "Docker;end;idle;`date -u -R`" >> idle_docker.log;
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for cpu in {1,2,4,8,16,32,64,80}; do
-        echo "Docker;start;$cpu;`date -u`" >> sysbench_docker.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run
-        echo "Docker;end;$cpu;`date -u`" >> sysbench_docker.log;
+        echo "Docker;start;$cpu;`date -u -R`" >> sysbench_docker.log;
+        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > docker_cpu"$cpu"_data.log;
+        echo "Docker;end;$cpu;`date -u -R`" >> sysbench_docker.log;
         sleep 30;
     done;
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    echo "Docker;start;`date -u`" >> sysbench_docker.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run && echo "Docker;end;`date -u`" >> sysbench_docker.log && sleep 30
+    echo "Docker;start;`date -u -R`" >> sysbench_docker.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > docker_mem_data.log && echo "Docker;end;`date -u -R`" >> sysbench_docker.log && sleep 30
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH IO !!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     TOTAL_SIZE=5G
-    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Docker;start;`date -u`" >> ../sysbench_docker.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run && echo "Docker;end;`date -u`" >> ../sysbench_docker.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
+    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Docker;start;`date -u -R`" >> ../sysbench_docker.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run  > docker_io_data.log && echo "Docker;end;`date -u -R`" >> ../sysbench_docker.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
 
 #Agora adiciona no git
 git add *
@@ -168,6 +168,8 @@ kvm -smp $MAX_CPU -m 16384 -hda /tmp/debian10-x64-base.qcow2 -netdev bridge,id=b
 
 # FAZER O TESTE NA VM User: root passwd: grid5000
 
+apt-get install curl -y
+curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | bash
 apt-get install git wget vim sysbench -y
 
 git config --global user.email "alinesmoreiraicloud@gmail.com"
@@ -194,36 +196,36 @@ git clone https://github.com/aline-moreira/grid_tests.git
     #Mova o diretorio para a pasta do linpack!!!!
 
     #Executa o linpack
-    date -u >> vm.log && ./xlinpack_xeon32 < input_data >> vm.log && date -u >> vm.log
+    date -u -R >> vm.log && ./xlinpack_xeon32 < input_data >> vm.log && date -u -R >> vm.log
 
 
     ####################################
     ### UTILIZANDO O SYSBENCH NA VM ####
     ####################################
 
-    echo "Vm;start;idle;`date -u`" >> idle_vm.log && sleep 300 &&     echo "Vm;end;idle;`date -u`" >> idle_vm.log;
+    echo "Vm;start;idle;`date -u -R`" >> idle_vm.log && sleep 300 &&     echo "Vm;end;idle;`date -u -R`" >> idle_vm.log;
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     for cpu in {1,2,4,8,16,32,64,80}; do
-        echo "MV;start;$cpu;`date -u`" >> sysbench_vm.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run
-        echo "MV;end;$cpu;`date -u`" >> sysbench_vm.log;
+        echo "MV;start;$cpu;`date -u -R`" >> sysbench_vm.log;
+        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > vm_cpu"$cpu"_data.log;
+        echo "MV;end;$cpu;`date -u -R`" >> sysbench_vm.log;
         sleep 30;
     done;
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH MEMORIA!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    echo "MV;start;`date -u`" >> sysbench_vm.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run && echo "MV;end;`date -u`" >> sysbench_vm.log && sleep 30
+    echo "MV;start;`date -u -R`" >> sysbench_vm.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run  > vm_mem_data.log;&& echo "MV;end;`date -u -R`" >> sysbench_vm.log && sleep 30
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH IO !!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     TOTAL_SIZE=5G
-    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "MV;start;`date -u`" >> ../sysbench_vm.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run && echo "MV;end;`date -u`" >> ../sysbench_vm.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
+    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "MV;start;`date -u -R`" >> ../sysbench_vm.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run  > vm_io_data.log && echo "MV;end;`date -u -R`" >> ../sysbench_vm.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
 
 #Agora adiciona no git
 git add *
@@ -252,6 +254,8 @@ git push
     docker run -it debian:stable /bin/bash
 
     apt-get update -y
+    apt-get install curl -y
+    curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | bash
     apt-get install git wget vim sysbench -y
 
     git config --global user.email "alinesmoreiraicloud@gmail.com"
@@ -278,22 +282,22 @@ git push
     #Mova o diretorio para a pasta do linpack!!!!
 
     #Executa o linpack
-    date -u >> docker_vm.log && ./xlinpack_xeon32 < input_data >> docker_vm.log && date -u >> docker_vm.log
+    date -u -R >> docker_vm.log && ./xlinpack_xeon32 < input_data >> docker_vm.log && date -u -R >> docker_vm.log
 
     #################################################
     ### UTILIZANDO O SYSBENCH NO DOCKER SOBRE VM ####
     #################################################
 
-    echo "Docker sobre MV;start;idle;`date -u`" >> idle_docker_vm.log && sleep 300 &&     echo "Docker sobre MV;end;idle;`date -u`" >> idle_docker_vm.log;
+    echo "Docker sobre MV;start;idle;`date -u -R`" >> idle_docker_vm.log && sleep 300 &&     echo "Docker sobre MV;end;idle;`date -u -R`" >> idle_docker_vm.log;
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH CPU!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     for cpu in {1,2,4,8,16,32,64,80}; do
-        echo "Docker sobre MV;start;$cpu;`date -u`" >> sysbench_docker_vm.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run
-        echo "Docker sobre MV;end;$cpu;`date -u`" >> sysbench_docker_vm.log;
+        echo "Docker sobre MV;start;$cpu;`date -u -R`" >> sysbench_docker_vm.log;
+        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > dockerVM_cpu"$cpu"_data.log;
+        echo "Docker sobre MV;end;$cpu;`date -u -R`" >> sysbench_docker_vm.log;
         sleep 30;
     done;
 
@@ -301,14 +305,14 @@ git push
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH MEMORIA!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    echo "Docker sobre MV;start;`date -u`" >> sysbench_docker_vm.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run && echo "Docker sobre MV;end;`date -u`" >> sysbench_docker_vm.log && sleep 30
+    echo "Docker sobre MV;start;`date -u -R`" >> sysbench_docker_vm.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > dockerVM_mem_data.log && echo "Docker sobre MV;end;`date -u -R`" >> sysbench_docker_vm.log && sleep 30
 
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH IO !!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     TOTAL_SIZE=5G
-    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Docker sobre MV;start;`date -u`" >> ../sysbench_io_docker_vm.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run && echo "Docker sobre MV;end;`date -u`" >> ../sysbench_io_docker_vm.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
+    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Docker sobre MV;start;`date -u -R`" >> ../sysbench_io_docker_vm.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run >  dockerVM_io_data.log  && echo "Docker sobre MV;end;`date -u -R`" >> ../sysbench_io_docker_vm.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
 
     #######################
     #Agora adiciona no git#
@@ -340,7 +344,7 @@ curl -kn https://api.grid5000.fr/stable/sites/lyon/metrics/power/timeseries/?job
 ##################################################
 ### CONFIGURA 2 NODES PARA FAZER TESTE DE REDE ###
 ##################################################
-oarsub -I -l slash_22=1+{"virtual!='NO' AND cluster='lyon'"}/nodes=2,walltime=5
+oarsub -I -l slash_22=1+{"virtual!='NO' AND cluster='gemini'"}/nodes=2,walltime=5
 
 ##### CRIOU UM JOB COM 2 NODES E AUTOMATICAMENTE JÁ ENTRA NO NÓ SERVIDOR
 ##### EM OUTRA ABA DO TMUX FACA
@@ -365,6 +369,7 @@ sudo-g5k apt-get install git nuttcp -y
 
 git config --global user.email "alinesmoreiraicloud@gmail.com"
 git config --global user.name "Aline Moreira"
+git clone https://github.com/aline-moreira/grid_tests.git
 
 cd grid_tests
 
@@ -379,7 +384,7 @@ cd grid_tests
     ##############################
 
     for bw in {1,10,100,1000,10000}; do
-        echo "host;start;$bw;`date -u`" >> nuttcp_host.log && nuttcp -r -R"$bw"M -T300 `tail -1 $OAR_FILE_NODES` && echo "host;end;$bw;`date -u`" >> nuttcp_host.log && sleep 0;
+        echo "host;client;start;$bw;`date -u -R`" >> nuttcp_host_client.log && nuttcp -r -R"$bw"M -T300 172.16.53.1 > host_rede_"$bw"_data.log && echo "host;client;end;$bw;`date -u -R`" >> nuttcp_host_client.log && sleep 30;
     done;
 
 #Agora adiciona no git
@@ -393,7 +398,7 @@ git push
 sudo-g5k /grid5000/code/bin/g5k-setup-docker
 
 #Baixar e configurar o git no docker DEBIAN 10
-docker run -it debian:stable /bin/bash
+docker run -it --net=host debian:stable /bin/bash
 
 apt-get update -y
 apt-get install git nuttcp -y
@@ -413,7 +418,7 @@ git clone https://github.com/aline-moreira/grid_tests.git
     ##############################
 
     for bw in {1,10,100,1000,10000}; do
-        echo "docker;start;$bw;`date -u`" >> nuttcp_docker.log && nuttcp -r -R"$bw"M -T300 `tail -1 $OAR_FILE_NODES` && echo "docker;end;$bw;`date -u`" >> nuttcp_docker.log && sleep 0;
+        echo "docker;client;start;$bw;`date -u -R`" >> nuttcp_docker.log && nuttcp -r -R"$bw"M -T300 172.16.53.1 > docker_rede_"$bw"_data.log  && echo "docker;client;end;$bw;`date -u -R`" >> nuttcp_docker.log && sleep 30;
     done;
 
 #Agora adiciona no git
@@ -431,8 +436,8 @@ sudo-g5k stop docker
 ##############################
 
 #O MAC_ADDRESS É PEGO AUTOMATICAMENTE
-MAC_ADDRESS1 =`g5k-subnets -im | tail -2 | awk 'FNR == 1 {print $2}'`
-MAC_ADDRESS2 =`g5k-subnets -im | tail -2 | awk 'FNR == 2 {print $2}'`
+MAC_ADDRESS1=`g5k-subnets -im | tail -2 | awk 'FNR == 1 {print $2}'`
+MAC_ADDRESS2=`g5k-subnets -im | tail -2 | awk 'FNR == 2 {print $2}'`
 
 #A QUANTIDADE DE VCPU É CONFIGURADO AUTOMATICAMENTE PARA PEGAR TODAS AS CPUS DO HOST, CASO QUEIRA UM NUMERO MENOR COLOQUE MANUALMENTE O VALOR EM MAX_CPU
 
@@ -457,14 +462,14 @@ git clone https://github.com/aline-moreira/grid_tests.git
     ## LIGAR O NUTTCP NO SERVER ##
     ##############################
 
-    nuttcp -S
+    echo "servidor;vm;start;`date -u -R`" >> nuttcp_vm_servidor.log && nuttcp -S && echo "servidor;vm;end;`date -u -R`" >> nuttcp_vm_servidor.log
 
     ##############################
     ## LIGAR O NUTTCP NO CLIENT ##
     ##############################
 
     for bw in {1,10,100,1000,10000}; do
-        echo "host;start;$bw;`date -u`" >> nuttcp_host.log && nuttcp -r -R"$bw"M -T300 `tail -1 $OAR_FILE_NODES` && echo "host;end;$bw;`date -u`" >> nuttcp_host.log && sleep 0;
+        echo "client;vm;start;$bw;`date -u -R`" >> nuttcp_vm_client.log && nuttcp -r -R"$bw"M -T300 10.140.3.253 > vm_rede_"$bw"_data.log  && echo "client;vm;end;$bw;`date -u -R`" >> nuttcp_vm_client.log && sleep 30;
     done;
 
 #Agora adiciona no git
@@ -491,7 +496,7 @@ git push
     ##################################
     ### EXECUTANDO O DOCKER DEBIAN ###
     ##################################
-    docker run -it debian:stable /bin/bash
+    docker run -it --net=host debian:stable /bin/bash
 
     apt-get update -y
     apt-get install git nuttcp -y
@@ -504,14 +509,14 @@ git push
         ## LIGAR O NUTTCP NO SERVER ##
         ##############################
 
-        nuttcp -S
+        echo "servidor;docker_vm;start;`date -u -R`" >> nuttcp_docker_vm_servidor.log && nuttcp -S && echo "servidor;docker_vm;end;`date -u -R`" >> nuttcp_docker_vm_servidor.log
 
         ##############################
         ## LIGAR O NUTTCP NO CLIENT ##
         ##############################
 
         for bw in {1,10,100,1000,10000}; do
-            echo "host;start;$bw;`date -u`" >> nuttcp_host.log && nuttcp -r -R"$bw"M -T300 `tail -1 $OAR_FILE_NODES` && echo "host;end;$bw;`date -u`" >> nuttcp_host.log && sleep 0;
+            echo "client;docker_vm;start;$bw;`date -u -R`" >> nuttcp_docker_vm_client.log && nuttcp -r -R"$bw"M -T300 10.140.3.253 > dockerVM_rede_"$bw"_data.log  && echo "client;docker_vm;end;$bw;`date -u -R`" >> nuttcp_docker_vm_client.log && sleep 30;
         done;
 
     #######################
@@ -531,4 +536,9 @@ shutdown -hP now
 
 #NESSE PONTO, VOCE ESTÁ NO HOST, GERE O ARQUIVO DE ENERGIA E SUBA NO GIT.
 
-curl -kn https://api.grid5000.fr/stable/sites/lyon/metrics/power/timeseries/?job_id=$OAR_JOB_ID > /home/mpillon/grid_tests/energy_"$OAR_JOB_ID".json
+curl -kn https://api.grid5000.fr/stable/sites/lyon/metrics/power/timeseries/?job_id=$OAR_JOB_ID > energy_$OAR_JOB_ID.json
+
+/home/mpillon/grid_tests/energy_"$OAR_JOB_ID".json
+
+
+OS ARQUIVOS DO NUTTCP SERVIDOR NAO SAO NECESSARIOS
