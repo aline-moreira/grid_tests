@@ -55,7 +55,7 @@ cd grid_tests
 
     for cpu in {1,2,4,8,16,32,64,80}; do
         echo "Host;start;$cpu;`date -u -R`" >> sysbench_cpu_host.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > host_cpu"$cpu"_data.log;
+        sysbench cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > host_cpu"$cpu"_data.log;
         echo "Host;end;$cpu;`date -u -R`" >> sysbench_cpu_host.log;
         sleep 30;
     done;
@@ -64,13 +64,13 @@ cd grid_tests
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA memoria DO TEST SYSBENCH!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    echo "Host;start;`date -u -R`" >> sysbench_host.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > host_mem_data.log && echo "Host;end;`date -u -R`" >> sysbench_host.log && sleep 30
+    echo "Host;start;`date -u -R`" >> sysbench_host.log && sysbench memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > host_mem_data.log && echo "Host;end;`date -u -R`" >> sysbench_host.log && sleep 30
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH IO !!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     TOTAL_SIZE=5G
-    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Host;start;`date -u -R`" >> ../sysbench_host.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run > host_io_data.log && echo "Host;end;`date -u -R`" >> ../sysbench_host.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
+    mkdir io_test && cd io_test && sysbench fileio --file-total-size=$TOTAL_SIZE prepare && echo "Host;start;`date -u -R`" >> ../sysbench_host.log && sysbench fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run > ../host_io_data.log && echo "Host;end;`date -u -R`" >> ../sysbench_host.log && sleep 30 && sysbench fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
 
 #Agora adiciona no git
 git add *
@@ -86,7 +86,7 @@ sudo-g5k /grid5000/code/bin/g5k-setup-docker
 docker run -it debian:stable /bin/bash
 
 apt-get update -y
-apt-get install curl
+apt-get install curl -y
 curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | bash
 apt-get install git wget vim sysbench -y
 
@@ -128,7 +128,7 @@ git clone https://github.com/aline-moreira/grid_tests.git
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for cpu in {1,2,4,8,16,32,64,80}; do
         echo "Docker;start;$cpu;`date -u -R`" >> sysbench_docker.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > docker_cpu"$cpu"_data.log;
+        sysbench cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > docker_cpu"$cpu"_data.log;
         echo "Docker;end;$cpu;`date -u -R`" >> sysbench_docker.log;
         sleep 30;
     done;
@@ -136,13 +136,13 @@ git clone https://github.com/aline-moreira/grid_tests.git
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    echo "Docker;start;`date -u -R`" >> sysbench_docker.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > docker_mem_data.log && echo "Docker;end;`date -u -R`" >> sysbench_docker.log && sleep 30
+    echo "Docker;start;`date -u -R`" >> sysbench_docker.log && sysbench memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > docker_mem_data.log && echo "Docker;end;`date -u -R`" >> sysbench_docker.log && sleep 30
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH IO !!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     TOTAL_SIZE=5G
-    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Docker;start;`date -u -R`" >> ../sysbench_docker.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run  > docker_io_data.log && echo "Docker;end;`date -u -R`" >> ../sysbench_docker.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
+    mkdir io_test && cd io_test && sysbench fileio --file-total-size=$TOTAL_SIZE prepare && echo "Docker;start;`date -u -R`" >> ../sysbench_docker.log && sysbench fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run  > ../docker_io_data.log && echo "Docker;end;`date -u -R`" >> ../sysbench_docker.log && sleep 30 && sysbench fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
 
 #Agora adiciona no git
 git add *
@@ -166,7 +166,7 @@ MAC_ADDRESS=`g5k-subnets -im | tail -1 | awk '{print $2}'`
 #MAX_CPU=2
 MAX_CPU=`lscpu | grep "CPU(s)" | awk '{print $2}' | head -1`
 
-kvm -smp $MAX_CPU -m 16384 -hda /tmp/debian10-x64-base.qcow2 -netdev bridge,id=br0 -device virtio-net-pci,netdev=br0,id=ens3,mac=$MAC_ADDRESS -nographic
+kvm -smp $MAX_CPU -m 490000 -hda /tmp/debian10-x64-base.qcow2 -netdev bridge,id=br0 -device virtio-net-pci,netdev=br0,id=ens3,mac=$MAC_ADDRESS -nographic
 
 # FAZER O TESTE NA VM User: root passwd: grid5000
 
@@ -213,7 +213,7 @@ git clone https://github.com/aline-moreira/grid_tests.git
 
     for cpu in {1,2,4,8,16,32,64,80}; do
         echo "MV;start;$cpu;`date -u -R`" >> sysbench_vm.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > vm_cpu"$cpu"_data.log;
+        sysbench cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > vm_cpu"$cpu"_data.log;
         echo "MV;end;$cpu;`date -u -R`" >> sysbench_vm.log;
         sleep 30;
     done;
@@ -221,13 +221,13 @@ git clone https://github.com/aline-moreira/grid_tests.git
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH MEMORIA!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    echo "MV;start;`date -u -R`" >> sysbench_vm.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run  > vm_mem_data.log;&& echo "MV;end;`date -u -R`" >> sysbench_vm.log && sleep 30
+    echo "MV;start;`date -u -R`" >> sysbench_vm.log && sysbench memory --memory-block-size=1G --memory-total-size=10000G --time=300 run  > vm_mem_data.log && echo "MV;end;`date -u -R`" >> sysbench_vm.log && sleep 30
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH IO !!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     TOTAL_SIZE=5G
-    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "MV;start;`date -u -R`" >> ../sysbench_vm.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run  > vm_io_data.log && echo "MV;end;`date -u -R`" >> ../sysbench_vm.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
+    mkdir io_test && cd io_test && sysbench fileio --file-total-size=$TOTAL_SIZE prepare && echo "MV;start;`date -u -R`" >> ../sysbench_vm.log && sysbench fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run  > ../vm_io_data.log && echo "MV;end;`date -u -R`" >> ../sysbench_vm.log && sleep 30 && sysbench fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
 
 #Agora adiciona no git
 git add *
@@ -298,7 +298,7 @@ git push
 
     for cpu in {1,2,4,8,16,32,64,80}; do
         echo "Docker sobre MV;start;$cpu;`date -u -R`" >> sysbench_docker_vm.log;
-        sysbench --test=cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > dockerVM_cpu"$cpu"_data.log;
+        sysbench cpu --cpu-max-prime=2000000000 --forced-shutdown=0 --threads=$cpu --max-time=300 run > dockerVM_cpu"$cpu"_data.log;
         echo "Docker sobre MV;end;$cpu;`date -u -R`" >> sysbench_docker_vm.log;
         sleep 30;
     done;
@@ -307,14 +307,14 @@ git push
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH MEMORIA!!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    echo "Docker sobre MV;start;`date -u -R`" >> sysbench_docker_vm.log && sysbench --test=memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > dockerVM_mem_data.log && echo "Docker sobre MV;end;`date -u -R`" >> sysbench_docker_vm.log && sleep 30
+    echo "Docker sobre MV;start;`date -u -R`" >> sysbench_docker_vm.log && sysbench memory --memory-block-size=1G --memory-total-size=10000G --time=300 run > dockerVM_mem_data.log && echo "Docker sobre MV;end;`date -u -R`" >> sysbench_docker_vm.log && sleep 30
 
 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!!!!!!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH IO !!!!!!!!!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     TOTAL_SIZE=5G
-    mkdir io_test && cd io_test && sysbench --test=fileio --file-total-size=$TOTAL_SIZE prepare && echo "Docker sobre MV;start;`date -u -R`" >> ../sysbench_io_docker_vm.log && sysbench --test=fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run >  dockerVM_io_data.log  && echo "Docker sobre MV;end;`date -u -R`" >> ../sysbench_io_docker_vm.log && sleep 30 && sysbench --test=fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
+    mkdir io_test && cd io_test && sysbench fileio --file-total-size=$TOTAL_SIZE prepare && echo "Docker sobre MV;start;`date -u -R`" >> ../sysbench_io_docker_vm.log && sysbench fileio --file-total-size=$TOTAL_SIZE --file-test-mode=rndrw --time=300 --max-requests=0 run >  ../dockerVM_io_data.log  && echo "Docker sobre MV;end;`date -u -R`" >> ../sysbench_io_docker_vm.log && sleep 30 && sysbench fileio --file-total-size=$TOTAL_SIZE cleanup && cd .. && rm -r io_test
 
     #######################
     #Agora adiciona no git#
