@@ -1,4 +1,4 @@
-packages <- c("ggplot2","dplyr","scales","ggsci")
+packages <- c("ggplot2","dplyr","scales","ggsci","rjson")
 
 for(package in packages){
     if(!require(package, character.only = TRUE)){
@@ -108,7 +108,7 @@ idle <- as.data.frame(t(data.frame(
 colnames(idle)<- c("type","power")
 rownames(idle)<- c("host","docker","MV","dockerMV")
 
-pdf("idle.pdf")
+tiff("idle.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 idle_plot <- ggplot(data=idle, aes(x=type, y=power, fill=type))+
     geom_bar(colour="black",stat="identity")+
     theme_classic()+
@@ -415,7 +415,7 @@ cpu <- as.data.frame(t(data.frame(
 )))
 colnames(cpu)<- c("type","power","cpu")
 
-pdf("cpu.pdf")
+tiff("cpu.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 cpu_plot <- ggplot(data=cpu, aes(x=cpu, y=power, fill=type))+
     geom_bar(colour="black",position="dodge",stat="identity")+
     theme_classic()+
@@ -494,7 +494,8 @@ mem <- as.data.frame(t(data.frame(
 colnames(mem)<- c("type","power")
 rownames(mem)<- c("host","docker","MV","dockerMV")
 
-pdf("mem.pdf")
+tiff("mem.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+
 mem_plot <- ggplot(data=mem, aes(x=type, y=power, fill=type))+
     geom_bar(colour="black",stat="identity")+
     theme_classic()+
@@ -574,7 +575,7 @@ mem <- as.data.frame(t(data.frame(
 colnames(mem)<- c("type","power")
 rownames(mem)<- c("host","docker","MV","dockerMV")
 
-pdf("io.pdf")
+tiff("io.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 io_plot <- ggplot(data=mem, aes(x=type, y=power, fill=type))+
     geom_bar(colour="black", stat="identity")+
     theme_classic()+
@@ -794,7 +795,7 @@ rede <- as.data.frame(t(data.frame(
 )))
 colnames(rede)<- c("type","power","BW")
 
-pdf("rede.pdf")
+tiff("rede.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 rede_plot <- ggplot(data=rede, aes(x=BW, y=power, fill=type))+
     geom_bar(colour="black",position="dodge",stat="identity")+
     theme_classic()+
@@ -828,4 +829,6 @@ rede_plot <- ggplot(data=rede, aes(x=BW, y=power, fill=type))+
 plot(rede_plot)
 dev.off()
 
-system("mv *.pdf graphs")
+system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
+system("mv *.png graphs")
+system("rm *.tiff")
