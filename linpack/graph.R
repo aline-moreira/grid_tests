@@ -40,19 +40,36 @@ df$Norm <- c(
 )
 
 p <- ggplot(data=df, aes(x=Test, y=Norm, fill=Test)) +
-    geom_bar(stat="identity")+
-    geom_hline(yintercept=df$Norm[[1]], linetype="dashed", color = "red")+
-    geom_hline(yintercept=df$Norm[[2]], linetype="dashed", color = "red")+
-    geom_hline(yintercept=df$Norm[[3]], linetype="dashed", color = "red")+
-    geom_hline(yintercept=df$Norm[[4]], linetype="dashed", color = "red")+
+    geom_bar(colour="black", stat="identity")+
     theme_classic()+
-    labs(x = "Ambiente", y = "GFlops")+
-    scale_fill_discrete(name = "Ambiente", labels = c("Contêiner", "Host", "MV","Contêiner sobre MV"))+
-    scale_x_discrete(limits=c("Host", "Contêiner", "MV","Contêiner sobre MV"))+
     theme(
-        legend.position="top"
-    )+ 
-    scale_colour_brewer("Colors in Spectral", palette="Spectral")
+        legend.position="top",
+        axis.text.x = element_text(
+            angle = 0,
+            hjust = 0.7,
+            size=12
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12), 
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    labs(
+        x=("Ambiente"),
+        y="GFlops/s",
+        fill= "Ambiente"
+    )+
+    #guides(fill=FALSE)
+    scale_x_discrete(labels=c("Docker","Docker sobre MV","Host","MV"))+
+    scale_fill_d3(labels = c("Docker", "Docker sobre MV", "Host", "MV"))
+
 
 tiff("result.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 plot(p)
