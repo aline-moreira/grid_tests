@@ -2,7 +2,7 @@
 oarsub -I -l slash_22=1+{"virtual!='NO' AND cluster='gemini'"}/nodes=1,walltime=2
 
 echo "Host;start;idle;`date -u -R`" >> idle_host.log && sleep 600 &&     echo "Host;end;idle;`date -u -R`" >> idle_host.log;
-echo "Docker;start;idle;`date -u -R`" >> idle_docker2701.log && sleep 600 &&     echo "Docker;end;idle;`date -u -R`" >> idle_docker2701.log;
+
 
 sudo-g5k /grid5000/code/bin/g5k-setup-docker  
 #Baixar e configurar o git no docker DEBIAN 10 
@@ -22,7 +22,9 @@ git config --global user.email "alinesmoreiraicloud@gmail.com"
 git config --global user.name "Aline Moreira" 
 git clone https://github.com/aline-moreira/grid_tests.git
 
-!!MOVA O DIRETORIO PARA A PASTA DO TEST SYSBENCH!!!
+!!MOVA O DIRETORIO PARA A PASTA DO TEST!!!
+
+echo "Docker;start;idle;`date -u -R`" >> idle_docker.log && sleep 600 &&     echo "Docker;end;idle;`date -u -R`" >> idle_docker.log;
 
 for cpu in {1,2,3,4}; do
 echo "Docker;start;$cpu;`date -u -R`" >> sysbench_docker.log;
