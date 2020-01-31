@@ -51,6 +51,6 @@ sudo-g5k stop docker
 
 #NESSE PONTO, VOCE ESTÁ NO HOST, GERE O ARQUIVO DE ENERGIA E SUBA NO GIT.
 
-curl -kn https://api.grid5000.fr/stable/sites/grenoble/metrics/power/timeseries/?job_id=$OAR_JOB_ID > energy_$OAR_JOB_ID.json
+curl -kn https://api.grid5000.fr/stable/sites/lyon/metrics/power/timeseries/?job_id=$OAR_JOB_ID > energy_$OAR_JOB_ID.json
 /home/mpillon/grid_tests/energy_"$OAR_JOB_ID".json
 
