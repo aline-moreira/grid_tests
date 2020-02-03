@@ -1,2 +1,2 @@
-Host;start;idle;Thu, 30 Jan 2020 12:50:36 +0000
-Host;end;idle;Thu, 30 Jan 2020 13:03:56 +0000
+vcpu;start;end
+0;Thu, 30 Jan 2020 12:50:36 +0000;Thu, 30 Jan 2020 13:03:56 +0000
