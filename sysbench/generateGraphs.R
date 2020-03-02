@@ -19,7 +19,7 @@ times<- read.table("all_tests.log",header=TRUE,sep=";")
 times$start <- as.POSIXct(times$start,tz="UTC",  format="%a, %d %b %Y %H:%M:%S %z")
 times$end <- as.POSIXct(times$end,tz="UTC",  format="%a, %d %b %Y %H:%M:%S %z")
 
-scaleFUN <- function(x) round(as.numeric(x), digits=0)
+scaleFUN <- function(x) as.numeric(round(as.numeric(x), digits=0))
 
 ##########GETTING THE INFO OF JSON######################
 energy_host_docker <- fromJSON(file="energy_host_docker.json")
@@ -60,7 +60,7 @@ rm(energy_rede)
 ###################################################
 
 idle_h <- energy %>% filter(
-    energy$tempo >= times$start[times$test=="idle" & times$type=="host"] & energy$tempo <= times$end[times$test=="idle"& times$type=="host"] 
+    energy$tempo >= times$start[times$test=="idle" & times$type=="host"] & energy$tempo <= times$end[times$test=="idle"& times$type=="host"]
 )
 idle_h$type <- "host"
 idle_h$value <- times$value[times$test=="idle" & times$type=="host"]
@@ -84,11 +84,11 @@ idle_dvm$type <- "dockerMV"
 idle_dvm$value <- times$value[times$test=="idle" & times$type=="dockerMV"]
 
 # idle_h <- idle_h[idle_h$servidor1 >= quantile(idle_h$servidor1,0.1) & idle_h$servidor1 <= quantile(idle_h$servidor1,0.9),]
-# 
+#
 # idle_d <- idle_d[idle_d$servidor1 >= quantile(idle_d$servidor1,0.1) & idle_d$servidor1 <= quantile(idle_d$servidor1,0.9),]
-# 
+#
 # idle_vm <- idle_vm[idle_vm$servidor1 >= quantile(idle_vm$servidor1,0.1) & idle_vm$servidor1 <= quantile(idle_vm$servidor1,0.9),]
-# 
+#
 # idle_dvm <- idle_dvm[idle_dvm$servidor1 >= quantile(idle_dvm$servidor1,0.1) & idle_dvm$servidor1 <= quantile(idle_dvm$servidor1,0.9),]
 
 idle <- as.data.frame(t(data.frame(
@@ -115,7 +115,7 @@ idle_plot <- ggplot(data=idle, aes(x=type, y=power, fill=type))+
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
         axis.line = element_line(color = "black"),
-        axis.text.y = element_text(size=12), 
+        axis.text.y = element_text(size=12),
         axis.title.x = element_text(size=12),
         axis.title.y = element_text(size=12),
         legend.text = element_text(size=12),
@@ -368,48 +368,61 @@ cpu_dockerMV <- rbind(cpu_dockerMV, d_80)
 ##########
 
 cpu <- as.data.frame(t(data.frame(
-    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==1])),1),
-    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==2])),2),
-    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==4])),4),
-    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==8])),8),
-    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==16])),16),
-    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==32])),32),
-    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==64])),64),
-    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==80])),80),
+    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==1])),max(cpu_host$servidor1[cpu_host$value==1]),min(cpu_host$servidor1[cpu_host$value==1]),sd(cpu_host$servidor1[cpu_host$value==1]),1),
+    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==2])),max(cpu_host$servidor1[cpu_host$value==2]),min(cpu_host$servidor1[cpu_host$value==2]),sd(cpu_host$servidor1[cpu_host$value==2]),2),
+    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==4])),max(cpu_host$servidor1[cpu_host$value==4]),min(cpu_host$servidor1[cpu_host$value==4]),sd(cpu_host$servidor1[cpu_host$value==4]),4),
+    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==8])),max(cpu_host$servidor1[cpu_host$value==8]),min(cpu_host$servidor1[cpu_host$value==8]),sd(cpu_host$servidor1[cpu_host$value==8]),8),
+    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==16])),max(cpu_host$servidor1[cpu_host$value==16]),min(cpu_host$servidor1[cpu_host$value==16]),sd(cpu_host$servidor1[cpu_host$value==16]),16),
+    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==32])),max(cpu_host$servidor1[cpu_host$value==32]),min(cpu_host$servidor1[cpu_host$value==32]),sd(cpu_host$servidor1[cpu_host$value==32]),32),
+    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==64])),max(cpu_host$servidor1[cpu_host$value==64]),min(cpu_host$servidor1[cpu_host$value==64]),sd(cpu_host$servidor1[cpu_host$value==64]),64),
+    c("host",scaleFUN(mean(cpu_host$servidor1[cpu_host$value==80])),max(cpu_host$servidor1[cpu_host$value==80]),min(cpu_host$servidor1[cpu_host$value==80]),sd(cpu_host$servidor1[cpu_host$value==80]),80),
     
-    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==1])),1),
-    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==2])),2),
-    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==4])),4),
-    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==8])),8),
-    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==16])),16),
-    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==32])),32),
-    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==64])),64),
-    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==80])),80),
+    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==1])),max(cpu_docker$servidor1[cpu_docker$value==1]),min(cpu_docker$servidor1[cpu_docker$value==1]),sd(cpu_docker$servidor1[cpu_docker$value==1]),1),
+    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==2])),max(cpu_docker$servidor1[cpu_docker$value==2]),min(cpu_docker$servidor1[cpu_docker$value==2]),sd(cpu_docker$servidor1[cpu_docker$value==2]),2),
+    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==4])),max(cpu_docker$servidor1[cpu_docker$value==4]),min(cpu_docker$servidor1[cpu_docker$value==4]),sd(cpu_docker$servidor1[cpu_docker$value==4]),4),
+    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==8])),max(cpu_docker$servidor1[cpu_docker$value==8]),min(cpu_docker$servidor1[cpu_docker$value==8]),sd(cpu_docker$servidor1[cpu_docker$value==8]),8),
+    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==16])),max(cpu_docker$servidor1[cpu_docker$value==16]),min(cpu_docker$servidor1[cpu_docker$value==16]),sd(cpu_docker$servidor1[cpu_docker$value==16]),16),
+    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==32])),max(cpu_docker$servidor1[cpu_docker$value==32]),min(cpu_docker$servidor1[cpu_docker$value==32]),sd(cpu_docker$servidor1[cpu_docker$value==32]),32),
+    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==64])),max(cpu_docker$servidor1[cpu_docker$value==64]),min(cpu_docker$servidor1[cpu_docker$value==64]),sd(cpu_docker$servidor1[cpu_docker$value==64]),64),
+    c("docker",scaleFUN(mean(cpu_docker$servidor1[cpu_docker$value==80])),max(cpu_docker$servidor1[cpu_docker$value==80]),min(cpu_docker$servidor1[cpu_docker$value==80]),sd(cpu_docker$servidor1[cpu_docker$value==80]),80),
     
-    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==1])),1),
-    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==2])),2),
-    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==4])),4),
-    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==8])),8),
-    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==16])),16),
-    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==32])),32),
-    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==64])),64),
-    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==80])),80),
+    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==1])),max(cpu_MV$servidor1[cpu_MV$value==1]),min(cpu_MV$servidor1[cpu_MV$value==1]),sd(cpu_MV$servidor1[cpu_MV$value==1]),1),
+    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==2])),max(cpu_MV$servidor1[cpu_MV$value==2]),min(cpu_MV$servidor1[cpu_MV$value==2]),sd(cpu_MV$servidor1[cpu_MV$value==2]),2),
+    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==4])),max(cpu_MV$servidor1[cpu_MV$value==4]),min(cpu_MV$servidor1[cpu_MV$value==4]),sd(cpu_MV$servidor1[cpu_MV$value==4]),4),
+    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==8])),max(cpu_MV$servidor1[cpu_MV$value==8]),min(cpu_MV$servidor1[cpu_MV$value==8]),sd(cpu_MV$servidor1[cpu_MV$value==8]),8),
+    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==16])),max(cpu_MV$servidor1[cpu_MV$value==16]),min(cpu_MV$servidor1[cpu_MV$value==16]),sd(cpu_MV$servidor1[cpu_MV$value==16]),16),
+    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==32])),max(cpu_MV$servidor1[cpu_MV$value==32]),min(cpu_MV$servidor1[cpu_MV$value==32]),sd(cpu_MV$servidor1[cpu_MV$value==32]),32),
+    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==64])),max(cpu_MV$servidor1[cpu_MV$value==64]),min(cpu_MV$servidor1[cpu_MV$value==64]),sd(cpu_MV$servidor1[cpu_MV$value==64]),64),
+    c("MV",scaleFUN(mean(cpu_MV$servidor1[cpu_MV$value==80])),max(cpu_MV$servidor1[cpu_MV$value==80]),min(cpu_MV$servidor1[cpu_MV$value==80]),sd(cpu_MV$servidor1[cpu_MV$value==80]),80),
     
-    
-    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==1])),1),
-    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==2])),2),
-    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==4])),4),
-    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==8])),8),
-    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==16])),16),
-    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==32])),32),
-    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==64])),64),
-    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==80])),80)
+    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==1])),max(cpu_dockerMV$servidor1[cpu_dockerMV$value==1]),min(cpu_dockerMV$servidor1[cpu_dockerMV$value==1]),sd(cpu_dockerMV$servidor1[cpu_dockerMV$value==1]),1),
+    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==2])),max(cpu_dockerMV$servidor1[cpu_dockerMV$value==2]),min(cpu_dockerMV$servidor1[cpu_dockerMV$value==2]),sd(cpu_dockerMV$servidor1[cpu_dockerMV$value==2]),2),
+    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==4])),max(cpu_dockerMV$servidor1[cpu_dockerMV$value==4]),min(cpu_dockerMV$servidor1[cpu_dockerMV$value==4]),sd(cpu_dockerMV$servidor1[cpu_dockerMV$value==4]),4),
+    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==8])),max(cpu_dockerMV$servidor1[cpu_dockerMV$value==8]),min(cpu_dockerMV$servidor1[cpu_dockerMV$value==8]),sd(cpu_dockerMV$servidor1[cpu_dockerMV$value==8]),8),
+    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==16])),max(cpu_dockerMV$servidor1[cpu_dockerMV$value==16]),min(cpu_dockerMV$servidor1[cpu_dockerMV$value==16]),sd(cpu_dockerMV$servidor1[cpu_dockerMV$value==16]),16),
+    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==32])),max(cpu_dockerMV$servidor1[cpu_dockerMV$value==32]),min(cpu_dockerMV$servidor1[cpu_dockerMV$value==32]),sd(cpu_dockerMV$servidor1[cpu_dockerMV$value==32]),32),
+    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==64])),max(cpu_dockerMV$servidor1[cpu_dockerMV$value==64]),min(cpu_dockerMV$servidor1[cpu_dockerMV$value==64]),sd(cpu_dockerMV$servidor1[cpu_dockerMV$value==64]),64),
+    c("dockerMV",scaleFUN(mean(cpu_dockerMV$servidor1[cpu_dockerMV$value==80])),max(cpu_dockerMV$servidor1[cpu_dockerMV$value==80]),min(cpu_dockerMV$servidor1[cpu_dockerMV$value==80]),sd(cpu_dockerMV$servidor1[cpu_dockerMV$value==80]),80)
 )))
-colnames(cpu)<- c("type","power","cpu")
+colnames(cpu)<- c("type","power_mean","power_max","power_min","power_sd","cpu")
+
+cpu$power_sd <- as.numeric(cpu$power_sd)
+cpu$power_mean <- as.numeric(levels(cpu$power_mean))[cpu$power_mean]
+cpu$power_sd_max <- cpu$power_mean + cpu$power_sd
+cpu$power_sd_min <- cpu$power_mean - cpu$power_sd
 
 tiff("cpu.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-cpu_plot <- ggplot(data=cpu, aes(x=cpu, y=power, fill=type))+
+cpu_plot <- ggplot(data=cpu, aes(
+    x=cpu,
+    y=power_mean, 
+    fill=type, 
+    ))+
     geom_bar(colour="black",position="dodge",stat="identity")+
+    geom_errorbar(aes(ymin=power_sd_min, 
+                      ymax=power_sd_max),
+                  size=.3,    # Thinner lines
+                  width=.2,
+                  position=position_dodge(.9))+
     theme_classic()+
     theme(
         legend.position="top",
@@ -435,9 +448,14 @@ cpu_plot <- ggplot(data=cpu, aes(x=cpu, y=power, fill=type))+
         y="Consumo (W/s)",
         fill= "Ambiente"
     )+
+    scale_y_continuous(breaks = seq(700,1000,25))+
+    coord_cartesian(ylim=c(725,1000))+
+    # scale_y_discrete(breaks = levels(cpu$power_mean)[floor(seq(0,
+                                                              # nlevels(cpu$power_mean),
+                                                              # length.out = 12))])+
     scale_x_discrete(limits=c("1","2","4","8","16","32","64","80"))+
     scale_fill_d3(labels = c("Docker", "Docker sobre MV", "Host", "MV"))
-    
+
 plot(cpu_plot)
 dev.off()
 
