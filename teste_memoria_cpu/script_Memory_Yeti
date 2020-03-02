@@ -14,7 +14,7 @@ apt-get install git wget vim sysbench -y
 
 apt-get install python python-pip -y
 pip install psutil matplotlib psrecord
-apt-get install python-matplotlib python-tk
+apt-get install python-matplotlib python-tk -y
 
 sysbench memory --memory-block-size=1G --memory-total-size=32G --time=600 run & ( echo "Running PSRECORD ON $! PROCESS" && psrecord $! --interval 0.1 --duration 600 --plot sysbench_memory.png --log sysbench_memory.log --include-children)
 
