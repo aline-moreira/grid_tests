@@ -24,3 +24,6 @@ git clone https://github.com/aline-moreira/grid_tests.git
 git add *
 git commit -m "update"
 git push aline-moreira a@991817274
+
+
+curl -kn https://api.grid5000.fr/stable/sites/grenoble/metrics/power/timeseries/?job_id=$OAR_JOB_ID > /home/mpillon/grid_tests/energy_"$OAR_JOB_ID".json
