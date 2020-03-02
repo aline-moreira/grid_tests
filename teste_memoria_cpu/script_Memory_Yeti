@@ -5,7 +5,7 @@ qemu-img create -f qcow2 -o backing_file=/tmp/debian10-x64-base.qcow2 /tmp/domai
 
 sudo-g5k /grid5000/code/bin/g5k-setup-docker  
 
-docker run -it --cpus=4 -m 32G —memory-swap=-1 debian:stable /bin/bash  
+docker run -it --cpus=4 -m 32G --memory-swap=-1 debian:stable /bin/bash 
 
 apt-get update -y
 apt-get install curl -y
