@@ -1,0 +1,26 @@
+
+oarsub -I -l slash_22=1+{"virtual!='NO' AND cluster='yeti'"}/nodes=1,walltime=5
+cp /grid5000/virt-images/debian10-x64-base.qcow2 /tmp/
+qemu-img create -f qcow2 -o backing_file=/tmp/debian10-x64-base.qcow2 /tmp/domain1.qcow2
+
+docker run -it --cpus=4 -m 32G —memory-swap=-1 debian:stable /bin/bash  
+
+apt-get update -y
+apt-get install curl -y
+curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | bash
+apt-get install git wget vim sysbench -y
+
+apt-get install python python-pip -y
+pip install psutil matplotlib psrecord
+apt-get install python-matplotlib python-tk
+
+sysbench memory --memory-block-size=1G --memory-total-size=32G --time=600 run & ( echo "Running PSRECORD ON $! PROCESS" && psrecord $! --interval 0.1 --duration 600 --plot sysbench_memory.png --log sysbench_memory.log)
+
+
+git config --global user.email "alinesmoreiraicloud@gmail.com"
+git config --global user.name "Aline Moreira"
+git clone https://github.com/aline-moreira/grid_tests.git
+
+git add *
+git commit -m "update"
+git push aline-moreira a@991817274
