@@ -10,13 +10,12 @@ docker run -it --cpus=4 -m 32G --memory-swap=-1 debian:stable /bin/bash
 apt-get update -y
 apt-get install curl -y
 curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | bash
-apt-get install git wget vim sysbench -y
+#apt-get install git wget vim sysbench -y
 
-apt-get install python python-pip -y
+apt-get install python python-pip python-matplotlib python-tk htop tmux git -y
 pip install psutil matplotlib psrecord
-apt-get install python-matplotlib python-tk -y
 
-sysbench memory --memory-block-size=1G --memory-total-size=32G --time=600 run & ( echo "Running PSRECORD ON $! PROCESS" && psrecord $! --interval 0.1 --duration 600 --plot sysbench_memory.png --log sysbench_memory.log --include-children)
+#sysbench memory --memory-block-size=1G --memory-total-size=32G --time=600 run & ( echo "Running PSRECORD ON $! PROCESS" && psrecord $! --interval 0.1 --duration 600 --plot sysbench_memory.png --log sysbench_memory.log --include-children)
 
 
 git config --global user.email "alinesmoreiraicloud@gmail.com"
@@ -25,7 +24,13 @@ git clone https://github.com/aline-moreira/grid_tests.git
 
 git add *
 git commit -m "update"
-git push aline-moreira a@991817274
+#git push aline-moreira a@991817274
 
+cd grid_tests/teste_memoria_cpu/teste_stream/
+bash run_stream.sh
+
+git add *
+git commit -m "update"
+git push aline-moreira a@991817274
 
 curl -kn https://api.grid5000.fr/stable/sites/grenoble/metrics/power/timeseries/?job_id=$OAR_JOB_ID > /home/mpillon/grid_tests/energy_"$OAR_JOB_ID".json
