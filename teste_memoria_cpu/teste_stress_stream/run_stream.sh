@@ -6,6 +6,6 @@ rm -f stream;
 gcc -O2 -fopenmp -DNTIMES=20 -DSTREAM_ARRAY_SIZE=$TAM -mcmodel=medium stream.c -o stream;
 export OMP_NUM_THREADS=4;
 ./stream & echo "STREAM PROCESS PID $!" && PROC=$!;
-echo "RUNNING PSRECORD ON $PROC PROCESS" && psrecord $PROC --interval 0.1 --log nao_pinado_logs_stream.log --include-children && END=`date -u`;
+echo "RUNNING PSRECORD ON $PROC PROCESS" && psrecord $PROC --interval 0.1 --log stream_4cpu_32g.log --include-children && END=`date -u`;
 echo "Finish the test in time $END";
-echo "STREAM;$INIT;$END" >> times_n_pinado.log;
+echo "STREAM;4;32;$INIT;$END" >> times_n_pinado.log;
