@@ -1,0 +1,4 @@
+stream 128cpu 754gb -> Média: 65.1474194557398 ~ 65%
+stream 4cpu 32g -> Média: 3.15373134328358 ~ 91%
+stress 128cpu 754gb -> Média: 100 ~ 100%
+stress 4cpu 32gb -> Média: 3.20542505592841 ~ 100%
