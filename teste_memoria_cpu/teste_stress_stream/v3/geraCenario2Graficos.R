@@ -202,8 +202,8 @@ rm(stress128)
 
 tiff("consumo_energia_benchmarks.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 
-p1 <- ggplot(data=energy_bench, aes(x=as.factor(cpu), y=consumo, fill=teste))+
-    geom_boxplot()+
+p1 <- ggplot(data=energy_bench, aes(x=as.factor(cpu), y=consumo, color=teste))+
+    geom_boxplot(outlier.shape = NA)+
     theme_classic()+
     theme(
         legend.position="top",
@@ -227,9 +227,10 @@ p1 <- ggplot(data=energy_bench, aes(x=as.factor(cpu), y=consumo, fill=teste))+
     labs(
         x="Quantidade CPU",
         y="Consumo (W/s)",
-        fill="CPUs contêiner"
+        color="CPUs contêiner"
     )+
-    scale_y_continuous(limits=c(0,900), breaks=seq(0,900,50))
+    scale_y_continuous(limits=c(0,900), breaks=seq(0,900,50))+
+    scale_color_brewer(palette="Dark2")
     #ylim(0,1000)
 
 plot(p1)
@@ -237,6 +238,110 @@ dev.off()
 
 rm(p1)
 
+# Lendo os logs de CPU.
+
+files <- list.files(path = "./cenario2/", pattern = "*.log")
+
+consumo_cpu_bench <- data.frame(consumo_cpu=double(),
+                                teste=character(),
+                                cpu=character(),
+                                ram=character(),
+                                stringsAsFactors=FALSE
+)
+
+for (file in files) {
+    name <- strsplit(strsplit(file,".log")[[1]], "_")[[1]]
+    cpu <- as.numeric(strsplit(name[2],"cpu")[[1]])
+    
+    dt_temp <- read.table(paste0("cenario2/",file),header=FALSE,sep="")
+    dt_temp$teste <- name[1]
+    dt_temp$cpu <- name[2]
+    if(dt_temp$teste=="stream"){
+        dt_temp$ram <- name[3]
+    } else {
+        dt_temp$ram <- NA
+    }
+    names(dt_temp) <- c("consumo_cpu","teste","cpu","ram")
+    
+    dt_temp$consumo_cpu <- dt_temp$consumo_cpu * (128 / cpu)
+    
+    consumo_cpu_bench <- rbind(consumo_cpu_bench,dt_temp)
+}
+
+rm(dt_temp)
+
+
+consumo_cpu_bench$grp <- paste(consumo_cpu_bench$cpu,consumo_cpu_bench$ram)
+
+tiff("consumo_cpu_benchmarks.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p2 <- ggplot(data=consumo_cpu_bench, aes(x=grp, y=consumo_cpu, color=teste))+
+    geom_boxplot(outlier.shape = NA)+
+    theme_classic()+
+    theme(
+        legend.position="top",
+        axis.text.x = element_text(
+            angle = 90,
+            hjust = 0.7,
+            size=10
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    labs(
+        x="Configuração de CPU e Memória do contêiner",
+        y="Consumo CPU (%)",
+        color="Benchmark"
+    )+
+    scale_color_brewer(palette="Dark2")+
+    scale_y_continuous(limits=c(0,120), breaks=seq(0,120,10))+
+    scale_x_discrete(
+        limits=c(
+            "1cpu 32gb",
+            "1cpu NA",
+            "2cpu 32gb",
+            "2cpu NA",
+            "3cpu 32gb",
+            "3cpu NA",
+            "4cpu 32gb",
+            "4cpu NA",
+            "32cpu 32gb",
+            "32cpu NA",
+            "64cpu 32gb",
+            "64cpu NA",
+            "128cpu 32gb",
+            "128cpu NA"
+        ),
+        labels=c(
+            "1 CPUs\n32Gb",
+            "1 CPUs",
+            "2 CPUs\n32Gb",
+            "2 CPUs",
+            "3 CPUs\n32Gb",
+            "3 CPUs",
+            "4 CPUs\n32Gb",
+            "4 CPUs",
+            "32 CPUs\n32Gb",
+            "32 CPUs",
+            "64 CPUs\n32Gb",
+            "64 CPUs",
+            "128 CPUs\n32Gb",
+            "128 CPUs"
+        ))
+plot(p2)
+dev.off()
+rm(p2)
+
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
 system("mv *.png graficos")
 system("rm *.tiff")
+
+

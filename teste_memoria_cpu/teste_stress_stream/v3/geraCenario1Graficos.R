@@ -125,7 +125,7 @@ p1 <- ggplot(data=energy_stream, aes(x=as.factor(ram), y=consumo, fill=as.factor
         y="Consumo (W/s)",
         fill="Memória do contêiner"
     )+
-    scale_y_continuous(limits=c(0,550), breaks=seq(0,550,50))
+    scale_y_continuous(limits=c(300,550), breaks=seq(0,550,50))
 
 plot(p1)
 dev.off()
