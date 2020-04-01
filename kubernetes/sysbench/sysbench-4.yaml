@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: sysbench-4
+spec:
+        replicas: 4
+        selector:
+                matchLabels:
+                        app: sysbench
+        template:
+                metadata:
+                        name: sysbench
+                        labels:
+                                app: sysbench
+                spec:
+                        containers:
+                        - name: sysbench
+                          image: severalnines/sysbench
+                          command:
+                                - sysbench
+                                - --test=cpu
+                                - --cpu-max-prime=2000000000
+                                - --forced-shutdown=0
+                                - --threads=1
+                                - --time=600
+                                - run
