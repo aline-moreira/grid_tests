@@ -38,7 +38,7 @@ sudo-g5k chown $(id -u):$(id -g) $HOME/.kube/config
 #!! kubectl get pods --all-namespaces e ver se o CoreDNSPod está ativo!!
 
 #copiar o kustomize para o /usr/bin
-cd grid_tests/kubestone/
+cd grid_tests/kubernetes/
 
 sudo-g5k cp kustomize /usr/bin/
 #curl -s "https://raw.githubusercontent.com/\
@@ -66,5 +66,5 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permane
 
 kubectl create namespace testes
 
-oarsh `uniq $OAR_NODE_FILE | sed -n 2p` 'bash ~/grid_tests/kubestone/install_slave.sh'
-oarsh `uniq $OAR_NODE_FILE | sed -n 3p` 'bash ~/grid_tests/kubestone/install_slave.sh'
+oarsh `uniq $OAR_NODE_FILE | sed -n 2p` 'bash ~/grid_tests/kubernetes/install_slave.sh'
+oarsh `uniq $OAR_NODE_FILE | sed -n 3p` 'bash ~/grid_tests/kubernetes/install_slave.sh'

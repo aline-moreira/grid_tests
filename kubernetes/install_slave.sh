@@ -19,7 +19,7 @@ sudo-g5k apt-mark hold kubelet kubeadm kubectl
 sudo-g5k systemctl daemon-reload
 sudo-g5k systemctl restart kubelet
 
-cd grid_tests/kubestone/
+cd grid_tests/kubernetes/
 
 IP=`cat adm_config/IP`
 TOKEN=`cat adm_config/token`
