@@ -194,20 +194,32 @@ p1 <- ggplot(data=dt_tests, aes(x=as.factor(cpus), y=consumo, color=as.factor(no
         x="CPUs",
         y="Consumo (W/s)",
         color= "Configuração de CPU do Contêiner"
-    )#+
-    #  scale_x_discrete(
-    #      labels=c(
-    #          "idle",
-    #          "1 cpu",
-    #          "2 cpu",
-    #          "4 cpu",
-    #          "8 cpu",
-    #          "16 cpu",
-    #          "32 cpu",
-    #          "64 cpu",
-    #          "128 cpu",
-    #          "256 cpu",
-    # ))
+    )+
+    scale_x_discrete(
+        limits=c(
+            "0",
+            "1",
+            "2",
+            "4",
+            "8",
+            "16",
+            "32",
+            "64",
+            "128",
+            "256"
+        ),
+        labels=c(
+             "idle",
+             "1 cpu",
+             "2 cpu",
+             "4 cpu",
+             "8 cpu",
+             "16 cpu",
+             "32 cpu",
+             "64 cpu",
+             "128 cpu",
+             "256 cpu"
+    ))
 
 plot(p1)
 dev.off()
