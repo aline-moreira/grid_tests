@@ -1,0 +1,26 @@
+if [ "$#" -ne 2 ]; then
+	echo "The number of parameters are incorrect (number of pods, number of containers in each pod)";
+	echo "$#";
+	exit 2;
+fi;
+
+START=`date -u`;
+
+bash create_multiple_pods_files.sh $1 $2;
+
+while : ; do
+	echo "inside while"
+	kubectl get pods -l jobgroup=lifecycle > lifecycle_adm.completion;
+	PODS_COMPLETED=`awk '/0\/1500/ {count++} END {print count}' lifecycle_adm.completion`;
+	if [ $PODS_COMPLETED -eq 0 ];then
+		break;
+	fi
+done
+
+END=`date -u`;
+
+for i in {1..$1}; do
+	kubectl delete jobs.batch lifecycle-$i;
+done;
+
+echo "$1;$2;$START;$END" >> lifecycle.times;
