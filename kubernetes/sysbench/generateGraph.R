@@ -54,7 +54,7 @@ energy <- rbind(energy1,energy2)
 energy <- rbind(energy,energy3)
 
 rm(time)
-rm(value)
+rm(values)
 rm(host)
 rm(energy1)
 rm(energy2)
@@ -65,122 +65,110 @@ names(energy) <- c("tempo","consumo","node")
 ###################################################
 # Filtrando a energia de acordo com os tempos
 ###################################################
-
-bridge0 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="bridge" & times$`Largura de Banda`=='0M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="bridge"& times$`Largura de Banda`=='0M']
+sysbench0 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==0] &
+        energy$tempo <= times$end[times$cpus==0]
 )
-bridge0$`Largura de Banda` <- 'idle'
-bridge0$`Configuração de Rede` <- 'bridge'
-q <- quantile(bridge0$consumo, c(0.1, 0.9))
-bridge0 <- bridge0[bridge0$consumo >= q[1] & bridge0$consumo <= q[2], ]
+sysbench0$cpus <- 0
+q <- quantile(sysbench0$consumo, c(0.1, 0.9))
+sysbench0 <- sysbench0[sysbench0$consumo >= q[1] & sysbench0$consumo <= q[2], ]
 
-bridge1 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="bridge" & times$`Largura de Banda`=='1M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="bridge"& times$`Largura de Banda`=='1M']
+
+sysbench1 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==1] &
+        energy$tempo <= times$end[times$cpus==1]
 )
-bridge1$`Largura de Banda` <- '1Mb'
-bridge1$`Configuração de Rede` <- 'bridge'
-q <- quantile(bridge1$consumo, c(0.1, 0.9))
-bridge1 <- bridge1[bridge1$consumo >= q[1] & bridge1$consumo <= q[2], ]
+sysbench1$cpus <- 1
+q <- quantile(sysbench1$consumo, c(0.1, 0.9))
+sysbench1 <- sysbench1[sysbench1$consumo >= q[1] & sysbench1$consumo <= q[2], ]
 
-bridge10 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="bridge" & times$`Largura de Banda`=='10M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="bridge"& times$`Largura de Banda`=='10M']
+sysbench2 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==2] &
+        energy$tempo <= times$end[times$cpus==2]
 )
-bridge10$`Largura de Banda` <- '10Mb'
-bridge10$`Configuração de Rede` <- 'bridge'
-q <- quantile(bridge10$consumo, c(0.1, 0.9))
-bridge10 <- bridge10[bridge10$consumo >= q[1] & bridge10$consumo <= q[2], ]
+sysbench2$cpus <- 2
+q <- quantile(sysbench2$consumo, c(0.1, 0.9))
+sysbench2 <- sysbench2[sysbench2$consumo >= q[1] & sysbench2$consumo <= q[2], ]
 
-bridge100 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="bridge" & times$`Largura de Banda`=='100M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="bridge"& times$`Largura de Banda`=='100M']
+sysbench4 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==4] &
+        energy$tempo <= times$end[times$cpus==4]
 )
-bridge100$`Largura de Banda` <- '100Mb'
-bridge100$`Configuração de Rede` <- 'bridge'
-q <- quantile(bridge100$consumo, c(0.1, 0.9))
-bridge100 <- bridge100[bridge100$consumo >= q[1] & bridge100$consumo <= q[2], ]
+sysbench4$cpus <- 4
+q <- quantile(sysbench4$consumo, c(0.1, 0.9))
+sysbench4 <- sysbench4[sysbench4$consumo >= q[1] & sysbench4$consumo <= q[2], ]
 
-bridge1000 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="bridge" & times$`Largura de Banda`=='1000M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="bridge"& times$`Largura de Banda`=='1000M']
+sysbench8 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==8] &
+        energy$tempo <= times$end[times$cpus==8]
 )
-bridge1000$`Largura de Banda` <- '1000Mb'
-bridge1000$`Configuração de Rede` <- 'bridge'
-q <- quantile(bridge1000$consumo, c(0.1, 0.9))
-bridge1000 <- bridge1000[bridge1000$consumo >= q[1] & bridge1000$consumo <= q[2], ]
+sysbench8$cpus <- 8
+q <- quantile(sysbench8$consumo, c(0.1, 0.9))
+sysbench8 <- sysbench8[sysbench8$consumo >= q[1] & sysbench8$consumo <= q[2], ]
 
-########################
-
-host0 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="host" & times$`Largura de Banda`=='0M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="host"& times$`Largura de Banda`=='0M']
+sysbench16 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==16] &
+        energy$tempo <= times$end[times$cpus==16]
 )
-host0$`Largura de Banda` <- 'idle'
-host0$`Configuração de Rede` <- 'host'
-q <- quantile(host0$consumo, c(0.1, 0.9))
-host0 <- host0[host0$consumo >= q[1] & host0$consumo <= q[2], ]
+sysbench16$cpus <- 16
+q <- quantile(sysbench16$consumo, c(0.1, 0.9))
+sysbench16 <- sysbench16[sysbench16$consumo >= q[1] & sysbench16$consumo <= q[2], ]
 
-host1 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="host" & times$`Largura de Banda`=='1M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="host"& times$`Largura de Banda`=='1M']
+sysbench32 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==32] &
+        energy$tempo <= times$end[times$cpus==32]
 )
-host1$`Largura de Banda` <- '1Mb'
-host1$`Configuração de Rede` <- 'host'
-q <- quantile(host1$consumo, c(0.1, 0.9))
-host1 <- host1[host1$consumo >= q[1] & host1$consumo <= q[2], ]
+sysbench32$cpus <- 32
+q <- quantile(sysbench32$consumo, c(0.1, 0.9))
+sysbench32 <- sysbench32[sysbench32$consumo >= q[1] & sysbench32$consumo <= q[2], ]
 
-host10 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="host" & times$`Largura de Banda`=='10M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="host"& times$`Largura de Banda`=='10M']
+sysbench64 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==64] &
+        energy$tempo <= times$end[times$cpus==64]
 )
-host10$`Largura de Banda` <- '10Mb'
-host10$`Configuração de Rede` <- 'host'
-q <- quantile(host10$consumo, c(0.1, 0.9))
-host10 <- host10[host10$consumo >= q[1] & host10$consumo <= q[2], ]
+sysbench64$cpus <- 64
+q <- quantile(sysbench64$consumo, c(0.1, 0.9))
+sysbench64 <- sysbench64[sysbench64$consumo >= q[1] & sysbench64$consumo <= q[2], ]
 
-host100 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="host" & times$`Largura de Banda`=='100M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="host"& times$`Largura de Banda`=='100M']
+sysbench128 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==128] &
+        energy$tempo <= times$end[times$cpus==128]
 )
-host100$`Largura de Banda` <- '100Mb'
-host100$`Configuração de Rede` <- 'host'
-q <- quantile(host100$consumo, c(0.1, 0.9))
-host100 <- host100[host100$consumo >= q[1] & host100$consumo <= q[2], ]
+sysbench128$cpus <- 128
+q <- quantile(sysbench128$consumo, c(0.1, 0.9))
+sysbench128 <- sysbench128[sysbench128$consumo >= q[1] & sysbench128$consumo <= q[2], ]
 
-host1000 <- energy %>% filter(
-    energy$tempo >= times$start[times$`Configuração de Rede`=="host" & times$`Largura de Banda`=='1000M'] &
-        energy$tempo <= times$end[times$`Configuração de Rede`=="host"& times$`Largura de Banda`=='1000M']
+sysbench256 <- energy %>% filter(
+    energy$tempo >= times$start[times$cpus==256] &
+        energy$tempo <= times$end[times$cpus==256]
 )
-host1000$`Largura de Banda` <- '1000Mb'
-host1000$`Configuração de Rede` <- 'host'
-q <- quantile(host1000$consumo, c(0.1, 0.9))
-host1000 <- host1000[host1000$consumo >= q[1] & host1000$consumo <= q[2], ]
+sysbench256$cpus <- 256
+q <- quantile(sysbench256$consumo, c(0.1, 0.9))
+sysbench256 <- sysbench256[sysbench256$consumo >= q[1] & sysbench256$consumo <= q[2], ]
 
-dt_tests <- rbind(bridge0, bridge1)
-dt_tests <- rbind(dt_tests,bridge10)
-dt_tests <- rbind(dt_tests,bridge100)
-dt_tests <- rbind(dt_tests,bridge1000)
-dt_tests <- rbind(dt_tests,host0)
-dt_tests <- rbind(dt_tests,host1)
-dt_tests <- rbind(dt_tests,host10)
-dt_tests <- rbind(dt_tests,host100)
-dt_tests <- rbind(dt_tests,host1000)
+dt_tests <- rbind(sysbench0, sysbench1)
+dt_tests <- rbind(dt_tests,sysbench2)
+dt_tests <- rbind(dt_tests,sysbench4)
+dt_tests <- rbind(dt_tests,sysbench8)
+dt_tests <- rbind(dt_tests,sysbench16)
+dt_tests <- rbind(dt_tests,sysbench32)
+dt_tests <- rbind(dt_tests,sysbench64)
+dt_tests <- rbind(dt_tests,sysbench128)
+dt_tests <- rbind(dt_tests,sysbench256)
 
-rm(bridge0)
-rm(host0)
-rm(bridge1)
-rm(host1)
-rm(bridge10)
-rm(host10)
-rm(bridge100)
-rm(host100)
-rm(bridge1000)
-rm(host1000)
+rm(sysbench0)
+rm(sysbench1)
+rm(sysbench2)
+rm(sysbench4)
+rm(sysbench8)
+rm(sysbench16)
+rm(sysbench32)
+rm(sysbench64)
+rm(sysbench128)
+rm(sysbench256)
 
-tiff("iperf_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-p1 <- ggplot(data=dt_tests, aes(x=`Largura de Banda`, y=consumo, color=`Configuração de Rede`))+
+tiff("sysbench_kubernetes_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p1 <- ggplot(data=dt_tests, aes(x=as.factor(cpus), y=consumo, color=as.factor(node)))+
     geom_boxplot(outlier.shape=NA, notch=FALSE)+
     theme_classic()+
     theme(
@@ -203,19 +191,23 @@ p1 <- ggplot(data=dt_tests, aes(x=`Largura de Banda`, y=consumo, color=`Configur
         legend.box = "vertical"
     )+
     labs(
-        x="Largura de Banda",
+        x="CPUs",
         y="Consumo (W/s)",
-        color= "Configuração de Rede do Contêiner"
-    )+
-    scale_y_continuous(limits=c(175,195), breaks=seq(175,200,2))+
-    scale_x_discrete(
-        limits=c(
-            "idle",
-            "1Mb",
-            "10Mb",
-            "100Mb",
-            "1000Mb"
-        ))
+        color= "Configuração de CPU do Contêiner"
+    )#+
+    #  scale_x_discrete(
+    #      labels=c(
+    #          "idle",
+    #          "1 cpu",
+    #          "2 cpu",
+    #          "4 cpu",
+    #          "8 cpu",
+    #          "16 cpu",
+    #          "32 cpu",
+    #          "64 cpu",
+    #          "128 cpu",
+    #          "256 cpu",
+    # ))
 
 plot(p1)
 dev.off()
