@@ -11,15 +11,15 @@ bash create_multiple_pods_files.sh $1 $2;
 while : ; do
 	echo "inside while"
 	kubectl get pods -l jobgroup=lifecycle > lifecycle_adm.completion;
-	PODS_COMPLETED=`awk '/0\/1500/ {count++} END {print count}' lifecycle_adm.completion`;
-	if [ $PODS_COMPLETED -eq 0 ];then
+	PODS_COMPLETED=`awk '/Completed/ {count++} END {print count++}' lifecycle_adm.completion`;
+	if [ $PODS_COMPLETED -eq 1 ];then
 		break;
 	fi
 done
 
 END=`date -u`;
 
-for i in {1..$1}; do
+for i in $(seq 1 $1); do
 	kubectl delete jobs.batch lifecycle-$i;
 done;
 

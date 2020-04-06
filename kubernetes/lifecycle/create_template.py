@@ -20,6 +20,7 @@ for i in range(size):
     text += '                - name: lifecycle-container-'+str(i+1)+'\n'
     text += '                  image: busybox\n'
     text += '                  command: ["sh","-c","echo Processing item '+str(i+1)+' && sleep 10"]\n'
+    text += "                  imagePullPolicy: Never\n"
 
 text += "            restartPolicy: Never\n"
 

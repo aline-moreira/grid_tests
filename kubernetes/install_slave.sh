@@ -26,3 +26,5 @@ TOKEN=`cat adm_config/token`
 CERT=`cat adm_config/certificado`
 
 sudo-g5k kubeadm join --token $TOKEN $IP:6443 --discovery-token-ca-cert-hash sha256:$CERT
+
+docker pull busybox

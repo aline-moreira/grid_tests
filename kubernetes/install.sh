@@ -68,3 +68,5 @@ kubectl create namespace testes
 
 oarsh `uniq $OAR_NODE_FILE | sed -n 2p` 'bash ~/grid_tests/kubernetes/install_slave.sh'
 oarsh `uniq $OAR_NODE_FILE | sed -n 3p` 'bash ~/grid_tests/kubernetes/install_slave.sh'
+
+docker pull busybox
