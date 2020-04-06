@@ -189,7 +189,7 @@ p3 <- ggplot(data=all, aes(x=as.factor(cpu), y=consumo, color=test))+
         color= "Benchmark"
     )+
     scale_y_continuous(limits=c(0,750), breaks=seq(0,750,50))
-
+    
 plot(p3)
 dev.off()
 
