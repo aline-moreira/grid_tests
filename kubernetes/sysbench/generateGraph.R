@@ -28,7 +28,7 @@ energy$items[[1]]$timestamps = as.POSIXct(energy$items[[1]]$timestamps, origin="
 
 time <- energy$items[[1]]$timestamps
 values <- energy$items[[1]]$values
-host <- "master"
+host <- "slave1"
 
 energy1 <- data.frame(time,values, host)
 
@@ -37,7 +37,7 @@ energy$items[[2]]$timestamps = as.POSIXct(energy$items[[2]]$timestamps, origin="
 
 time <- energy$items[[2]]$timestamps
 values <- energy$items[[2]]$values
-host <- "slave 1"
+host <- "master"
 
 energy2 <- data.frame(time,values, host)
 
