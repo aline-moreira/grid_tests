@@ -20,8 +20,10 @@ names(times) <- c("pods","containers","start","end")
 times$start <- as.POSIXct(times$start,tz="UTC", format="%a %d %b %Y %I:%M:%S %p")
 times$end <- as.POSIXct(times$end,tz="UTC", format="%a %d %b %Y %I:%M:%S %p")
 
+times$total_containers <- times$pods * times$containers
+
 ##########GETTING THE INFO OF JSON######################
-energy <- fromJSON(file="energy_1924693.json")
+energy <- fromJSON(file="energy_1925045.json")
 
 #energy$items[[number_of_host]]
 energy$items[[1]]$timestamps = as.POSIXct(energy$items[[1]]$timestamps, origin="1970-01-01",tz="UTC")
@@ -50,8 +52,9 @@ host <- "slave 2"
 
 energy3 <- data.frame(time,values, host)
 
-energy <- rbind(energy1,energy2)
-energy <- rbind(energy,energy3)
+#energy <- rbind(energy1,energy2)
+#energy <- rbind(energy,energy3)
+energy <- energy1
 
 rm(time)
 rm(values)
@@ -66,65 +69,95 @@ names(energy) <- c("tempo","consumo","node")
 # Filtrando a energia de acordo com os tempos
 ###################################################
 pod_1 <- energy %>% filter(
-    energy$tempo >= times$start[times$pods==1] &
-        energy$tempo <= times$end[times$pods==1]
+    energy$tempo >= times$start[times$total_containers==1] &
+        energy$tempo <= times$end[times$total_containers==1]
 )
-pod_1$total_containers <- 1*1500
+pod_1$total_containers <- 1
 q <- quantile(pod_1$consumo, c(0.1, 0.9))
 pod_1 <- pod_1[pod_1$consumo >= q[1] & pod_1$consumo <= q[2], ]
 
-pod_2 <- energy %>% filter(
-    energy$tempo >= times$start[times$pods==2] &
-        energy$tempo <= times$end[times$pods==2]
+pod_256 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==256] &
+        energy$tempo <= times$end[times$total_containers==256]
 )
-pod_2$total_containers <- 2*1500
-q <- quantile(pod_2$consumo, c(0.1, 0.9))
-pod_2 <- pod_2[pod_2$consumo >= q[1] & pod_2$consumo <= q[2], ]
+pod_256$total_containers <- 256
+q <- quantile(pod_256$consumo, c(0.1, 0.9))
+pod_256 <- pod_256[pod_256$consumo >= q[1] & pod_256$consumo <= q[2], ]
 
-pod_4 <- energy %>% filter(
-    energy$tempo >= times$start[times$pods==4] &
-        energy$tempo <= times$end[times$pods==4]
+pod_512 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==512] &
+        energy$tempo <= times$end[times$total_containers==512]
 )
-pod_4$total_containers <- 4*1500
-q <- quantile(pod_4$consumo, c(0.1, 0.9))
-pod_4 <- pod_4[pod_4$consumo >= q[1] & pod_4$consumo <= q[2], ]
+pod_512$total_containers <- 512
+q <- quantile(pod_512$consumo, c(0.1, 0.9))
+pod_512 <- pod_512[pod_512$consumo >= q[1] & pod_512$consumo <= q[2], ]
 
-pod_8 <- energy %>% filter(
-    energy$tempo >= times$start[times$pods==8] &
-        energy$tempo <= times$end[times$pods==8]
+pod_1024 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==1024] &
+        energy$tempo <= times$end[times$total_containers==1024]
 )
-pod_8$total_containers <- 8*1500
-q <- quantile(pod_8$consumo, c(0.1, 0.9))
-pod_8 <- pod_8[pod_8$consumo >= q[1] & pod_8$consumo <= q[2], ]
+pod_1024$total_containers <- 1024
+q <- quantile(pod_1024$consumo, c(0.1, 0.9))
+pod_1024 <- pod_1024[pod_1024$consumo >= q[1] & pod_1024$consumo <= q[2], ]
 
-pod_16 <- energy %>% filter(
-    energy$tempo >= times$start[times$pods==16] &
-        energy$tempo <= times$end[times$pods==16]
+pod_2048 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==2048] &
+        energy$tempo <= times$end[times$total_containers==2048]
 )
-pod_16$total_containers <- 16*1500
-q <- quantile(pod_16$consumo, c(0.1, 0.9))
-pod_16 <- pod_16[pod_16$consumo >= q[1] & pod_16$consumo <= q[2], ]
+pod_2048$total_containers <- 2048
+q <- quantile(pod_2048$consumo, c(0.1, 0.9))
+pod_2048 <- pod_2048[pod_2048$consumo >= q[1] & pod_2048$consumo <= q[2], ]
 
-pod_32 <- energy %>% filter(
-    energy$tempo >= times$start[times$pods==32] &
-        energy$tempo <= times$end[times$pods==32]
+pod_4096 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==4096] &
+        energy$tempo <= times$end[times$total_containers==4096]
 )
-pod_32$total_containers <- 32*1500
-q <- quantile(pod_32$consumo, c(0.1, 0.9))
-pod_32 <- pod_32[pod_32$consumo >= q[1] & pod_32$consumo <= q[2], ]
+pod_4096$total_containers <- 4096
+q <- quantile(pod_4096$consumo, c(0.1, 0.9))
+pod_4096 <- pod_4096[pod_4096$consumo >= q[1] & pod_4096$consumo <= q[2], ]
 
-dt_tests <- rbind(pod_1, pod_2)
-dt_tests <- rbind(dt_tests,pod_4)
-dt_tests <- rbind(dt_tests,pod_8)
-dt_tests <- rbind(dt_tests,pod_16)
-dt_tests <- rbind(dt_tests,pod_32)
+pod_8192 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==8192] &
+        energy$tempo <= times$end[times$total_containers==8192]
+)
+pod_8192$total_containers <- 8192
+q <- quantile(pod_8192$consumo, c(0.1, 0.9))
+pod_8192 <- pod_8192[pod_8192$consumo >= q[1] & pod_8192$consumo <= q[2], ]
+
+pod_16384 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==16384] &
+        energy$tempo <= times$end[times$total_containers==16384]
+)
+pod_16384$total_containers <- 16384
+q <- quantile(pod_16384$consumo, c(0.1, 0.9))
+pod_16384 <- pod_16384[pod_16384$consumo >= q[1] & pod_16384$consumo <= q[2], ]
+
+pod_32768 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==32768] &
+        energy$tempo <= times$end[times$total_containers==32768]
+)
+pod_32768$total_containers <- 32768
+q <- quantile(pod_32768$consumo, c(0.1, 0.9))
+pod_32768 <- pod_32768[pod_32768$consumo >= q[1] & pod_32768$consumo <= q[2], ]
+
+dt_tests <- rbind(pod_1, pod_256)
+dt_tests <- rbind(dt_tests,pod_512)
+dt_tests <- rbind(dt_tests,pod_1024)
+dt_tests <- rbind(dt_tests,pod_2048)
+dt_tests <- rbind(dt_tests,pod_4096)
+dt_tests <- rbind(dt_tests,pod_8192)
+dt_tests <- rbind(dt_tests,pod_16384)
+dt_tests <- rbind(dt_tests,pod_32768)
 
 rm(pod_1)
-rm(pod_2)
-rm(pod_4)
-rm(pod_8)
-rm(pod_16)
-rm(pod_32)
+rm(pod_256)
+rm(pod_512)
+rm(pod_1024)
+rm(pod_2048)
+rm(pod_4096)
+rm(pod_8192)
+rm(pod_16384)
+rm(pod_32768)
 
 tiff("sysbench_kubernetes_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p1 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=as.factor(node)))+
@@ -152,7 +185,7 @@ p1 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=
         legend.box = "vertical"
     )+
     labs(
-        x="Quantidade de Contêinere",
+        x="Quantidade de Contêineres",
         y="Consumo (W/s)",
         color= "Tipo de hospedeiro"
     )#+
