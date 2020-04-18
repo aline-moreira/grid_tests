@@ -68,6 +68,15 @@ names(energy) <- c("tempo","consumo","node")
 ###################################################
 # Filtrando a energia de acordo com os tempos
 ###################################################
+pod_0 <- energy %>% filter(
+    energy$tempo >= times$start[times$total_containers==0] &
+        energy$tempo <= times$end[times$total_containers==0]
+)
+pod_0$total_containers <- 0
+q <- quantile(pod_0$consumo, c(0.1, 0.9))
+pod_0 <- pod_0[pod_0$consumo >= q[1] & pod_0$consumo <= q[2], ]
+
+
 pod_1 <- energy %>% filter(
     energy$tempo >= times$start[times$total_containers==1] &
         energy$tempo <= times$end[times$total_containers==1]
@@ -140,7 +149,8 @@ pod_32768$total_containers <- 32768
 q <- quantile(pod_32768$consumo, c(0.1, 0.9))
 pod_32768 <- pod_32768[pod_32768$consumo >= q[1] & pod_32768$consumo <= q[2], ]
 
-dt_tests <- rbind(pod_1, pod_256)
+dt_tests <- rbind(pod_0, pod_1)
+dt_tests <- rbind(dt_tests, pod_256)
 dt_tests <- rbind(dt_tests,pod_512)
 dt_tests <- rbind(dt_tests,pod_1024)
 dt_tests <- rbind(dt_tests,pod_2048)
@@ -149,6 +159,7 @@ dt_tests <- rbind(dt_tests,pod_8192)
 dt_tests <- rbind(dt_tests,pod_16384)
 dt_tests <- rbind(dt_tests,pod_32768)
 
+rm(pod_0)
 rm(pod_1)
 rm(pod_256)
 rm(pod_512)
