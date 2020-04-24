@@ -1,0 +1,19 @@
+test: (g=0): rw=randread, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.6
+Starting 1 process
+test: Laying out IO file (1 file / 51200MiB)
+fio: ENOSPC on laying out file, stopping
+
+test: (groupid=0, jobs=1): err= 0: pid=135: Thu Apr 23 21:58:26 2020
+   read: IOPS=33.4k, BW=130MiB/s (137MB/s)(50.0GiB/392925msec)
+   bw (  KiB/s): min=108352, max=143217, per=99.91%, avg=133308.90, stdev=3071.08, samples=785
+   iops        : min=27088, max=35804, avg=33327.19, stdev=767.78, samples=785
+  cpu          : usr=4.20%, sys=31.52%, ctx=2260238, majf=0, minf=86
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=13107200,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=130MiB/s (137MB/s), 130MiB/s-130MiB/s (137MB/s-137MB/s), io=50.0GiB (53.7GB), run=392925-392925msec
