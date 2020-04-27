@@ -9,11 +9,11 @@ VERSION=$2;
 ls $VERSION | mkdir $VERSION;
 ls $VERSION/logs | mkdir $VERSION/logs;
 
-if [ "$PLATFORM" = "host" ] || [ "$PLATFORM" = "vm" ]; then
-	sudo-g5k apt-get install fio -y
-fi
+#if [ "$PLATFORM" = "host" ] || [ "$PLATFORM" = "vm" ]; then
+#	sudo-g5k apt-get install fio -y
+#fi
 
-for i in 1 5 10 50 100 500 1000; do
+for i in 1 5 10 50; do
 	START=`date -u`;
 	if [ "$PLATFORM" = "host" ] || [ "$PLATFORM" = "vm" ]; then
 		fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=test --bs=4k --iodepth=64 --readwrite=randread --directory=./ --output=./$VERSION/logs/teste_fio_"${i}"G_"${PLATFORM}".log --size="${i}"G;
