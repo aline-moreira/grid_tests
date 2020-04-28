@@ -19,7 +19,8 @@ for i in 1 5 10 50; do
 		fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=test --bs=4k --iodepth=64 --readwrite=randread --directory=./ --output=./$VERSION/logs/teste_fio_"${i}"G_"${PLATFORM}".log --size="${i}"G;
 	fi
 	if [ "$PLATFORM" = "docker" ]  || [ "$PLATFORM" = "vm_docker" ]; then
-		docker run --rm -v `pwd`/:/root/fio  -v `pwd`/$VERSION/logs:/root/logs ljishen/fio  --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=test --bs=4k --iodepth=64 --readwrite=randread --directory=/root/fio --output=/root/logs/teste_fio_"${i}"G_"${PLATFORM}".log --size="${i}"G;
+		docker run --rm -v `pwd`/:/root/fio ljishen/fio  --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=test --bs=4k --iodepth=64 --readwrite=randread --directory=/root/fio --output=/root/fio/$VERSION/logs/teste_fio_"${i}"G_"${PLATFORM}".log --size="${i}"G;
+		`cat /root/fio/$VERSION/logs/teste_fio_"${i}"G_"${PLATFORM}".log --size="${i}"G`;
 	fi
 	END=`date -u`;
 	echo "$PLATFORM;$i;$START;$END" >> $VERSION/fio.times;
