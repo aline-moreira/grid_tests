@@ -1,0 +1,21 @@
+teste_fio_5G_vm: (g=0): rw=randread, bs=(R) 32.0KiB-32.0KiB, (W) 32.0KiB-32.0KiB, (T) 32.0KiB-32.0KiB, ioengine=libaio, iodepth=64
+fio-3.12
+Starting 1 process
+teste_fio_5G_vm: Laying out IO file (1 file / 5120MiB)
+
+teste_fio_5G_vm: (groupid=0, jobs=1): err= 0: pid=14443: Thu Apr 30 21:35:58 2020
+  read: IOPS=83.9k, BW=2623MiB/s (2750MB/s)(5120MiB/1952msec)
+   bw (  MiB/s): min= 2562, max= 2685, per=100.00%, avg=2641.65, stdev=69.02, samples=3
+   iops        : min=81986, max=85922, avg=84532.67, stdev=2208.53, samples=3
+  cpu          : usr=31.68%, sys=58.89%, ctx=3868, majf=0, minf=519
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=163840,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=2623MiB/s (2750MB/s), 2623MiB/s-2623MiB/s (2750MB/s-2750MB/s), io=5120MiB (5369MB), run=1952-1952msec
+
+Disk stats (read/write):
+  vda: ios=159080/0, merge=0/0, ticks=78118/0, in_queue=71900, util=94.40%
