@@ -1,0 +1,29 @@
+#Copia a imagem da grid
+cp /grid5000/virt-images/debian10-x64-base.qcow2 /tmp/
+
+#Cria a imagem qemu
+qemu-img create -f qcow2 -o backing_file=/tmp/debian10-x64-base.qcow2 /tmp/domain1.qcow2
+
+# Para dar o resize na imagem da VM e aumentar seu disco em 50G:
+qemu-img resize /tmp/domain1.qcow2 +100G
+
+# Para verificar as informacoes da VM:
+qemu-img info /tp/domain1.qcow2
+
+# Criar a VM
+virsh create vm.xlm
+
+#Para entrar no console da VM
+virsh console vm
+#Usuario: root senha: grid5000
+
+#Agora precisa aumentar criar uma nova particao na VM
+cfdisk 
+#Vai no free space, coloca new, aperta enter enter, write e quit
+#Formata a particao nova
+mkfs.ext4 /dev/vda6
+#agora crie um diretorio para montar a nova particao
+mkdir workspace
+mount /dev/vda6 workspace
+cd workspace
+#Pronto! a sua VM esta pronta para ser utilizada

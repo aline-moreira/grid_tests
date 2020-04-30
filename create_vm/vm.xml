@@ -1,0 +1,32 @@
+<domain type='kvm'>
+	<name>vm</name>
+	<memory>2048000</memory>
+	<vcpu>128</vcpu>
+	<os>
+		<type arch="x86_64">hvm</type>
+	</os>
+	<clock offset="localtime"/>
+	<on_poweroff>destroy</on_poweroff>
+	<on_reboot>restart</on_reboot>
+	<on_crash>destroy</on_crash>
+	<devices>
+		<emulator>/usr/bin/kvm</emulator>
+		<disk type='file' device='disk'>
+			<driver name='qemu' type='qcow2'/>
+			<source file='/tmp/domain1.qcow2'/>
+			<target dev='vda' bus='virtio'/>
+		</disk>
+		<interface type='bridge'>
+			<source bridge='br0'/>
+			<mac address='00:16:3e:97:ad:e2'/>
+		</interface>
+		<serial type='pty'>
+			<source path='/dev/ttyS0'/>
+			<target port='0'/>
+		</serial>
+		<console type='pty'>
+			<source path='/dev/ttyS0'/>
+			<target port='0'/>
+		</console>
+	</devices>
+</domain>
