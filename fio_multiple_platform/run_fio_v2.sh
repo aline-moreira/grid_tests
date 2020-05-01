@@ -31,6 +31,8 @@ ioengine=libaio
 iodepth=64
 	" > ./fio-data/${i}G.fio;
 
+	echo "Running test with ${i}GB";
+
 	START=`date -u`;
 	
 	if [ "$PLATFORM" = "host" ] || [ "$PLATFORM" = "vm" ]; then
