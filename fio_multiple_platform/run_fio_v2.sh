@@ -40,7 +40,7 @@ iodepth=64
 		rm -f test
 	fi
 	if [ "$PLATFORM" = "docker" ]  || [ "$PLATFORM" = "vm_docker" ]; then
-		docker run --rm -v `pwd`/fio-data:/tmp/fio-data -e JOBFILES=${i}G.fio  clusterhq/fio-tool > $VERSION/logs/teste_fio_"${i}"G_"${PLATFORM}".log;
+		docker run --rm -v `pwd`/fio-data:/tmp/fio-data -e JOBFILES="${i}"G.fio  clusterhq/fio-tool > $VERSION/logs/teste_fio_"${i}"G_"${PLATFORM}".log;
 	fi
 
 	END=`date -u`;
