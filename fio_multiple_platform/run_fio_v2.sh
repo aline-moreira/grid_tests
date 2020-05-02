@@ -14,8 +14,7 @@ ls fio-data || mkdir fio-data;
 #	sudo-g5k apt-get install fio -y
 #fi
 
-for i in 400; do
-#for i in 100 200 300 400; do
+for i in 100 125 150 175 200; do
 	echo "
 [global]
 randrepeat=1
@@ -32,7 +31,7 @@ ioengine=libaio
 iodepth=64
 	" > ./fio-data/${i}G.fio;
 
-	sleep 20;
+	sleep 60;
 
 	echo "Running test with ${i}GB";
 
@@ -52,9 +51,9 @@ iodepth=64
 done;
 
 rm -r fio-data
-#START=`date -u`;
-#sleep 600;
-#END=`date -u`;
-#echo "$PLATFORM;0;$START;$END" >> $VERSION/fio.times;
+START=`date -u`;
+sleep 600;
+END=`date -u`;
+echo "$PLATFORM;0;$START;$END" >> $VERSION/fio.times;
 
 #curl -kn https://api.grid5000.fr/stable/sites/grenoble/metrics/power/timeseries/?job_id="${OAR_JOB_ID}" > ./$1/energy_"${OAR_JOB_ID}".json;
