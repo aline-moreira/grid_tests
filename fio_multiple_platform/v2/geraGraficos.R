@@ -103,15 +103,6 @@ host_80$IO <- "80G"
 host_80$plataforma <- "Bare Metal"
 q <- quantile(host_80$consumo, c(0.1, 0.9))
 host_80 <- host_80[host_80$consumo >= q[1] & host_80$consumo <= q[2], ]
-#80G
-host_90 <- energy %>% filter(
-    energy$tempo >= times$start[times$plataforma=="host" & times$IO==90] &
-        energy$tempo <= times$end[times$plataforma=="host" & times$IO==90]
-)
-host_90$IO <- "90G"
-host_90$plataforma <- "Bare Metal"
-q <- quantile(host_90$consumo, c(0.1, 0.9))
-host_90 <- host_90[host_90$consumo >= q[1] & host_90$consumo <= q[2], ]
 ##############################
 # DOCKER
 
@@ -159,15 +150,6 @@ docker_80$IO <- "80G"
 docker_80$plataforma <- "Contêiner"
 q <- quantile(docker_80$consumo, c(0.1, 0.9))
 docker_80 <- docker_80[docker_80$consumo >= q[1] & docker_80$consumo <= q[2], ]
-#90G
-docker_90 <- energy %>% filter(
-    energy$tempo >= times$start[times$plataforma=="docker" & times$IO==90] &
-        energy$tempo <= times$end[times$plataforma=="docker" & times$IO==90]
-)
-docker_90$IO <- "90G"
-docker_90$plataforma <- "Contêiner"
-q <- quantile(docker_90$consumo, c(0.1, 0.9))
-docker_90 <- docker_90[docker_90$consumo >= q[1] & docker_90$consumo <= q[2], ]
 ##############################
 # VM
 
@@ -215,15 +197,6 @@ vm_80$IO <- "80G"
 vm_80$plataforma <- "MV"
 q <- quantile(vm_80$consumo, c(0.1, 0.9))
 vm_80 <- vm_80[vm_80$consumo >= q[1] & vm_80$consumo <= q[2], ]
-#90G
-vm_90 <- energy %>% filter(
-    energy$tempo >= times$start[times$plataforma=="vm" & times$IO==90] &
-        energy$tempo <= times$end[times$plataforma=="vm" & times$IO==90]
-)
-vm_90$IO <- "90G"
-vm_90$plataforma <- "MV"
-q <- quantile(vm_90$consumo, c(0.1, 0.9))
-vm_90 <- vm_90[vm_90$consumo >= q[1] & vm_90$consumo <= q[2], ]
 ##############################
 # VM DOCKER
 
@@ -271,16 +244,6 @@ vm_docker_80$IO <- "80G"
 vm_docker_80$plataforma <- "Contêiner sobre MV"
 q <- quantile(vm_docker_80$consumo, c(0.1, 0.9))
 vm_docker_80 <- vm_docker_80[vm_docker_80$consumo >= q[1] & vm_docker_80$consumo <= q[2], ]
-#90G
-vm_docker_90 <- energy %>% filter(
-    energy$tempo >= times$start[times$plataforma=="vm_docker" & times$IO==90] &
-        energy$tempo <= times$end[times$plataforma=="vm_docker" & times$IO==90]
-)
-vm_docker_90$IO <- "90G"
-vm_docker_90$plataforma <- "Contêiner sobre MV"
-q <- quantile(vm_docker_90$consumo, c(0.1, 0.9))
-vm_docker_90 <- vm_docker_90[vm_docker_90$consumo >= q[1] & vm_docker_90$consumo <= q[2], ]
-
 ###############
 # Combinando testes
 dt_tests <- rbind(idle_host, idle_docker)
@@ -290,22 +253,18 @@ dt_tests <- rbind(dt_tests, host_50)
 dt_tests <- rbind(dt_tests, host_60)
 dt_tests <- rbind(dt_tests, host_70)
 dt_tests <- rbind(dt_tests, host_80)
-dt_tests <- rbind(dt_tests, host_90)
 dt_tests <- rbind(dt_tests, docker_50)
 dt_tests <- rbind(dt_tests, docker_60)
 dt_tests <- rbind(dt_tests, docker_70)
 dt_tests <- rbind(dt_tests, docker_80)
-dt_tests <- rbind(dt_tests, docker_90)
 dt_tests <- rbind(dt_tests, vm_50)
 dt_tests <- rbind(dt_tests, vm_60)
 dt_tests <- rbind(dt_tests, vm_70)
 dt_tests <- rbind(dt_tests, vm_80)
-dt_tests <- rbind(dt_tests, vm_90)
 dt_tests <- rbind(dt_tests, vm_docker_50)
 dt_tests <- rbind(dt_tests, vm_docker_60)
 dt_tests <- rbind(dt_tests, vm_docker_70)
 dt_tests <- rbind(dt_tests, vm_docker_80)
-dt_tests <- rbind(dt_tests, vm_docker_90)
 
 #rm(idle)
 rm(idle_host)
@@ -314,22 +273,18 @@ rm(host_50)
 rm(host_60)
 rm(host_70)
 rm(host_80)
-rm(host_90)
 rm(docker_50)
 rm(docker_60)
 rm(docker_70)
 rm(docker_80)
-rm(docker_90)
 rm(vm_50)
 rm(vm_60)
 rm(vm_70)
 rm(vm_80)
-rm(vm_90)
 rm(vm_docker_50)
 rm(vm_docker_60)
 rm(vm_docker_70)
 rm(vm_docker_80)
-rm(vm_docker_90)
 
 tiff("fio_multiplatform_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p1 <- ggplot(data=dt_tests, aes(x=IO, y=consumo, color=plataforma))+
