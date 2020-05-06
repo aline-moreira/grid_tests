@@ -1,0 +1,8 @@
+Running 90G.fio
+teste_fio_90G_docker: (g=0): rw=randread, bs=32K-32K/32K-32K/32K-32K, ioengine=libaio, iodepth=64
+fio-2.1.11
+Starting 1 process
+teste_fio_90G_docker: Laying out IO file(s) (1 file(s) / 92160MB)
+
+
+Run status group 0 (all jobs):
