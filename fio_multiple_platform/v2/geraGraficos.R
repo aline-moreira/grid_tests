@@ -370,10 +370,10 @@ p1 <- ggplot(data=dt_tests, aes(x=IO, y=consumo, color=plataforma))+
         ),
         labels=c(
             "Idle",
-            "50G",
-            "60G",
-            "70G",
-            "80G"
+            "50GB",
+            "60GB",
+            "70GB",
+            "80GB"
         ))
 
 plot(p1)
