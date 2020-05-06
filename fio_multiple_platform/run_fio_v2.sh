@@ -14,7 +14,7 @@ ls fio-data || mkdir fio-data;
 #	sudo-g5k apt-get install fio -y
 #fi
 
-for i in 100 125 150 175 200; do
+for i in 50 60 70 80 90; do
 	echo "
 [global]
 randrepeat=1
