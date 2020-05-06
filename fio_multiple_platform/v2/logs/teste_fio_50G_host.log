@@ -1,0 +1,18 @@
+teste_fio_50G_host: (g=0): rw=randread, bs=(R) 32.0KiB-32.0KiB, (W) 32.0KiB-32.0KiB, (T) 32.0KiB-32.0KiB, ioengine=libaio, iodepth=64
+fio-3.12
+Starting 1 process
+teste_fio_50G_host: Laying out IO file (1 file / 51200MiB)
+
+teste_fio_50G_host: (groupid=0, jobs=1): err= 0: pid=16455: Wed May  6 03:50:44 2020
+  read: IOPS=1050, BW=32.8MiB/s (34.4MB/s)(50.0GiB/1559586msec)
+   bw (  KiB/s): min=   63, max=92928, per=100.00%, avg=33707.12, stdev=16128.91, samples=3110
+   iops        : min=    1, max= 2904, avg=1053.30, stdev=504.03, samples=3110
+  cpu          : usr=0.77%, sys=2.58%, ctx=1317284, majf=0, minf=529
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=1638400,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=32.8MiB/s (34.4MB/s), 32.8MiB/s-32.8MiB/s (34.4MB/s-34.4MB/s), io=50.0GiB (53.7GB), run=1559586-1559586msec
