@@ -14,10 +14,11 @@ ls fio-data || mkdir fio-data;
 #	sudo-g5k apt-get install fio -y
 #fi
 
-for i in 50 60 70 80 90; do
+for i in 1 5 10 20 30 40; do
 	echo "
 [global]
 randrepeat=1
+loops=30
 direct=1
 gtod_reduce=1
 name=test
