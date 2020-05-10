@@ -1,0 +1,20 @@
+Running 40G.fio
+teste_fio_40G_docker: (g=0): rw=randread, bs=32K-32K/32K-32K/32K-32K, ioengine=libaio, iodepth=64
+fio-2.1.11
+Starting 1 process
+teste_fio_40G_docker: Laying out IO file(s) (1 file(s) / 40960MB)
+
+teste_fio_40G_docker: (groupid=0, jobs=1): err= 0: pid=11: Sun May 10 19:55:03 2020
+  read : io=1200.0GB, bw=338314KB/s, iops=10572, runt=3719297msec
+  cpu          : usr=2.69%, sys=21.51%, ctx=31580071, majf=0, minf=1621
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued    : total=r=39321600/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: io=1200.0GB, aggrb=338314KB/s, minb=338314KB/s, maxb=338314KB/s, mint=3719297msec, maxt=3719297msec
+
+Disk stats (read/write):
+  sda: ios=39139438/18, merge=181682/8, ticks=235995825/100, in_queue=118908996, util=99.99%
