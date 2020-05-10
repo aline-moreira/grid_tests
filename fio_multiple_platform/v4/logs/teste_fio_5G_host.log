@@ -3,11 +3,11 @@ fio-3.12
 Starting 1 process
 teste_fio_5G_host: Laying out IO file (1 file / 5120MiB)
 
-teste_fio_5G_host: (groupid=0, jobs=1): err= 0: pid=3796: Sat May  9 21:08:46 2020
-  read: IOPS=10.5k, BW=329MiB/s (345MB/s)(150GiB/466302msec)
-   bw (  KiB/s): min=225792, max=354560, per=100.00%, avg=337289.69, stdev=21493.07, samples=932
-   iops        : min= 7056, max=11080, avg=10540.30, stdev=671.64, samples=932
-  cpu          : usr=4.08%, sys=12.48%, ctx=3725400, majf=0, minf=531
+teste_fio_5G_host: (groupid=0, jobs=1): err= 0: pid=3764: Sun May 10 15:51:02 2020
+  read: IOPS=10.6k, BW=332MiB/s (349MB/s)(150GiB/462042msec)
+   bw (  KiB/s): min=203328, max=358912, per=100.00%, avg=340402.98, stdev=25535.97, samples=924
+   iops        : min= 6354, max=11216, avg=10637.58, stdev=798.00, samples=924
+  cpu          : usr=3.49%, sys=11.30%, ctx=3870661, majf=0, minf=1073
   IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
      complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
@@ -15,7 +15,7 @@ teste_fio_5G_host: (groupid=0, jobs=1): err= 0: pid=3796: Sat May  9 21:08:46 20
      latency   : target=0, window=0, percentile=100.00%, depth=64
 
 Run status group 0 (all jobs):
-   READ: bw=329MiB/s (345MB/s), 329MiB/s-329MiB/s (345MB/s-345MB/s), io=150GiB (161GB), run=466302-466302msec
+   READ: bw=332MiB/s (349MB/s), 332MiB/s-332MiB/s (349MB/s-349MB/s), io=150GiB (161GB), run=462042-462042msec
 
 Disk stats (read/write):
-  sda: ios=4876058/15, merge=37479/42, ticks=29525804/90, in_queue=14896064, util=99.96%
+  sda: ios=4875662/25, merge=37406/46, ticks=29245625/131, in_queue=14653784, util=99.21%
