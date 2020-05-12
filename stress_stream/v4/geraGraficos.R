@@ -21,16 +21,30 @@ times$inicio <- as.POSIXct(times$inicio,tz="UTC",  format="%c")
 times$fim <- as.POSIXct(times$fim,tz="UTC",  format="%c")
 
 ##########GETTING THE INFO OF JSON######################
-energy <- fromJSON(file="energy_1922862.json")
+energy1 <- fromJSON(file="energy_1922862.json")
 
-energy$items[[1]]$timestamps = as.POSIXct(energy$items[[1]]$timestamps, origin="1970-01-01",tz="UTC")
+energy1$items[[1]]$timestamps = as.POSIXct(energy1$items[[1]]$timestamps, origin="1970-01-01",tz="UTC")
 
-time <- energy$items[[1]]$timestamps
-values <- energy$items[[1]]$values
+time <- energy1$items[[1]]$timestamps
+values <- energy1$items[[1]]$values
 
-energy <- data.frame(time,values)
+energy1 <- data.frame(time,values)
 
-names(energy) <- c("tempo","consumo")
+names(energy1) <- c("tempo","consumo")
+#----------
+energy2 <- fromJSON(file="energy_1922343.json")
+
+energy2$items[[1]]$timestamps = as.POSIXct(energy2$items[[1]]$timestamps, origin="1970-01-01",tz="UTC")
+
+time <- energy2$items[[1]]$timestamps
+values <- energy2$items[[1]]$values
+
+energy2 <- data.frame(time,values)
+
+names(energy2) <- c("tempo","consumo")
+
+energy <- rbind(energy1,energy2)
+rm(energy1, energy2)
 
 ###################################################
 # Filtrando a energia de acordo com os tempos
@@ -233,6 +247,51 @@ stream_2_16$ram <- 16
 q <- quantile(stream_2_16$consumo, c(0.05, 0.95))
 stream_2_16 <- stream_2_16[stream_2_16$consumo >= q[1] & stream_2_16$consumo <= q[2], ]
 
+#STRESS 4 CPU
+stress_4 <- energy %>% filter(
+    energy$tempo >= times$inicio[times$teste=="STRESS" & times$cpu==4 & times$ram==32] &
+        energy$tempo <= times$fim[times$teste=="STRESS" & times$cpu==4 & times$ram==32]
+)
+stress_4$teste <- "stress"
+stress_4$cpu <- 4
+stress_4$ram <- NA
+q <- quantile(stress_4$consumo, c(0.05, 0.95))
+stress_4 <- stress_4[stress_4$consumo >= q[1] & stress_4$consumo <= q[2], ]
+
+#4 4
+stream_4_4 <- energy %>% filter(
+    energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==4 & times$ram==4] &
+        energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==4 & times$ram==4]
+)
+stream_4_4$teste <- "stream"
+stream_4_4$cpu <- 4
+stream_4_4$ram <- 4
+q <- quantile(stream_4_4$consumo, c(0.05, 0.95))
+stream_4_4 <- stream_4_4[stream_4_4$consumo >= q[1] & stream_4_4$consumo <= q[2], ]
+# stream_4_4$consumo <- stream_4_4$consumo + 80
+
+#4 16
+stream_4_16 <- energy %>% filter(
+    energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==4 & times$ram==16] &
+        energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==4 & times$ram==16]
+)
+stream_4_16$teste <- "stream"
+stream_4_16$cpu <- 4
+stream_4_16$ram <- 16
+q <- quantile(stream_4_16$consumo, c(0.05, 0.95))
+stream_4_16 <- stream_4_16[stream_4_16$consumo >= q[1] & stream_4_16$consumo <= q[2], ]
+
+#4 32
+stream_4_32 <- energy %>% filter(
+    energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==4 & times$ram==32] &
+        energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==4 & times$ram==32]
+)
+stream_4_32$teste <- "stream"
+stream_4_32$cpu <- 4
+stream_4_32$ram <- 32
+q <- quantile(stream_4_32$consumo, c(0.05, 0.95))
+stream_4_32 <- stream_4_32[stream_4_32$consumo >= q[1] & stream_4_32$consumo <= q[2], ]
+
 #Juntando os logs em um unico df
 energy_bench <- rbind(stress_025, stress_05)
 energy_bench <- rbind(energy_bench, stress_1)
@@ -250,6 +309,10 @@ energy_bench <- rbind(energy_bench, stream_1_8)
 energy_bench <- rbind(energy_bench, stream_2_4)
 energy_bench <- rbind(energy_bench, stream_2_8)
 energy_bench <- rbind(energy_bench, stream_2_16)
+energy_bench <- rbind(energy_bench, stress_4)
+energy_bench <- rbind(energy_bench, stream_4_4)
+energy_bench <- rbind(energy_bench, stream_4_16)
+energy_bench <- rbind(energy_bench, stream_4_32)
 #energy_bench <- rbind(energy_bench, idle)
 
 #Limpando a memoria
@@ -270,6 +333,10 @@ rm(stream_1_8)
 rm(stream_2_4)
 rm(stream_2_8)
 rm(stream_2_16)
+rm(stream_4)
+rm(stream_4_4)
+rm(stream_4_16)
+rm(stream_4_32)
 #rm(idle)
 
 # Lendo os logs de CPU.
@@ -337,27 +404,54 @@ p1 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
         color="Benchmark"
     )+
     scale_color_brewer(palette="Dark2")+
-    scale_y_continuous(limits=c(150,400), breaks=seq(0,550,50))+
-    scale_x_discrete(labels=
-                         c(
-                             "0.25 CPUs\n0.5Gb RAM",
-                             "0.25 CPUs\n1Gb RAM",
-                             "0.25 CPUs\n2Gb RAM",
-                             "0.25 CPUs",
-                             "0.5 CPUs\n1Gb RAM",
-                             "0.5 CPUs\n2Gb RAM",
-                             "0.5 CPUs\n3Gb RAM",
-                             "0.5 CPUs\n4Gb RAM",
-                             "0.5 CPUs",
-                             "1 CPUs\n2Gb RAM",
-                             "1 CPUs\n4Gb RAM",
-                             "1 CPUs\n8Gb RAM",
-                             "1 CPUs",
-                             "2 CPUs\n4Gb RAM",
-                             "2 CPUs\n8Gb RAM",
-                             "2 CPUs\n16Gb RAM",
-                             "2 CPUs"
-                         ))
+    scale_y_continuous(limits=c(150,550), breaks=seq(0,550,50))+
+    scale_x_discrete(
+       limits=c(
+            "0.25 0.5",
+            "0.25 1",
+            "0.25 2",
+            "0.25 NA",
+            "0.5 1",
+            "0.5 2",
+            "0.5 3",
+            "0.5 4",
+            "0.5 NA",
+            "1 2",
+            "1 4",
+            "1 8",
+            "1 NA",
+            "2 4",
+            "2 8",
+            "2 16",
+            "2 NA",
+            "4 4",
+            "4 16",
+            "4 32",
+            "4 NA"
+            ),
+            labels=c(
+            "0.25 CPUs\n0.5Gb RAM",
+            "0.25 CPUs\n1Gb RAM",
+            "0.25 CPUs\n2Gb RAM",
+            "0.25 CPUs",
+            "0.5 CPUs\n1Gb RAM",
+            "0.5 CPUs\n2Gb RAM",
+            "0.5 CPUs\n3Gb RAM",
+            "0.5 CPUs\n4Gb RAM",
+            "0.5 CPUs",
+            "1 CPUs\n2Gb RAM",
+            "1 CPUs\n4Gb RAM",
+            "1 CPUs\n8Gb RAM",
+            "1 CPUs",
+            "2 CPUs\n4Gb RAM",
+            "2 CPUs\n8Gb RAM",
+            "2 CPUs\n16Gb RAM",
+            "2 CPUs",
+            "4 CPUs\n4Gb RAM",
+            "4 CPUs\n16Gb RAM",
+            "4 CPUs\n32Gb RAM",
+            "4 CPUs"
+            ))
 
 plot(p1)
 dev.off()
