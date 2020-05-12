@@ -449,7 +449,7 @@ p1 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
             "2 CPUs",
             "4 CPUs\n4Gb RAM",
             "4 CPUs\n16Gb RAM",
-            "4 CPUs\n32Gb RAM",
+            "4 CPUs\n30Gb RAM",
             "4 CPUs"
             ))
 
@@ -533,7 +533,7 @@ p2 <- ggplot(data=consumo_cpu_bench, aes(x=grp, y=consumo_cpu, color=teste))+
             "2 CPUs",
             "4 CPUs\n4Gb RAM",
             "4 CPUs\n16Gb RAM",
-            "4 CPUs\n32Gb RAM",
+            "4 CPUs\n30Gb RAM",
             "4 CPUs"
         ))
 plot(p2)
