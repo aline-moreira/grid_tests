@@ -26,3 +26,8 @@ for RAM in "${ARRAY[@]}"; do
 	rm stream;
 	sleep 60;
 done;
+
+INIT=`date -u`;
+sleep 600;
+END=`date -u`;
+echo "STREAM;$PLATFORM;0;$INIT;$END" >> $VERSION/benchmarks.time;
