@@ -3,6 +3,7 @@ if [ "$#" -ne 3 ]; then
 	exit 2;
 fi
 
+
 VERSION=$1;
 IO=$2;
 DOCKERS=$3;
@@ -29,8 +30,6 @@ ioengine=libaio
 iodepth=64
 	" > ./fio-data/${i}G.fio;
 
-	sleep 60;
-
 	echo "Running test with ${i}GB";
 
 	START=`date -u`;
@@ -39,13 +38,12 @@ iodepth=64
 	
 	END=`date -u`;
 	echo "docker;$i;$DOCKERS;$START;$END" >> $VERSION/fio.times;
-	sleep 60;
 done;
 
 rm -r fio-data
-START=`date -u`;
-sleep 600;
-END=`date -u`;
-echo "docker;0;$DOCKERS;$START;$END" >> $VERSION/fio.times;
+#START=`date -u`;
+#sleep 600;
+#END=`date -u`;
+#echo "docker;0;$DOCKERS;$START;$END" >> $VERSION/fio.times;
 
 #curl -kn https://api.grid5000.fr/stable/sites/grenoble/metrics/power/timeseries/?job_id="${OAR_JOB_ID}" > ./$1/energy_"${OAR_JOB_ID}".json;
