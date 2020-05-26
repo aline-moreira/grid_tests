@@ -1,11 +1,12 @@
-if [ "$#" -ne 3 ]; then
-	echo "Illegal number of parameters (PLATFORM, VERSION_TEST, IO)";
+if [ "$#" -ne 4 ]; then
+	echo "Illegal number of parameters (PLATFORM, VERSION_TEST, IO, DOCKERS)";
 	exit 2;
 fi
 
 PLATFORM=$1;
 VERSION=$2;
 IO=$3;
+DOCKERS=$4;
 
 ls $VERSION || mkdir $VERSION;
 ls $VERSION/logs || mkdir $VERSION/logs;
@@ -48,7 +49,7 @@ iodepth=64
 	fi
 
 	END=`date -u`;
-	echo "$PLATFORM;$i;$START;$END" >> $VERSION/fio.times;
+	echo "$PLATFORM;$i;$DOCKERS;$START;$END" >> $VERSION/fio.times;
 	sleep 60;
 done;
 
@@ -56,6 +57,6 @@ rm -r fio-data
 START=`date -u`;
 sleep 600;
 END=`date -u`;
-echo "$PLATFORM;0;$START;$END" >> $VERSION/fio.times;
+echo "$PLATFORM;0;$DOCKERS;$START;$END" >> $VERSION/fio.times;
 
 #curl -kn https://api.grid5000.fr/stable/sites/grenoble/metrics/power/timeseries/?job_id="${OAR_JOB_ID}" > ./$1/energy_"${OAR_JOB_ID}".json;
