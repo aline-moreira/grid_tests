@@ -1,0 +1,4 @@
+Running 60G.fio
+teste_fio_60G_docker: (g=0): rw=randread, bs=32K-32K/32K-32K/32K-32K, ioengine=libaio, iodepth=64
+fio-2.1.11
+Starting 1 process
