@@ -37,9 +37,11 @@ for i in $IO; do
 	START=`date -u`;
 	
 	for ((j=1;j<$DOCKERS;j++)); do
+		echo "Executando o docker $j";
 		docker run --rm -v `pwd`/fio-data:/tmp/fio-data -e JOBFILES="${i}"G-$j.fio -d clusterhq/fio-tool > $VERSION/logs/teste_fio_"${i}"G_"${DOCKERS}docker".log;
 	done;	
-	docker run --rm -v `pwd`/fio-data:/tmp/fio-data -e JOBFILES="${i}"G-$DOCKERS.fio  clusterhq/fio-tool > $VERSION/logs/teste_fio_"${i}"G_"${DOCKERS}docker".log;.
+	echo "Executando o docker $DOCKERS";
+	docker run --rm -v `pwd`/fio-data:/tmp/fio-data -e JOBFILES="${i}"G-$DOCKERS.fio  clusterhq/fio-tool > $VERSION/logs/teste_fio_"${i}"G_"${DOCKERS}docker".log;
 
 	END=`date -u`;
 	echo "docker;$i;$DOCKERS;$START;$END" >> $VERSION/fio.times;
