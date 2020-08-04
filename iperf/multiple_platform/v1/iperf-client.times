@@ -16,3 +16,10 @@ host;normal;1;100M;Tue 04 Aug 2020 08:36:07 PM UTC;Tue 04 Aug 2020 08:46:07 PM U
 host;normal;1;1000M;Tue 04 Aug 2020 08:47:07 PM UTC;Tue 04 Aug 2020 08:57:07 PM UTC
 host;normal;1;10000M;Tue 04 Aug 2020 08:58:07 PM UTC;Tue 04 Aug 2020 09:08:07 PM UTC
 host;normal;1;0;Tue 04 Aug 2020 09:09:07 PM UTC;Tue 04 Aug 2020 09:19:07 PM UTC
+docker;normal;1;1M;Tue 04 Aug 2020 10:04:24 PM UTC;Tue 04 Aug 2020 10:04:33 PM UTC
+docker;normal;1;1M;Tue 04 Aug 2020 10:06:09 PM UTC;Tue 04 Aug 2020 10:16:10 PM UTC
+docker;normal;1;10M;Tue 04 Aug 2020 10:17:10 PM UTC;Tue 04 Aug 2020 10:27:10 PM UTC
+docker;normal;1;100M;Tue 04 Aug 2020 10:28:10 PM UTC;Tue 04 Aug 2020 10:38:11 PM UTC
+docker;normal;1;1000M;Tue 04 Aug 2020 10:39:11 PM UTC;Tue 04 Aug 2020 10:49:12 PM UTC
+docker;normal;1;10000M;Tue 04 Aug 2020 10:50:12 PM UTC;Tue 04 Aug 2020 11:00:12 PM UTC
+docker;normal;1;0;Tue 04 Aug 2020 11:01:12 PM UTC;Tue 04 Aug 2020 11:11:12 PM UTC

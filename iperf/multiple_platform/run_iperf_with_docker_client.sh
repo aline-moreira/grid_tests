@@ -9,7 +9,7 @@ PLATFORM=$2;
 echo "$PLATFORM;client;normal;`hostname`" >> $VERSION/nodes-client.types
 
 TIME=600;
-ip_iperf=10.132.7.253;
+ip_iperf=yeti-4;
 echo $ip_iperf;
 
 for i in 1; do 
