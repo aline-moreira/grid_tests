@@ -1,3 +1,4 @@
+#git clone https://github.com/aline-moreira/grid_tests
 if [ "$#" -ne 2 ]; then 
 	echo "Illegal number of parameters (version, platform)";
 	exit 2;

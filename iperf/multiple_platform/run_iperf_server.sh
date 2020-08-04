@@ -1,4 +1,4 @@
-if [ "$#" -ne 1 ] ; then
+if [ "$#" -ne 2 ] ; then
 	echo "Illegal number of parameters (version, platform)";
 	exit 2;
 fi
