@@ -16,7 +16,7 @@ echo $ip_iperf;
 for i in 1; do 
 	for band in 1M 10M 100M 1000M 10000M; do
 		START=`date -u`;
-		docker run -it --network host --rm networkstatic/iperf3 -c $ip_iperf -b $band -t $TIME;
+		iperf3 -c $ip_iperf -b $band -t $TIME;
 		END=`date -u`;
 		echo "$PLATFORM;normal;$i;$band;$START;$END" >> $VERSION/iperf-client.times;
 		sleep 60;

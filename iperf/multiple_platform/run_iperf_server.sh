@@ -10,4 +10,4 @@ PLATFORM=$2;
 
 echo "$PLATFORM;server;normal;`hostname`" >> $VERSION/nodes-server.types
 
-docker run  --network=host -it --rm --name=iperf3-server -p 5201:5201 networkstatic/iperf3 -s
+iperf3 -p 5201 -s
