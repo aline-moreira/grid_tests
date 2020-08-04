@@ -1,2 +1,3 @@
 vm;client;normal;debian
 vm_docker;client;normal;debian
+host;client;normal;yeti-3.grenoble.grid5000.fr

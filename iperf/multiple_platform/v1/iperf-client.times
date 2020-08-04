@@ -10,3 +10,9 @@ vm_docker;normal;1;100M;Tue 04 Aug 2020 02:29:02 AM UTC;Tue 04 Aug 2020 02:39:03
 vm_docker;normal;1;1000M;Tue 04 Aug 2020 02:40:03 AM UTC;Tue 04 Aug 2020 02:50:03 AM UTC
 vm_docker;normal;1;10000M;Tue 04 Aug 2020 02:51:03 AM UTC;Tue 04 Aug 2020 03:01:04 AM UTC
 vm_docker;normal;1;0;Tue 04 Aug 2020 03:02:04 AM UTC;Tue 04 Aug 2020 03:12:04 AM UTC
+host;normal;1;1M;Tue 04 Aug 2020 08:14:06 PM UTC;Tue 04 Aug 2020 08:24:07 PM UTC
+host;normal;1;10M;Tue 04 Aug 2020 08:25:07 PM UTC;Tue 04 Aug 2020 08:35:07 PM UTC
+host;normal;1;100M;Tue 04 Aug 2020 08:36:07 PM UTC;Tue 04 Aug 2020 08:46:07 PM UTC
+host;normal;1;1000M;Tue 04 Aug 2020 08:47:07 PM UTC;Tue 04 Aug 2020 08:57:07 PM UTC
+host;normal;1;10000M;Tue 04 Aug 2020 08:58:07 PM UTC;Tue 04 Aug 2020 09:08:07 PM UTC
+host;normal;1;0;Tue 04 Aug 2020 09:09:07 PM UTC;Tue 04 Aug 2020 09:19:07 PM UTC
