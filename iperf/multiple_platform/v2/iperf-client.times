@@ -10,3 +10,15 @@ docker;normal;1;100M;Thu 06 Aug 2020 11:25:06 PM UTC;Thu 06 Aug 2020 11:35:07 PM
 docker;normal;1;1000M;Thu 06 Aug 2020 11:36:07 PM UTC;Thu 06 Aug 2020 11:46:08 PM UTC
 docker;normal;1;10000M;Thu 06 Aug 2020 11:47:08 PM UTC;Thu 06 Aug 2020 11:57:09 PM UTC
 docker;normal;1;0;Thu 06 Aug 2020 11:58:09 PM UTC;Fri 07 Aug 2020 12:08:09 AM UTC
+vm;normal;1;1M;Tue 04 Aug 2020 12:51:55 AM UTC;Tue 04 Aug 2020 01:01:55 AM UTC
+vm;normal;1;10M;Tue 04 Aug 2020 01:02:55 AM UTC;Tue 04 Aug 2020 01:12:55 AM UTC
+vm;normal;1;100M;Tue 04 Aug 2020 01:13:55 AM UTC;Tue 04 Aug 2020 01:23:56 AM UTC
+vm;normal;1;1000M;Tue 04 Aug 2020 01:24:56 AM UTC;Tue 04 Aug 2020 01:34:56 AM UTC
+vm;normal;1;10000M;Tue 04 Aug 2020 01:35:56 AM UTC;Tue 04 Aug 2020 01:45:56 AM UTC
+vm;normal;1;0;Tue 04 Aug 2020 01:46:56 AM UTC;Tue 04 Aug 2020 01:56:56 AM UTC
+vm_docker;normal;1;1M;Tue 04 Aug 2020 02:06:54 AM UTC;Tue 04 Aug 2020 02:17:02 AM UTC
+vm_docker;normal;1;10M;Tue 04 Aug 2020 02:18:02 AM UTC;Tue 04 Aug 2020 02:28:02 AM UTC
+vm_docker;normal;1;100M;Tue 04 Aug 2020 02:29:02 AM UTC;Tue 04 Aug 2020 02:39:03 AM UTC
+vm_docker;normal;1;1000M;Tue 04 Aug 2020 02:40:03 AM UTC;Tue 04 Aug 2020 02:50:03 AM UTC
+vm_docker;normal;1;10000M;Tue 04 Aug 2020 02:51:03 AM UTC;Tue 04 Aug 2020 03:01:04 AM UTC
+vm_docker;normal;1;0;Tue 04 Aug 2020 03:02:04 AM UTC;Tue 04 Aug 2020 03:12:04 AM UTC
