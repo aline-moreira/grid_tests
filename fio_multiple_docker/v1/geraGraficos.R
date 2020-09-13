@@ -155,23 +155,15 @@ p1 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
         x="I/O (GB)",
         y="Consumo (W/s)",
         color= "Quantidade de contêineres"
-    )#+
+    )+
     # scale_y_continuous(limits=c(175,400), breaks=seq(175,425,25))#+
-    # scale_x_discrete(
-    #     limits=c(
-    #         "idle",
-    #         "1G",
-    #         "5G",
-    #         "10G",
-    #         "20G",
-    #         "30G",
-    #         "40G",
-    #         "50G",
-    #         "60G",
-    #         "70G",
-    #         "80G"
-    #     ),
-    #     labels=c(
+    scale_x_discrete(
+        limits=c(
+            "Idle",
+            "60G",
+            "80G"
+        ))
+        # labels=c(
     #         "Idle",
     #         "1GB",
     #         "5GB",
