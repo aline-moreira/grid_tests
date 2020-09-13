@@ -21,17 +21,33 @@ names(valores) <- c("benchmark","plataforma","v1","v2","v3","v4")
 idle =  183 * 0.000000114 * 3600
 
 sum_25_grid <- sum(valores$v1[valores$plataforma=="grid"]) + idle
-sum_25_aws <- sum(valores$v1[valores$plataforma=="aws"])
+sum_25_aws5 <- sum(valores$v1[valores$plataforma=="aws5"])
+sum_25_aws10 <- sum(valores$v1[valores$plataforma=="aws10"])
+sum_25_aws15 <- sum(valores$v1[valores$plataforma=="aws15"])
 sum_50_grid <- sum(valores$v2[valores$plataforma=="grid"]) + idle
-sum_50_aws <- sum(valores$v2[valores$plataforma=="aws"])
+sum_50_aws5 <- sum(valores$v2[valores$plataforma=="aws5"])
+sum_50_aws10 <- sum(valores$v2[valores$plataforma=="aws10"])
+sum_50_aws15 <- sum(valores$v2[valores$plataforma=="aws15"])
 sum_75_grid <- sum(valores$v3[valores$plataforma=="grid"]) + idle
-sum_75_aws <- sum(valores$v3[valores$plataforma=="aws"])
+sum_75_aws5 <- sum(valores$v3[valores$plataforma=="aws5"])
+sum_75_aws10 <- sum(valores$v3[valores$plataforma=="aws10"])
+sum_75_aws15 <- sum(valores$v3[valores$plataforma=="aws15"])
 sum_100_grid <- sum(valores$v4[valores$plataforma=="grid"]) + idle
-sum_100_aws <- sum(valores$v4[valores$plataforma=="aws"])
+sum_100_aws5 <- sum(valores$v4[valores$plataforma=="aws5"])
+sum_100_aws10 <- sum(valores$v4[valores$plataforma=="aws10"])
+sum_100_aws15 <- sum(valores$v4[valores$plataforma=="aws15"])
 
 
-somas <- data.frame(c(idle,sum_25_grid, sum_50_grid, sum_75_grid, sum_100_grid, 0.2642, sum_25_aws, sum_50_aws, sum_75_aws, sum_100_aws),
-                    c("grid","grid","grid","grid","grid","aws","aws","aws","aws","aws"),
+somas <- data.frame(c(idle,sum_25_grid, sum_50_grid, sum_75_grid, sum_100_grid, 
+                      0.088066667, sum_25_aws5, sum_50_aws5, sum_75_aws5, sum_100_aws5,
+                      0.176133333, sum_25_aws10, sum_50_aws10, sum_75_aws10, sum_100_aws10,
+                      0.2642, sum_25_aws15, sum_50_aws15, sum_75_aws15, sum_100_aws15
+                    ),
+                    c("grid","grid","grid","grid","grid",
+                      "aws5","aws5","aws5","aws5","aws5",
+                      "aws10","aws10","aws10","aws10","aws10",
+                      "aws15","aws15","aws15","aws15","aws15"
+                      ),
                     c(0, 25,50,75,100)
                     )
 names(somas) <- c("Preço","ModeloCusto","Utilizacao")
@@ -82,8 +98,8 @@ p1 <- ggplot(data=somas, aes(x=Utilizacao, y=Preço, color = ModeloCusto ))+
             "100%"
         ))+
     scale_color_discrete(
-        limits=c("aws","grid"),
-        labels=c("Amazon Fargate", "Modelo Proposto")
+        limits=c("aws5","aws10","aws15","grid"),
+        labels=c("Amazon 5%","Amazon 10%","Amazon 15%", "Modelo Proposto")
     )
 
 plot(p1)
