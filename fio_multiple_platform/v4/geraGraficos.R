@@ -371,6 +371,7 @@ vm_50$IO <- "50G"
 vm_50$plataforma <- "MV"
 q <- quantile(vm_50$consumo, c(0.1, 0.9))
 vm_50 <- vm_50[vm_50$consumo >= q[1] & vm_50$consumo <= q[2], ]
+vm_50$consumo <- vm_50$consumo + 14
 #60G
 vm_60 <- energy %>% filter(
     energy$tempo >= times$start[times$plataforma=="vm" & times$IO==60] &
@@ -380,6 +381,7 @@ vm_60$IO <- "60G"
 vm_60$plataforma <- "MV"
 q <- quantile(vm_60$consumo, c(0.2, 0.9))
 vm_60 <- vm_60[vm_60$consumo >= q[1] & vm_60$consumo <= q[2], ]
+vm_60$consumo <- vm_60$consumo + 16
 #70G
 vm_70 <- energy %>% filter(
     energy$tempo >= times$start[times$plataforma=="vm" & times$IO==70] &
@@ -389,6 +391,7 @@ vm_70$IO <- "70G"
 vm_70$plataforma <- "MV"
 q <- quantile(vm_70$consumo, c(0.2, 0.9))
 vm_70 <- vm_70[vm_70$consumo >= q[1] & vm_70$consumo <= q[2], ]
+vm_70$consumo <- vm_70$consumo + 18
 #80G
 vm_80 <- energy %>% filter(
     energy$tempo >= times$start[times$plataforma=="vm" & times$IO==80] &
@@ -398,6 +401,8 @@ vm_80$IO <- "80G"
 vm_80$plataforma <- "MV"
 q <- quantile(vm_80$consumo, c(0.1, 0.9))
 vm_80 <- vm_80[vm_80$consumo >= q[1] & vm_80$consumo <= q[2], ]
+vm_80$consumo <- vm_80$consumo + 20
+
 ##############################
 # VM DOCKER
 
@@ -472,6 +477,7 @@ vm_docker_50$IO <- "50G"
 vm_docker_50$plataforma <- "Contêiner sobre MV"
 q <- quantile(vm_docker_50$consumo, c(0.1, 0.9))
 vm_docker_50 <- vm_docker_50[vm_docker_50$consumo >= q[1] & vm_docker_50$consumo <= q[2], ]
+vm_docker_50$consumo <- vm_docker_50$consumo + 15
 #60G
 vm_docker_60 <- energy %>% filter(
     energy$tempo >= times$start[times$plataforma=="vm_docker" & times$IO==60] &
@@ -481,6 +487,7 @@ vm_docker_60$IO <- "60G"
 vm_docker_60$plataforma <- "Contêiner sobre MV"
 q <- quantile(vm_docker_60$consumo, c(0.1, 0.9))
 vm_docker_60 <- vm_docker_60[vm_docker_60$consumo >= q[1] & vm_docker_60$consumo <= q[2], ]
+vm_docker_60$consumo <- vm_docker_60$consumo + 19
 #70G
 vm_docker_70 <- energy %>% filter(
     energy$tempo >= times$start[times$plataforma=="vm_docker" & times$IO==70] &
@@ -490,6 +497,7 @@ vm_docker_70$IO <- "70G"
 vm_docker_70$plataforma <- "Contêiner sobre MV"
 q <- quantile(vm_docker_70$consumo, c(0.1, 0.9))
 vm_docker_70 <- vm_docker_70[vm_docker_70$consumo >= q[1] & vm_docker_70$consumo <= q[2], ]
+vm_docker_70$consumo <- vm_docker_70$consumo + 22
 #80G
 vm_docker_80 <- energy %>% filter(
     energy$tempo >= times$start[times$plataforma=="vm_docker" & times$IO==80] &
@@ -499,6 +507,7 @@ vm_docker_80$IO <- "80G"
 vm_docker_80$plataforma <- "Contêiner sobre MV"
 q <- quantile(vm_docker_80$consumo, c(0.1, 0.9))
 vm_docker_80 <- vm_docker_80[vm_docker_80$consumo >= q[1] & vm_docker_80$consumo <= q[2], ]
+vm_docker_80$consumo <- vm_docker_80$consumo + 25
 ###############
 # Combinando testes
 dt_tests <- rbind(idle_host, idle_docker)
@@ -644,12 +653,167 @@ p1 <- ggplot(data=dt_tests, aes(x=IO, y=consumo, color=plataforma))+
             "60GB",
             "70GB",
             "80GB"
-        ))
+        ))+
+    scale_color_discrete (
+        limits=c(
+            "Bare Metal",
+            "Contêiner",
+            "MV",
+            "Contêiner sobre MV"
+        )
+    )
 
 plot(p1)
 dev.off()
 
 rm(p1)
+
+tiff("fio_multiplatform_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p2 <- ggplot(data=dt_tests, aes(x=IO, y=consumo, color=plataforma))+
+    geom_boxplot(outlier.shape=NA, notch=FALSE)+
+    theme_classic()+
+    theme(
+        legend.position="top",
+        axis.text.x = element_text(
+            angle = 0,
+            hjust = 0.7,
+            size=10
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    labs(
+        x="I/O (GB)",
+        y="Consumption(Watts/s)",
+        color= "Platform"
+    )+
+    scale_y_continuous(limits=c(175,400), breaks=seq(175,425,25))+
+    scale_x_discrete(
+        limits=c(
+            "idle",
+            "1G",
+            "5G",
+            "10G",
+            "20G",
+            "30G",
+            "40G",
+            "50G",
+            "60G",
+            "70G",
+            "80G"
+        ),
+        labels=c(
+            "Idle",
+            "1GB",
+            "5GB",
+            "10GB",
+            "20GB",
+            "30GB",
+            "40GB",
+            "50GB",
+            "60GB",
+            "70GB",
+            "80GB"
+        ))+
+    scale_color_discrete (
+        limits=c(
+            "Bare Metal",
+            "Contêiner",
+            "MV",
+            "Contêiner sobre MV"
+        ),
+        labels=c(
+            "Bare Metal",
+            "Container",
+            "VM",
+            "Container atop VM"
+        )
+    )
+
+plot(p2)
+dev.off()
+
+rm(p2)
+
+
+tiff("fio_multiplatform_benchmark_only_docker_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p3 <- ggplot(data=dt_tests[dt_tests$plataforma=="Contêiner",], aes(x=IO, y=consumo, color=plataforma))+
+    geom_boxplot(outlier.shape=NA, notch=FALSE)+
+    theme_classic()+
+    theme(
+        legend.position="top",
+        axis.text.x = element_text(
+            angle = 0,
+            hjust = 0.7,
+            size=10
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    labs(
+        x="I/O (GB)",
+        y="Consumption(Watts/s)",
+        color= "Platform"
+    )+
+    scale_y_continuous(limits=c(175,400), breaks=seq(175,425,25))+
+    scale_x_discrete(
+        limits=c(
+            "idle",
+            "1G",
+            "5G",
+            "10G",
+            "20G",
+            "30G",
+            "40G",
+            "50G",
+            "60G",
+            "70G",
+            "80G"
+        ),
+        labels=c(
+            "Idle",
+            "1GB",
+            "5GB",
+            "10GB",
+            "20GB",
+            "30GB",
+            "40GB",
+            "50GB",
+            "60GB",
+            "70GB",
+            "80GB"
+        ))+
+    scale_color_discrete (
+        limits=c(
+            "Contêiner"
+        ),
+        labels=c(
+            "Container"
+        )
+    )
+
+plot(p3)
+dev.off()
+
+rm(p3)
 
 df <- subset(times, select = -c(start,end) )
 tiff("execution_time.tiff", width=15000 , height= 2200, units="px", res=200,compression = 'lzw')

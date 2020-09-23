@@ -221,22 +221,84 @@ p1 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=
             "32768"
         ),
         labels=c(
-             "0",
-             "1",
-             "256",
-             "512",
-             "1024",
-             "2048",
-             "4096",
-             "8192",
-             "16384",
-             "32768"
-    ))
+            "0",
+            "1",
+            "256",
+            "512",
+            "1024",
+            "2048",
+            "4096",
+            "8192",
+            "16384",
+            "32768"
+        ))
 
 plot(p1)
 dev.off()
 
 rm(p1)
+
+tiff("sysbench_kubernetes_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p2 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=as.factor(node)))+
+    geom_boxplot(outlier.shape=NA, notch=FALSE)+
+    geom_abline( mapping=aes(slope=0, intercept=summary(idle$consumo)[[3]], 
+                             colour=as.factor(idle$total_containers[[1]])), linetype="dashed")+
+    theme_classic()+
+    theme(
+        legend.position="top",
+        axis.text.x = element_text(
+            angle = 0,
+            hjust = 0.7,
+            size=10
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    scale_y_continuous(limits=c(175,425), breaks=seq(175,425,25))+
+    labs(
+        x="#Containers",
+        y="Consumption (Watts/s)",
+        color= "Host Type"
+    )+
+    scale_x_discrete(
+        limits=c(
+            "0",
+            "1",
+            "256",
+            "512",
+            "1024",
+            "2048",
+            "4096",
+            "8192",
+            "16384",
+            "32768"
+        ),
+        labels=c(
+            "0",
+            "1",
+            "256",
+            "512",
+            "1024",
+            "2048",
+            "4096",
+            "8192",
+            "16384",
+            "32768"
+        ))
+
+plot(p2)
+dev.off()
+
+rm(p2)
 
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
 system("rm *.tiff")

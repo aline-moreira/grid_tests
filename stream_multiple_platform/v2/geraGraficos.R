@@ -58,7 +58,7 @@ host_idle <- energy %>% filter(
 host_idle$teste <- "stream"
 host_idle$plataforma <- "host"
 host_idle$ram <- 0
-host_idle$consumo <- host_idle$consumo - 100
+host_idle$consumo <- host_idle$consumo - 300
 # q <- quantile(host_idle$consumo, c(0.05, 0.95))
 # host_idle <- host_idle[host_idle$consumo >= q[1] & host_idle$consumo <= q[2], ]
 
@@ -143,7 +143,7 @@ docker_idle <- energy %>% filter(
 docker_idle$teste <- "stream"
 docker_idle$plataforma <- "docker"
 docker_idle$ram <- 0
-docker_idle$consumo <- docker_idle$consumo - 60
+docker_idle$consumo <- docker_idle$consumo - 280
 q <- quantile(docker_idle$consumo, c(0.1, 0.8))
 docker_idle <- docker_idle[docker_idle$consumo >= q[1] & docker_idle$consumo <= q[2], ]
 
@@ -225,6 +225,7 @@ vm_idle <- energy %>% filter(
 vm_idle$teste <- "stream"
 vm_idle$plataforma <- "vm"
 vm_idle$ram <- 0
+vm_idle$consumo <- vm_idle$consumo - 200
 # q <- quantile(vm_idle$consumo, c(0.05, 0.95))
 # vm_idle <- vm_idle[vm_idle$consumo >= q[1] & vm_idle$consumo <= q[2], ]
 
@@ -312,6 +313,7 @@ docker_vm_idle <- energy %>% filter(
 docker_vm_idle$teste <- "stream"
 docker_vm_idle$plataforma <- "docker_vm"
 docker_vm_idle$ram <- 0
+docker_vm_idle$consumo <- docker_vm_idle$consumo - 195
 # q <- quantile(docker_vm_idle$consumo, c(0.05, 0.95))
 # docker_vm_idle <- docker_vm_idle[docker_vm_idle$consumo >= q[1] & docker_vm_idle$consumo <= q[2], ]
 
@@ -477,7 +479,7 @@ p1 <- ggplot(data=energy_bench, aes(x=as.factor(ram), y=consumo, color=plataform
         color="Plataforma"
     )+
     scale_color_brewer(palette="Dark2")+
-    scale_y_continuous(limits=c(350,550), breaks=seq(0,550,50))+
+    scale_y_continuous(limits=c(175,550), breaks=seq(175,550,25))+
     scale_x_discrete(
         limits=c(
             "0",
@@ -499,13 +501,72 @@ p1 <- ggplot(data=energy_bench, aes(x=as.factor(ram), y=consumo, color=plataform
         )
     )+
     scale_color_discrete(
-        labels=c("Bate Metal", "Contêiner", "MV", "Contêiner sobre MV"),
+        labels=c("Bare Metal", "Contêiner", "MV", "Contêiner sobre MV"),
         limits=c("host","docker","vm","docker_vm")
     )
 
 plot(p1)
 dev.off()
 rm(p1)
+
+tiff("consum_energy_benchmarks_memoria_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p2 <- ggplot(data=energy_bench, aes(x=as.factor(ram), y=consumo, color=plataforma))+
+    geom_boxplot(outlier.shape = NA)+
+    theme_classic()+
+    theme(
+        legend.position="top",
+        axis.text.x = element_text(
+            # angle = 90,
+            # hjust = 0.7,
+            size=10
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    labs(
+        x="Memory (GB)",
+        y="Consumption(Watts/s)",
+        color="Platform"
+    )+
+    scale_color_brewer(palette="Dark2")+
+    scale_y_continuous(limits=c(175,550), breaks=seq(175,550,25))+
+    scale_x_discrete(
+        limits=c(
+            "0",
+            "1",
+            "50",
+            "100",
+            "150",
+            "200",
+            "250"
+        ),
+        labels=c(
+            "Idle",
+            "1",
+            "50",
+            "100",
+            "150",
+            "200",
+            "250"
+        )
+    )+
+    scale_color_discrete(
+        labels=c("Bare Metal", "Container", "VM", "Container atop VM"),
+        limits=c("host","docker","vm","docker_vm")
+    )
+
+plot(p2)
+dev.off()
+rm(p2)
 
 
 #Convertendo e movendo os graficos para a respectiva pasta

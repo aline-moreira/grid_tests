@@ -163,24 +163,78 @@ p1 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
             "60G",
             "80G"
         ))
-        # labels=c(
-    #         "Idle",
-    #         "1GB",
-    #         "5GB",
-    #         "10GB",
-    #         "20GB",
-    #         "30GB",
-    #         "40GB",
-    #         "50GB",
-    #         "60GB",
-    #         "70GB",
-    #         "80GB"
-    #     ))
+# labels=c(
+#         "Idle",
+#         "1GB",
+#         "5GB",
+#         "10GB",
+#         "20GB",
+#         "30GB",
+#         "40GB",
+#         "50GB",
+#         "60GB",
+#         "70GB",
+#         "80GB"
+#     ))
 
 plot(p1)
 dev.off()
 
 rm(p1)
+
+tiff("fio_multiplatform_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p2 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
+    geom_boxplot(outlier.shape=NA, notch=FALSE)+
+    theme_classic()+
+    theme(
+        legend.position="top",
+        axis.text.x = element_text(
+            angle = 0,
+            hjust = 0.7,
+            size=10
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    labs(
+        x="I/O (GB)",
+        y="Consumption(Watts/s)",
+        color= "#Containers"
+    )+
+    # scale_y_continuous(limits=c(175,400), breaks=seq(175,425,25))#+
+    scale_x_discrete(
+        limits=c(
+            "Idle",
+            "60G",
+            "80G"
+        ))
+# labels=c(
+#         "Idle",
+#         "1GB",
+#         "5GB",
+#         "10GB",
+#         "20GB",
+#         "30GB",
+#         "40GB",
+#         "50GB",
+#         "60GB",
+#         "70GB",
+#         "80GB"
+#     ))
+
+plot(p2)
+dev.off()
+
+rm(p2)
 
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
 system("rm *.tiff")

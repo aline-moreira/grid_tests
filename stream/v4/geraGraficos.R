@@ -540,6 +540,89 @@ plot(p2)
 dev.off()
 rm(p2)
 
+tiff("consumo_energia_benchmarks_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p3 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
+    geom_abline( mapping=aes(slope=0, intercept=summary(idle$consumo)[[3]], colour=idle$teste[[1]]), linetype="dashed")+
+    geom_boxplot(outlier.shape = NA)+
+    theme_classic()+
+    theme(
+        legend.position="top",
+        axis.text.x = element_text(
+            angle = 90,
+            hjust = 0.7,
+            size=10
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    labs(
+        x="CPU and Memory container settings",
+        y="Consumption(Watts/s)",
+        color="Benchmark"
+    )+
+    scale_color_brewer(palette="Dark2")+
+    scale_y_continuous(limits=c(150,550), breaks=seq(0,550,50))+
+    scale_x_discrete(
+        limits=c(
+            "0.25 0.5",
+            "0.25 1",
+            "0.25 2",
+            "0.25 NA",
+            "0.5 1",
+            "0.5 2",
+            "0.5 3",
+            "0.5 4",
+            "0.5 NA",
+            "1 2",
+            "1 4",
+            "1 8",
+            "1 NA",
+            "2 4",
+            "2 8",
+            "2 16",
+            "2 NA",
+            "4 4",
+            "4 16",
+            "4 32",
+            "4 NA"
+        ),
+        labels=c(
+            "0.25 CPUs\n0.5Gb RAM",
+            "0.25 CPUs\n1Gb RAM",
+            "0.25 CPUs\n2Gb RAM",
+            "0.25 CPUs",
+            "0.5 CPUs\n1Gb RAM",
+            "0.5 CPUs\n2Gb RAM",
+            "0.5 CPUs\n3Gb RAM",
+            "0.5 CPUs\n4Gb RAM",
+            "0.5 CPUs",
+            "1 CPUs\n2Gb RAM",
+            "1 CPUs\n4Gb RAM",
+            "1 CPUs\n8Gb RAM",
+            "1 CPUs",
+            "2 CPUs\n4Gb RAM",
+            "2 CPUs\n8Gb RAM",
+            "2 CPUs\n16Gb RAM",
+            "2 CPUs",
+            "4 CPUs\n4Gb RAM",
+            "4 CPUs\n16Gb RAM",
+            "4 CPUs\n30Gb RAM",
+            "4 CPUs"
+        ))
+
+plot(p3)
+dev.off()
+rm(p3)
+
 #Convertendo e movendo os graficos para a respectiva pasta
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
 system("mv *.png graficos")
