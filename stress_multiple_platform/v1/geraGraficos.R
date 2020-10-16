@@ -62,7 +62,7 @@ idle_host <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==0 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==0 & times$plataforma=='host']
 )
-idle_host$plataforma <- "Host"
+idle_host$plataforma <- "1-Host"
 idle_host$cpus <- 0
 q <- quantile(idle_host$consumo, c(0.1, 0.9))
 idle_host <- idle_host[idle_host$consumo >= q[1] & idle_host$consumo <= q[2], ]
@@ -71,7 +71,7 @@ host_1 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==1 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==1 & times$plataforma=='host']
 )
-host_1$plataforma <- "Host"
+host_1$plataforma <- "1-Host"
 host_1$cpus <- 1
 q <- quantile(host_1$consumo, c(0.1, 0.9))
 host_1 <- host_1[host_1$consumo >= q[1] & host_1$consumo <= q[2], ]
@@ -81,7 +81,7 @@ host_2 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==2 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==2 & times$plataforma=='host']
 )
-host_2$plataforma <- "Host"
+host_2$plataforma <- "1-Host"
 host_2$cpus <- 2
 q <- quantile(host_2$consumo, c(0.1, 0.9))
 host_2 <- host_2[host_2$consumo >= q[1] & host_2$consumo <= q[2], ]
@@ -91,7 +91,7 @@ host_4 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==4 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==4 & times$plataforma=='host']
 )
-host_4$plataforma <- "Host"
+host_4$plataforma <- "1-Host"
 host_4$cpus <- 4
 q <- quantile(host_4$consumo, c(0.1, 0.9))
 host_4 <- host_4[host_4$consumo >= q[1] & host_4$consumo <= q[2], ]
@@ -100,7 +100,7 @@ host_8 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==8 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==8 & times$plataforma=='host']
 )
-host_8$plataforma <- "Host"
+host_8$plataforma <- "1-Host"
 host_8$cpus <- 8
 q <- quantile(host_8$consumo, c(0.1, 0.9))
 host_8 <- host_8[host_8$consumo >= q[1] & host_8$consumo <= q[2], ]
@@ -109,7 +109,7 @@ host_16 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==16 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==16 & times$plataforma=='host']
 )
-host_16$plataforma <- "Host"
+host_16$plataforma <- "1-Host"
 host_16$cpus <- 16
 q <- quantile(host_16$consumo, c(0.1, 0.9))
 host_16 <- host_16[host_16$consumo >= q[1] & host_16$consumo <= q[2], ]
@@ -118,7 +118,7 @@ host_32 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==32 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==32 & times$plataforma=='host']
 )
-host_32$plataforma <- "Host"
+host_32$plataforma <- "1-Host"
 host_32$cpus <- 32
 q <- quantile(host_32$consumo, c(0.1, 0.9))
 host_32 <- host_32[host_32$consumo >= q[1] & host_32$consumo <= q[2], ]
@@ -127,7 +127,7 @@ host_64 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==64 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==64 & times$plataforma=='host']
 )
-host_64$plataforma <- "Host"
+host_64$plataforma <- "1-Host"
 host_64$cpus <- 64
 q <- quantile(host_64$consumo, c(0.1, 0.9))
 host_64 <- host_64[host_64$consumo >= q[1] & host_64$consumo <= q[2], ]
@@ -136,7 +136,7 @@ host_128 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==128 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$cpu==128 & times$plataforma=='host']
 )
-host_128$plataforma <- "Host"
+host_128$plataforma <- "1-Host"
 host_128$cpus <- 128
 q <- quantile(host_128$consumo, c(0.1, 0.9))
 host_128 <- host_128[host_128$consumo >= q[1] & host_128$consumo <= q[2], ]
@@ -146,7 +146,7 @@ idle_vm <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==0 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==0 & times$plataforma=='vm']
 )
-idle_vm$plataforma <- "MV"
+idle_vm$plataforma <- "3-MV"
 idle_vm$cpus <- 0
 q <- quantile(idle_vm$consumo, c(0.1, 0.9))
 idle_vm <- idle_vm[idle_vm$consumo >= q[1] & idle_vm$consumo <= q[2], ]
@@ -155,7 +155,7 @@ vm_1 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==1 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==1 & times$plataforma=='vm']
 )
-vm_1$plataforma <- "MV"
+vm_1$plataforma <- "3-MV"
 vm_1$cpus <- 1
 q <- quantile(vm_1$consumo, c(0.1, 0.9))
 vm_1 <- vm_1[vm_1$consumo >= q[1] & vm_1$consumo <= q[2], ]
@@ -165,7 +165,7 @@ vm_2 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==2 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==2 & times$plataforma=='vm']
 )
-vm_2$plataforma <- "MV"
+vm_2$plataforma <- "3-MV"
 vm_2$cpus <- 2
 q <- quantile(vm_2$consumo, c(0.1, 0.9))
 vm_2 <- vm_2[vm_2$consumo >= q[1] & vm_2$consumo <= q[2], ]
@@ -175,7 +175,7 @@ vm_4 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==4 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==4 & times$plataforma=='vm']
 )
-vm_4$plataforma <- "MV"
+vm_4$plataforma <- "3-MV"
 vm_4$cpus <- 4
 q <- quantile(vm_4$consumo, c(0.1, 0.9))
 vm_4 <- vm_4[vm_4$consumo >= q[1] & vm_4$consumo <= q[2], ]
@@ -185,7 +185,7 @@ vm_8 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==8 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==8 & times$plataforma=='vm']
 )
-vm_8$plataforma <- "MV"
+vm_8$plataforma <- "3-MV"
 vm_8$cpus <- 8
 q <- quantile(vm_8$consumo, c(0.1, 0.9))
 vm_8 <- vm_8[vm_8$consumo >= q[1] & vm_8$consumo <= q[2], ]
@@ -195,7 +195,7 @@ vm_16 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==16 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==16 & times$plataforma=='vm']
 )
-vm_16$plataforma <- "MV"
+vm_16$plataforma <- "3-MV"
 vm_16$cpus <- 16
 q <- quantile(vm_16$consumo, c(0.1, 0.9))
 vm_16 <- vm_16[vm_16$consumo >= q[1] & vm_16$consumo <= q[2], ]
@@ -205,7 +205,7 @@ vm_32 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==32 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==32 & times$plataforma=='vm']
 )
-vm_32$plataforma <- "MV"
+vm_32$plataforma <- "3-MV"
 vm_32$cpus <- 32
 q <- quantile(vm_32$consumo, c(0.1, 0.9))
 vm_32 <- vm_32[vm_32$consumo >= q[1] & vm_32$consumo <= q[2], ]
@@ -215,7 +215,7 @@ vm_64 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==64 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==64 & times$plataforma=='vm']
 )
-vm_64$plataforma <- "MV"
+vm_64$plataforma <- "3-MV"
 vm_64$cpus <- 64
 q <- quantile(vm_64$consumo, c(0.1, 0.9))
 vm_64 <- vm_64[vm_64$consumo >= q[1] & vm_64$consumo <= q[2], ]
@@ -225,7 +225,7 @@ vm_128 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==128 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$cpu==128 & times$plataforma=='vm']
 )
-vm_128$plataforma <- "MV"
+vm_128$plataforma <- "3-MV"
 vm_128$cpus <- 128
 q <- quantile(vm_128$consumo, c(0.1, 0.9))
 vm_128 <- vm_128[vm_128$consumo >= q[1] & vm_128$consumo <= q[2], ]
@@ -236,7 +236,7 @@ idle_docker <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==0 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==0 & times$plataforma=='docker']
 )
-idle_docker$plataforma <- "Docker"
+idle_docker$plataforma <- "2-Docker"
 idle_docker$cpus <- 0
 q <- quantile(idle_docker$consumo, c(0.1, 0.9))
 idle_docker <- idle_docker[idle_docker$consumo >= q[1] & idle_docker$consumo <= q[2], ]
@@ -245,7 +245,7 @@ docker_1 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==1 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==1 & times$plataforma=='docker']
 )
-docker_1$plataforma <- "Docker"
+docker_1$plataforma <- "2-Docker"
 docker_1$cpus <- 1
 q <- quantile(docker_1$consumo, c(0.1, 0.9))
 docker_1 <- docker_1[docker_1$consumo >= q[1] & docker_1$consumo <= q[2], ]
@@ -255,7 +255,7 @@ docker_2 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==2 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==2 & times$plataforma=='docker']
 )
-docker_2$plataforma <- "Docker"
+docker_2$plataforma <- "2-Docker"
 docker_2$cpus <- 2
 q <- quantile(docker_2$consumo, c(0.1, 0.9))
 docker_2 <- docker_2[docker_2$consumo >= q[1] & docker_2$consumo <= q[2], ]
@@ -265,7 +265,7 @@ docker_4 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==4 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==4 & times$plataforma=='docker']
 )
-docker_4$plataforma <- "Docker"
+docker_4$plataforma <- "2-Docker"
 docker_4$cpus <- 4
 q <- quantile(docker_4$consumo, c(0.1, 0.9))
 docker_4 <- docker_4[docker_4$consumo >= q[1] & docker_4$consumo <= q[2], ]
@@ -274,7 +274,7 @@ docker_8 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==8 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==8 & times$plataforma=='docker']
 )
-docker_8$plataforma <- "Docker"
+docker_8$plataforma <- "2-Docker"
 docker_8$cpus <- 8
 q <- quantile(docker_8$consumo, c(0.1, 0.9))
 docker_8 <- docker_8[docker_8$consumo >= q[1] & docker_8$consumo <= q[2], ]
@@ -283,7 +283,7 @@ docker_16 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==16 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==16 & times$plataforma=='docker']
 )
-docker_16$plataforma <- "Docker"
+docker_16$plataforma <- "2-Docker"
 docker_16$cpus <- 16
 q <- quantile(docker_16$consumo, c(0.1, 0.9))
 docker_16 <- docker_16[docker_16$consumo >= q[1] & docker_16$consumo <= q[2], ]
@@ -292,7 +292,7 @@ docker_32 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==32 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==32 & times$plataforma=='docker']
 )
-docker_32$plataforma <- "Docker"
+docker_32$plataforma <- "2-Docker"
 docker_32$cpus <- 32
 q <- quantile(docker_32$consumo, c(0.1, 0.9))
 docker_32 <- docker_32[docker_32$consumo >= q[1] & docker_32$consumo <= q[2], ]
@@ -301,7 +301,7 @@ docker_64 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==64 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==64 & times$plataforma=='docker']
 )
-docker_64$plataforma <- "Docker"
+docker_64$plataforma <- "2-Docker"
 docker_64$cpus <- 64
 q <- quantile(docker_64$consumo, c(0.1, 0.9))
 docker_64 <- docker_64[docker_64$consumo >= q[1] & docker_64$consumo <= q[2], ]
@@ -310,7 +310,7 @@ docker_128 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==128 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$cpu==128 & times$plataforma=='docker']
 )
-docker_128$plataforma <- "Docker"
+docker_128$plataforma <- "2-Docker"
 docker_128$cpus <- 128
 q <- quantile(docker_128$consumo, c(0.1, 0.9))
 docker_128 <- docker_128[docker_128$consumo >= q[1] & docker_128$consumo <= q[2], ]
@@ -320,7 +320,7 @@ idle_vm_docker <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==0 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==0 & times$plataforma=='vm_docker']
 )
-idle_vm_docker$plataforma <- "Docker sobre MV"
+idle_vm_docker$plataforma <- "4-Docker sobre MV"
 idle_vm_docker$cpus <- 0
 q <- quantile(idle_vm_docker$consumo, c(0.1, 0.9))
 idle_vm_docker <- idle_vm_docker[idle_vm_docker$consumo >= q[1] & idle_vm_docker$consumo <= q[2], ]
@@ -329,7 +329,7 @@ vm_docker_1 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==1 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==1 & times$plataforma=='vm_docker']
 )
-vm_docker_1$plataforma <- "Docker sobre MV"
+vm_docker_1$plataforma <- "4-Docker sobre MV"
 vm_docker_1$cpus <- 1
 q <- quantile(vm_docker_1$consumo, c(0.1, 0.9))
 vm_docker_1 <- vm_docker_1[vm_docker_1$consumo >= q[1] & vm_docker_1$consumo <= q[2], ]
@@ -338,7 +338,7 @@ vm_docker_2 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==2 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==2 & times$plataforma=='vm_docker']
 )
-vm_docker_2$plataforma <- "Docker sobre MV"
+vm_docker_2$plataforma <- "4-Docker sobre MV"
 vm_docker_2$cpus <- 2
 q <- quantile(vm_docker_2$consumo, c(0.1, 0.9))
 vm_docker_2 <- vm_docker_2[vm_docker_2$consumo >= q[1] & vm_docker_2$consumo <= q[2], ]
@@ -348,7 +348,7 @@ vm_docker_4 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==4 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==4 & times$plataforma=='vm_docker']
 )
-vm_docker_4$plataforma <- "Docker sobre MV"
+vm_docker_4$plataforma <- "4-Docker sobre MV"
 vm_docker_4$cpus <- 4
 q <- quantile(vm_docker_4$consumo, c(0.1, 0.9))
 vm_docker_4 <- vm_docker_4[vm_docker_4$consumo >= q[1] & vm_docker_4$consumo <= q[2], ]
@@ -358,7 +358,7 @@ vm_docker_8 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==8 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==8 & times$plataforma=='vm_docker']
 )
-vm_docker_8$plataforma <- "Docker sobre MV"
+vm_docker_8$plataforma <- "4-Docker sobre MV"
 vm_docker_8$cpus <- 8
 q <- quantile(vm_docker_8$consumo, c(0.1, 0.9))
 vm_docker_8 <- vm_docker_8[vm_docker_8$consumo >= q[1] & vm_docker_8$consumo <= q[2], ]
@@ -368,7 +368,7 @@ vm_docker_16 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==16 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==16 & times$plataforma=='vm_docker']
 )
-vm_docker_16$plataforma <- "Docker sobre MV"
+vm_docker_16$plataforma <- "4-Docker sobre MV"
 vm_docker_16$cpus <- 16
 q <- quantile(vm_docker_16$consumo, c(0.1, 0.9))
 vm_docker_16 <- vm_docker_16[vm_docker_16$consumo >= q[1] & vm_docker_16$consumo <= q[2], ]
@@ -378,7 +378,7 @@ vm_docker_32 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==32 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==32 & times$plataforma=='vm_docker']
 )
-vm_docker_32$plataforma <- "Docker sobre MV"
+vm_docker_32$plataforma <- "4-Docker sobre MV"
 vm_docker_32$cpus <- 32
 q <- quantile(vm_docker_32$consumo, c(0.1, 0.9))
 vm_docker_32 <- vm_docker_32[vm_docker_32$consumo >= q[1] & vm_docker_32$consumo <= q[2], ]
@@ -388,7 +388,7 @@ vm_docker_64 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==64 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==64 & times$plataforma=='vm_docker']
 )
-vm_docker_64$plataforma <- "Docker sobre MV"
+vm_docker_64$plataforma <- "4-Docker sobre MV"
 vm_docker_64$cpus <- 64
 q <- quantile(vm_docker_64$consumo, c(0.1, 0.9))
 vm_docker_64 <- vm_docker_64[vm_docker_64$consumo >= q[1] & vm_docker_64$consumo <= q[2], ]
@@ -398,7 +398,7 @@ vm_docker_128 <- energy %>% filter(
     energy$tempo >= times$start[times$cpu==128 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$cpu==128 & times$plataforma=='vm_docker']
 )
-vm_docker_128$plataforma <- "Docker sobre MV"
+vm_docker_128$plataforma <- "4-Docker sobre MV"
 vm_docker_128$cpus <- 128
 q <- quantile(vm_docker_128$consumo, c(0.1, 0.9))
 vm_docker_128 <- vm_docker_128[vm_docker_128$consumo >= q[1] & vm_docker_128$consumo <= q[2], ]
@@ -594,7 +594,7 @@ p2 <- ggplot(data=dt_tests, aes(x=as.factor(cpus), y=consumo, color=plataforma))
             "128"
         ))+
     scale_color_discrete(
-        limits=c("Host","Docker","MV","Docker sobre MV"),
+        limits=c("1-Host","2-Docker","3-MV","4-Docker sobre MV"),
         labels=c("Bare Metal","Container","VM","Container atop VM")
     )
 
@@ -604,4 +604,5 @@ dev.off()
 rm(p2)
 
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
+system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
 system("rm *.tiff")

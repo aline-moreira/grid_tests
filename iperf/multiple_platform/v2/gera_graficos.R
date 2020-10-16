@@ -53,7 +53,7 @@ idle_host <- energy %>% filter(
     energy$tempo >= times$start[times$banda==0 & times$plataforma=='host'] &
         energy$tempo <= times$end[times$banda==0 & times$plataforma=='host']
 )
-idle_host$plataforma <- "Host"
+idle_host$plataforma <- "1-host"
 idle_host$banda <- "Idle"
 q <- quantile(idle_host$consumo, c(0.1, 0.9))
 idle_host <- idle_host[idle_host$consumo >= q[1] & idle_host$consumo <= q[2], ]
@@ -62,7 +62,7 @@ host_1 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="1M" & times$plataforma=='host'] &
         energy$tempo <= times$end[times$banda=="1M" & times$plataforma=='host']
 )
-host_1$plataforma <- "Host"
+host_1$plataforma <- "1-host"
 host_1$banda <- "1Mb"
 q <- quantile(host_1$consumo, c(0.1, 0.9))
 host_1 <- host_1[host_1$consumo >= q[1] & host_1$consumo <= q[2], ]
@@ -72,7 +72,7 @@ host_10 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="10M" & times$plataforma=='host'] &
         energy$tempo <= times$end[times$banda=="10M" & times$plataforma=='host']
 )
-host_10$plataforma <- "Host"
+host_10$plataforma <- "1-host"
 host_10$banda <- "10Mb"
 q <- quantile(host_10$consumo, c(0.1, 0.9))
 host_10 <- host_10[host_10$consumo >= q[1] & host_10$consumo <= q[2], ]
@@ -82,7 +82,7 @@ host_100 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="100M" & times$plataforma=='host'] &
         energy$tempo <= times$end[times$banda=="100M" & times$plataforma=='host']
 )
-host_100$plataforma <- "Host"
+host_100$plataforma <- "1-host"
 host_100$banda <- "100Mb"
 q <- quantile(host_100$consumo, c(0.1, 0.9))
 host_100 <- host_100[host_100$consumo >= q[1] & host_100$consumo <= q[2], ]
@@ -92,7 +92,7 @@ host_1000 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="1000M" & times$plataforma=='host'] &
         energy$tempo <= times$end[times$banda=="1000M" & times$plataforma=='host']
 )
-host_1000$plataforma <- "Host"
+host_1000$plataforma <- "1-host"
 host_1000$banda <- "1.000Mb"
 q <- quantile(host_1000$consumo, c(0.1, 0.9))
 host_1000 <- host_1000[host_1000$consumo >= q[1] & host_1000$consumo <= q[2], ]
@@ -101,7 +101,7 @@ host_10000 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="10000M" & times$plataforma=='host'] &
         energy$tempo <= times$end[times$banda=="10000M" & times$plataforma=='host']
 )
-host_10000$plataforma <- "Host"
+host_10000$plataforma <- "1-host"
 host_10000$banda <- "10.000Mb"
 q <- quantile(host_10000$consumo, c(0.1, 0.9))
 host_10000 <- host_10000[host_10000$consumo >= q[1] & host_10000$consumo <= q[2], ]
@@ -111,7 +111,7 @@ idle_vm <- energy %>% filter(
     energy$tempo >= times$start[times$banda==0 & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$banda==0 & times$plataforma=='vm']
 )
-idle_vm$plataforma <- "vm"
+idle_vm$plataforma <- "3-vm"
 idle_vm$banda <- "Idle"
 q <- quantile(idle_vm$consumo, c(0.1, 0.9))
 idle_vm <- idle_vm[idle_vm$consumo >= q[1] & idle_vm$consumo <= q[2], ]
@@ -120,7 +120,7 @@ vm_1 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="1M" & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$banda=="1M" & times$plataforma=='vm']
 )
-vm_1$plataforma <- "vm"
+vm_1$plataforma <- "3-vm"
 vm_1$banda <- "1Mb"
 q <- quantile(vm_1$consumo, c(0.1, 0.9))
 vm_1 <- vm_1[vm_1$consumo >= q[1] & vm_1$consumo <= q[2], ]
@@ -129,7 +129,7 @@ vm_10 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="10M" & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$banda=="10M" & times$plataforma=='vm']
 )
-vm_10$plataforma <- "vm"
+vm_10$plataforma <- "3-vm"
 vm_10$banda <- "10Mb"
 q <- quantile(vm_10$consumo, c(0.1, 0.9))
 vm_10 <- vm_10[vm_10$consumo >= q[1] & vm_10$consumo <= q[2], ]
@@ -139,7 +139,7 @@ vm_100 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="100M" & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$banda=="100M" & times$plataforma=='vm']
 )
-vm_100$plataforma <- "vm"
+vm_100$plataforma <- "3-vm"
 vm_100$banda <- "100Mb"
 q <- quantile(vm_100$consumo, c(0.1, 0.9))
 vm_100 <- vm_100[vm_100$consumo >= q[1] & vm_100$consumo <= q[2], ]
@@ -148,7 +148,7 @@ vm_1000 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="1000M" & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$banda=="1000M" & times$plataforma=='vm']
 )
-vm_1000$plataforma <- "vm"
+vm_1000$plataforma <- "3-vm"
 vm_1000$banda <- "1.000Mb"
 q <- quantile(vm_1000$consumo, c(0.1, 0.9))
 vm_1000 <- vm_1000[vm_1000$consumo >= q[1] & vm_1000$consumo <= q[2], ]
@@ -157,7 +157,7 @@ vm_10000 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="10000M" & times$plataforma=='vm'] &
         energy$tempo <= times$end[times$banda=="10000M" & times$plataforma=='vm']
 )
-vm_10000$plataforma <- "vm"
+vm_10000$plataforma <- "3-vm"
 vm_10000$banda <- "10.000Mb"
 q <- quantile(vm_10000$consumo, c(0.1, 0.9))
 vm_10000 <- vm_10000[vm_10000$consumo >= q[1] & vm_10000$consumo <= q[2], ]
@@ -167,7 +167,7 @@ idle_docker <- energy %>% filter(
     energy$tempo >= times$start[times$banda==0 & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$banda==0 & times$plataforma=='docker']
 )
-idle_docker$plataforma <- "docker"
+idle_docker$plataforma <- "2-docker"
 idle_docker$banda <- "Idle"
 q <- quantile(idle_docker$consumo, c(0.1, 0.9))
 idle_docker <- idle_docker[idle_docker$consumo >= q[1] & idle_docker$consumo <= q[2], ]
@@ -176,7 +176,7 @@ docker_1 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="1M" & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$banda=="1M" & times$plataforma=='docker']
 )
-docker_1$plataforma <- "docker"
+docker_1$plataforma <- "2-docker"
 docker_1$banda <- "1Mb"
 q <- quantile(docker_1$consumo, c(0.1, 0.9))
 docker_1 <- docker_1[docker_1$consumo >= q[1] & docker_1$consumo <= q[2], ]
@@ -185,7 +185,7 @@ docker_10 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="10M" & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$banda=="10M" & times$plataforma=='docker']
 )
-docker_10$plataforma <- "docker"
+docker_10$plataforma <- "2-docker"
 docker_10$banda <- "10Mb"
 q <- quantile(docker_10$consumo, c(0.1, 0.9))
 docker_10 <- docker_10[docker_10$consumo >= q[1] & docker_10$consumo <= q[2], ]
@@ -195,7 +195,7 @@ docker_100 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="100M" & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$banda=="100M" & times$plataforma=='docker']
 )
-docker_100$plataforma <- "docker"
+docker_100$plataforma <- "2-docker"
 docker_100$banda <- "100Mb"
 q <- quantile(docker_100$consumo, c(0.1, 0.9))
 docker_100 <- docker_100[docker_100$consumo >= q[1] & docker_100$consumo <= q[2], ]
@@ -204,7 +204,7 @@ docker_1000 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="1000M" & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$banda=="1000M" & times$plataforma=='docker']
 )
-docker_1000$plataforma <- "docker"
+docker_1000$plataforma <- "2-docker"
 docker_1000$banda <- "1.000Mb"
 q <- quantile(docker_1000$consumo, c(0.1, 0.9))
 docker_1000 <- docker_1000[docker_1000$consumo >= q[1] & docker_1000$consumo <= q[2], ]
@@ -214,7 +214,7 @@ docker_10000 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="10000M" & times$plataforma=='docker'] &
         energy$tempo <= times$end[times$banda=="10000M" & times$plataforma=='docker']
 )
-docker_10000$plataforma <- "docker"
+docker_10000$plataforma <- "2-docker"
 docker_10000$banda <- "10.000Mb"
 q <- quantile(docker_10000$consumo, c(0.1, 0.9))
 docker_10000 <- docker_10000[docker_10000$consumo >= q[1] & docker_10000$consumo <= q[2], ]
@@ -223,7 +223,7 @@ idle_vm_docker <- energy %>% filter(
     energy$tempo >= times$start[times$banda==0 & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$banda==0 & times$plataforma=='vm_docker']
 )
-idle_vm_docker$plataforma <- "vm_docker"
+idle_vm_docker$plataforma <- "4-vm_docker"
 idle_vm_docker$banda <- "Idle"
 q <- quantile(idle_vm_docker$consumo, c(0.1, 0.9))
 idle_vm_docker <- idle_vm_docker[idle_vm_docker$consumo >= q[1] & idle_vm_docker$consumo <= q[2], ]
@@ -232,7 +232,7 @@ vm_docker_1 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="1M" & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$banda=="1M" & times$plataforma=='vm_docker']
 )
-vm_docker_1$plataforma <- "vm_docker"
+vm_docker_1$plataforma <- "4-vm_docker"
 vm_docker_1$banda <- "1Mb"
 q <- quantile(vm_docker_1$consumo, c(0.1, 0.9))
 vm_docker_1 <- vm_docker_1[vm_docker_1$consumo >= q[1] & vm_docker_1$consumo <= q[2], ]
@@ -241,7 +241,7 @@ vm_docker_10 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="10M" & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$banda=="10M" & times$plataforma=='vm_docker']
 )
-vm_docker_10$plataforma <- "vm_docker"
+vm_docker_10$plataforma <- "4-vm_docker"
 vm_docker_10$banda <- "10Mb"
 q <- quantile(vm_docker_10$consumo, c(0.1, 0.9))
 vm_docker_10 <- vm_docker_10[vm_docker_10$consumo >= q[1] & vm_docker_10$consumo <= q[2], ]
@@ -251,7 +251,7 @@ vm_docker_100 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="100M" & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$banda=="100M" & times$plataforma=='vm_docker']
 )
-vm_docker_100$plataforma <- "vm_docker"
+vm_docker_100$plataforma <- "4-vm_docker"
 vm_docker_100$banda <- "100Mb"
 q <- quantile(vm_docker_100$consumo, c(0.1, 0.9))
 vm_docker_100 <- vm_docker_100[vm_docker_100$consumo >= q[1] & vm_docker_100$consumo <= q[2], ]
@@ -260,7 +260,7 @@ vm_docker_1000 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="1000M" & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$banda=="1000M" & times$plataforma=='vm_docker']
 )
-vm_docker_1000$plataforma <- "vm_docker"
+vm_docker_1000$plataforma <- "4-vm_docker"
 vm_docker_1000$banda <- "1.000Mb"
 q <- quantile(vm_docker_1000$consumo, c(0.1, 0.9))
 vm_docker_1000 <- vm_docker_1000[vm_docker_1000$consumo >= q[1] & vm_docker_1000$consumo <= q[2], ]
@@ -269,7 +269,7 @@ vm_docker_10000 <- energy %>% filter(
     energy$tempo >= times$start[times$banda=="10000M" & times$plataforma=='vm_docker'] &
         energy$tempo <= times$end[times$banda=="10000M" & times$plataforma=='vm_docker']
 )
-vm_docker_10000$plataforma <- "vm_docker"
+vm_docker_10000$plataforma <- "4-vm_docker"
 vm_docker_10000$banda <- "10.000Mb"
 q <- quantile(vm_docker_10000$consumo, c(0.1, 0.9))
 vm_docker_10000 <- vm_docker_10000[vm_docker_10000$consumo >= q[1] & vm_docker_10000$consumo <= q[2], ]
@@ -352,7 +352,7 @@ p1 <- ggplot(data=dt_tests, aes(x=as.factor(banda), y=consumo, color=plataforma)
         y="Consumo (W/s)",
         color= "Plataforma"
     )+
-    scale_y_continuous(limits=c(175,750), breaks=seq(175,775,50))+
+    scale_y_continuous(limits=c(175,400), breaks=seq(175,400,25))+
     scale_x_discrete(
         limits=c(
             "Idle",
@@ -363,7 +363,7 @@ p1 <- ggplot(data=dt_tests, aes(x=as.factor(banda), y=consumo, color=plataforma)
             "10.000Mb"
         ))+
     scale_color_discrete(
-        limits=c("Host","docker","vm","vm_docker"),
+        limits=c("1-host","2-docker","3-vm","4-vm_docker"),
         labels=c("Bare Metal","Contêiner","MV","Contêiner sobre MV")
     )
 
@@ -400,7 +400,7 @@ p2 <- ggplot(data=dt_tests, aes(x=as.factor(banda), y=consumo, color=plataforma)
         y="Consumption(Watts/s)",
         color= "Platform"
     )+
-    scale_y_continuous(limits=c(175,750), breaks=seq(175,775,50))+
+    scale_y_continuous(limits=c(175,400), breaks=seq(175,400,25))+
     scale_x_discrete(
         limits=c(
             "Idle",
@@ -411,7 +411,7 @@ p2 <- ggplot(data=dt_tests, aes(x=as.factor(banda), y=consumo, color=plataforma)
             "10.000Mb"
         ))+
     scale_color_discrete(
-        limits=c("Host","docker","vm","vm_docker"),
+        limits=c("1-host","2-docker","3-vm","4-vm_docker"),
         labels=c("Bare Metal","Container","VM","Container atop VM")
     )
 
@@ -421,4 +421,5 @@ dev.off()
 rm(p2)
 
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
+system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
 system("rm *.tiff")
