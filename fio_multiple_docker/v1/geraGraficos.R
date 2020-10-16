@@ -45,7 +45,7 @@ idle_docker <- energy %>% filter(
         energy$tempo <= times$end[times$dockers==0 & times$IO==0]
 )
 idle_docker$IO <- "idle"
-idle_docker$dockers <- 0
+idle_docker$dockers <- "Idle"
 idle_docker$total <- "Idle"
 q <- quantile(idle_docker$consumo, c(0.1, 0.9))
 idle_docker <- idle_docker[idle_docker$consumo >= q[1] & idle_docker$consumo <= q[2], ]
@@ -130,7 +130,7 @@ rm(docker_2_40)
 
 tiff("fio_multiplatform_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p1 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
-    geom_boxplot(outlier.shape=NA, notch=FALSE)+
+    geom_boxplot(outlier.shape=NA, notch=FALSE,  position = position_dodge2(preserve = "single"))+
     theme_classic()+
     theme(
         legend.position="top",
@@ -156,12 +156,12 @@ p1 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
         y="Consumo (W/s)",
         color= "Quantidade de contêineres"
     )+
-    # scale_y_continuous(limits=c(175,400), breaks=seq(175,425,25))#+
+    scale_y_continuous(limits=c(175,450), breaks=seq(175,450,25))+
     scale_x_discrete(
         limits=c(
-            "Idle",
             "60G",
-            "80G"
+            "80G",
+            "Idle"
         ))
 # labels=c(
 #         "Idle",
@@ -184,7 +184,7 @@ rm(p1)
 
 tiff("fio_multiplatform_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p2 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
-    geom_boxplot(outlier.shape=NA, notch=FALSE)+
+    geom_boxplot(outlier.shape=NA, notch=FALSE, position = position_dodge2(preserve = "single"))+
     theme_classic()+
     theme(
         legend.position="top",
@@ -210,12 +210,12 @@ p2 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
         y="Consumption(Watts/s)",
         color= "#Containers"
     )+
-    # scale_y_continuous(limits=c(175,400), breaks=seq(175,425,25))#+
+    scale_y_continuous(limits=c(175,450), breaks=seq(175,450,25))+
     scale_x_discrete(
         limits=c(
-            "Idle",
             "60G",
-            "80G"
+            "80G",
+            "Idle"
         ))
 # labels=c(
 #         "Idle",
@@ -237,4 +237,5 @@ dev.off()
 rm(p2)
 
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
+system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
 system("rm *.tiff")
