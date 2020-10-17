@@ -242,5 +242,5 @@ dev.off()
 rm(p2)
 
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
+system("for f in *.png; do convert $f ${f%.*}.pdf; done;")
 system("rm *.tiff")

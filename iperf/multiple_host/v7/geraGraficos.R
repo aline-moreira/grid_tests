@@ -820,5 +820,5 @@ consumo_cpu_bench <- data.frame(consumo_cpu=double(),
 rm(p1)
 
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
+system("for f in *.png; do convert $f ${f%.*}.pdf; done;")
 system("rm *.tiff")

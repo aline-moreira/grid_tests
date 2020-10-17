@@ -121,26 +121,26 @@ somas <- data.frame(somas, c("grid","grid","grid","grid",
                              "aws10","aws10","aws10","aws10",
                              "aws15","aws15","aws15","aws15"
 ), 
-                    c(8,16,24,32,
-                      8,16,24,32,
-                      8,16,24,32,
-                      8,16,24,32
+                    c(8192,16384,24576,32768,
+                      8192,16384,24576,32768,
+                      8192,16384,24576,32768,
+                      8192,16384,24576,32768
                       ))
 somas_dolar <- data.frame(somas_dolar, c("grid","grid","grid","grid",
                              "aws5","aws5","aws5","aws5",
                              "aws10","aws10","aws10","aws10",
                              "aws15","aws15","aws15","aws15"
                         ), 
-                        c(8,16,24,32,
-                          8,16,24,32,
-                          8,16,24,32,
-                          8,16,24,32
+                        c(8192,16384,24576,32768,
+                          8192,16384,24576,32768,
+                          8192,16384,24576,32768,
+                          8192,16384,24576,32768
                         ))
-names(somas) <- c("Preço","ModeloCusto","ram")
-names(somas_dolar) <- c("Preço","ModeloCusto","ram")
+names(somas) <- c("Preço","ModeloCusto","Containers")
+names(somas_dolar) <- c("Preço","ModeloCusto","Containers")
 
 tiff("precoKubernetes.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-p1 <- ggplot(data=somas, aes(x=ram, y=Preço, color = ModeloCusto ))+
+p1 <- ggplot(data=somas, aes(x=Containers, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
     theme_classic()+
@@ -171,10 +171,7 @@ p1 <- ggplot(data=somas, aes(x=ram, y=Preço, color = ModeloCusto ))+
     #scale_y_continuous(limits=c(0.025,0.09), breaks=seq(0.025,0.09,0.005))+
     scale_x_continuous(
         breaks=c(
-            8,
-            16,
-            24,
-            32
+            8192,16384,24576,32768
         ),
         labels=c(
             "25%",
@@ -192,7 +189,7 @@ dev.off()
 
 rm(p1)
 tiff("precoKubernetes_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-p2 <- ggplot(data=somas_dolar, aes(x=ram, y=Preço, color = ModeloCusto ))+
+p2 <- ggplot(data=somas_dolar, aes(x=Containers, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
     theme_classic()+
@@ -223,10 +220,7 @@ p2 <- ggplot(data=somas_dolar, aes(x=ram, y=Preço, color = ModeloCusto ))+
     #scale_y_continuous(limits=c(0.004,0.018), breaks=seq(0.004,0.018,0.001))+
     scale_x_continuous(
         breaks=c(
-            8,
-            16,
-            24,
-            32
+            8192,16384,24576,32768
         ),
         labels=c(
             "25%",
@@ -243,7 +237,56 @@ plot(p2)
 dev.off()
 
 rm(p2)
+tiff("precoKubernetes_EPCC_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+p3 <- ggplot(data=somas_dolar[somas_dolar$ModeloCusto=="grid",], aes(x=Containers, y=Preço, color = ModeloCusto ))+
+    geom_point()+
+    geom_line()+
+    theme_classic()+
+    theme(
+        legend.position="top",
+        axis.text.x = element_text(
+            angle = 0,
+            hjust = 0.7,
+            size=10
+        ),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=12),
+        axis.title.y = element_text(size=12),
+        legend.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        legend.key = element_blank(),
+        legend.box = "vertical"
+    )+
+    labs(
+        x="#Containers",
+        y="Price (US$/h)",
+        color= "Price Model"
+    )+
+    #scale_y_continuous(limits=c(0.004,0.018), breaks=seq(0.004,0.018,0.001))+
+    scale_x_continuous(
+        breaks=c(
+            8192,16384,24576,32768
+        ),
+        labels=c(
+            "25%",
+            "50%",
+            "75%",
+            "100%"
+        ))+
+    scale_color_discrete(
+        limits=c("grid"),
+        labels=c("Proposed Model")
+    )+ scale_y_continuous(labels = comma)
+
+plot(p3)
+dev.off()
+
+rm(p3)
 
 system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
+system("for f in *.png; do convert $f ${f%.*}.pdf; done;")
 system("rm *.tiff")
