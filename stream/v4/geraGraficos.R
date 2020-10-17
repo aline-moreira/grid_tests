@@ -65,7 +65,7 @@ stress_025 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STRESS" & times$cpu==0.25 & times$ram==0.5] &
         energy$tempo <= times$fim[times$teste=="STRESS" & times$cpu==0.25 & times$ram==0.5]
 )
-stress_025$teste <- "stress"
+stress_025$teste <- "0-stress"
 stress_025$cpu <- 0.25
 stress_025$ram <- NA
 q <- quantile(stress_025$consumo, c(0.05, 0.95))
@@ -76,7 +76,7 @@ stream_025_05 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==0.25 & times$ram==0.5] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==0.25 & times$ram==0.5]
 )
-stream_025_05$teste <- "stream"
+stream_025_05$teste <- "1-stream"
 stream_025_05$cpu <- 0.25
 stream_025_05$ram <- 0.5
 q <- quantile(stream_025_05$consumo, c(0.05, 0.95))
@@ -87,7 +87,7 @@ stream_025_1 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==0.25 & times$ram==1] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==0.25 & times$ram==1]
 )
-stream_025_1$teste <- "stream"
+stream_025_1$teste <- "1-stream"
 stream_025_1$cpu <- 0.25
 stream_025_1$ram <- 1
 q <- quantile(stream_025_1$consumo, c(0.05, 0.95))
@@ -98,7 +98,7 @@ stream_025_2 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==0.25 & times$ram==2] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==0.25 & times$ram==2]
 )
-stream_025_2$teste <- "stream"
+stream_025_2$teste <- "1-stream"
 stream_025_2$cpu <- 0.25
 stream_025_2$ram <- 2
 q <- quantile(stream_025_2$consumo, c(0.05, 0.95))
@@ -109,7 +109,7 @@ stress_05 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STRESS" & times$cpu==0.5 & times$ram==1] &
         energy$tempo <= times$fim[times$teste=="STRESS" & times$cpu==0.5 & times$ram==1]
 )
-stress_05$teste <- "stress"
+stress_05$teste <- "0-stress"
 stress_05$cpu <- 0.5
 stress_05$ram <- NA
 q <- quantile(stress_05$consumo, c(0.05, 0.95))
@@ -120,7 +120,7 @@ stream_05_1 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==0.5 & times$ram==1] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==0.5 & times$ram==1]
 )
-stream_05_1$teste <- "stream"
+stream_05_1$teste <- "1-stream"
 stream_05_1$cpu <- 0.5
 stream_05_1$ram <- 1
 q <- quantile(stream_05_1$consumo, c(0.05, 0.95))
@@ -131,7 +131,7 @@ stream_05_2 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==0.5 & times$ram==2] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==0.5 & times$ram==2]
 )
-stream_05_2$teste <- "stream"
+stream_05_2$teste <- "1-stream"
 stream_05_2$cpu <- 0.5
 stream_05_2$ram <- 2
 q <- quantile(stream_05_2$consumo, c(0.05, 0.95))
@@ -142,7 +142,7 @@ stream_05_3 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==0.5 & times$ram==3] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==0.5 & times$ram==3]
 )
-stream_05_3$teste <- "stream"
+stream_05_3$teste <- "1-stream"
 stream_05_3$cpu <- 0.5
 stream_05_3$ram <- 3
 q <- quantile(stream_05_3$consumo, c(0.05, 0.95))
@@ -153,7 +153,7 @@ stream_05_4 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==0.5 & times$ram==4] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==0.5 & times$ram==4]
 )
-stream_05_4$teste <- "stream"
+stream_05_4$teste <- "1-stream"
 stream_05_4$cpu <- 0.5
 stream_05_4$ram <- 4
 q <- quantile(stream_05_4$consumo, c(0.05, 0.95))
@@ -164,7 +164,7 @@ stress_1 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STRESS" & times$cpu==1 & times$ram==2] &
         energy$tempo <= times$fim[times$teste=="STRESS" & times$cpu==1 & times$ram==2]
 )
-stress_1$teste <- "stress"
+stress_1$teste <- "0-stress"
 stress_1$cpu <- 1
 stress_1$ram <- NA
 q <- quantile(stress_1$consumo, c(0.05, 0.95))
@@ -175,7 +175,7 @@ stream_1_2 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==1 & times$ram==2] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==1 & times$ram==2]
 )
-stream_1_2$teste <- "stream"
+stream_1_2$teste <- "1-stream"
 stream_1_2$cpu <- 1
 stream_1_2$ram <- 2
 q <- quantile(stream_1_2$consumo, c(0.05, 0.95))
@@ -186,7 +186,7 @@ stream_1_4 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==1 & times$ram==4] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==1 & times$ram==4]
 )
-stream_1_4$teste <- "stream"
+stream_1_4$teste <- "1-stream"
 stream_1_4$cpu <- 1
 stream_1_4$ram <- 4
 q <- quantile(stream_1_4$consumo, c(0.05, 0.95))
@@ -197,7 +197,7 @@ stream_1_8 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==1 & times$ram==8] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==1 & times$ram==8]
 )
-stream_1_8$teste <- "stream"
+stream_1_8$teste <- "1-stream"
 stream_1_8$cpu <- 1
 stream_1_8$ram <- 8
 q <- quantile(stream_1_8$consumo, c(0.05, 0.95))
@@ -208,7 +208,7 @@ stress_2 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STRESS" & times$cpu==2 & times$ram==4] &
         energy$tempo <= times$fim[times$teste=="STRESS" & times$cpu==2 & times$ram==4]
 )
-stress_2$teste <- "stress"
+stress_2$teste <- "0-stress"
 stress_2$cpu <- 2
 stress_2$ram <- NA
 q <- quantile(stress_2$consumo, c(0.05, 0.95))
@@ -219,7 +219,7 @@ stream_2_4 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==2 & times$ram==4] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==2 & times$ram==4]
 )
-stream_2_4$teste <- "stream"
+stream_2_4$teste <- "1-stream"
 stream_2_4$cpu <- 2
 stream_2_4$ram <- 4
 q <- quantile(stream_2_4$consumo, c(0.05, 0.95))
@@ -230,7 +230,7 @@ stream_2_8 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==2 & times$ram==8] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==2 & times$ram==8]
 )
-stream_2_8$teste <- "stream"
+stream_2_8$teste <- "1-stream"
 stream_2_8$cpu <- 2
 stream_2_8$ram <- 8
 q <- quantile(stream_2_8$consumo, c(0.05, 0.95))
@@ -241,7 +241,7 @@ stream_2_16 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==2 & times$ram==16] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==2 & times$ram==16]
 )
-stream_2_16$teste <- "stream"
+stream_2_16$teste <- "1-stream"
 stream_2_16$cpu <- 2
 stream_2_16$ram <- 16
 q <- quantile(stream_2_16$consumo, c(0.05, 0.95))
@@ -252,7 +252,7 @@ stress_4 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STRESS" & times$cpu==4 & times$ram==32] &
         energy$tempo <= times$fim[times$teste=="STRESS" & times$cpu==4 & times$ram==32]
 )
-stress_4$teste <- "stress"
+stress_4$teste <- "0-stress"
 stress_4$cpu <- 4
 stress_4$ram <- NA
 q <- quantile(stress_4$consumo, c(0.05, 0.95))
@@ -263,7 +263,7 @@ stream_4_4 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==4 & times$ram==4] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==4 & times$ram==4]
 )
-stream_4_4$teste <- "stream"
+stream_4_4$teste <- "1-stream"
 stream_4_4$cpu <- 4
 stream_4_4$ram <- 4
 q <- quantile(stream_4_4$consumo, c(0.05, 0.95))
@@ -275,7 +275,7 @@ stream_4_16 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==4 & times$ram==16] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==4 & times$ram==16]
 )
-stream_4_16$teste <- "stream"
+stream_4_16$teste <- "1-stream"
 stream_4_16$cpu <- 4
 stream_4_16$ram <- 16
 q <- quantile(stream_4_16$consumo, c(0.05, 0.95))
@@ -286,7 +286,7 @@ stream_4_32 <- energy %>% filter(
     energy$tempo >= times$inicio[times$teste=="STREAM" & times$cpu==4 & times$ram==32] &
         energy$tempo <= times$fim[times$teste=="STREAM" & times$cpu==4 & times$ram==32]
 )
-stream_4_32$teste <- "stream"
+stream_4_32$teste <- "1-stream"
 stream_4_32$cpu <- 4
 stream_4_32$ram <- 32
 q <- quantile(stream_4_32$consumo, c(0.05, 0.95))
@@ -376,7 +376,9 @@ energy_bench$grp <- paste(energy_bench$cpu,energy_bench$ram)
 
 tiff("consumo_energia_benchmarks.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p1 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
-    geom_abline( mapping=aes(slope=0, intercept=summary(idle$consumo)[[3]], colour=idle$teste[[1]]), linetype="dashed")+
+    geom_hline( yintercept=summary(idle$consumo)[[3]], color='dark green',linetype="dashed")+
+    annotate(geom="text", x=21, y=195, label="Idle",
+             color="dark green", size=6)+
     geom_boxplot(outlier.shape = NA)+
     theme_classic()+
     theme(
@@ -407,51 +409,55 @@ p1 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
     scale_y_continuous(limits=c(150,550), breaks=seq(0,550,50))+
     scale_x_discrete(
        limits=c(
+           "0.25 NA",
             "0.25 0.5",
             "0.25 1",
             "0.25 2",
-            "0.25 NA",
+            "0.5 NA",
             "0.5 1",
             "0.5 2",
             "0.5 3",
             "0.5 4",
-            "0.5 NA",
+            "1 NA",
             "1 2",
             "1 4",
             "1 8",
-            "1 NA",
+            "2 NA",
             "2 4",
             "2 8",
             "2 16",
-            "2 NA",
+            "4 NA",
             "4 4",
             "4 16",
-            "4 32",
-            "4 NA"
+            "4 32"
             ),
             labels=c(
+                "0.25 CPUs",
             "0.25 CPUs\n0.5Gb RAM",
             "0.25 CPUs\n1Gb RAM",
             "0.25 CPUs\n2Gb RAM",
-            "0.25 CPUs",
+            "0.5 CPUs",
             "0.5 CPUs\n1Gb RAM",
             "0.5 CPUs\n2Gb RAM",
             "0.5 CPUs\n3Gb RAM",
             "0.5 CPUs\n4Gb RAM",
-            "0.5 CPUs",
+            "1 CPUs",
             "1 CPUs\n2Gb RAM",
             "1 CPUs\n4Gb RAM",
             "1 CPUs\n8Gb RAM",
-            "1 CPUs",
+            "2 CPUs",
             "2 CPUs\n4Gb RAM",
             "2 CPUs\n8Gb RAM",
             "2 CPUs\n16Gb RAM",
-            "2 CPUs",
+            "4 CPUs",
             "4 CPUs\n4Gb RAM",
             "4 CPUs\n16Gb RAM",
-            "4 CPUs\n30Gb RAM",
-            "4 CPUs"
-            ))
+            "4 CPUs\n30Gb RAM"
+            ))+
+    scale_color_discrete(
+        limits=c("0-stress","1-stream"),
+        labels=c("Stress","Stream")
+    )
 
 plot(p1)
 dev.off()
@@ -491,50 +497,50 @@ p2 <- ggplot(data=consumo_cpu_bench, aes(x=grp, y=consumo_cpu, color=teste))+
     scale_y_continuous(limits=c(50,210), breaks=seq(50,210,10))+
     scale_x_discrete(
         limits=c(
+            "0.25cpu NA",
             "0.25cpu 0.5gb",
             "0.25cpu 1gb",
             "0.25cpu 2gb",
-            "0.25cpu NA",
+            "0.5cpu NA",
             "0.5cpu 1gb",
             "0.5cpu 2gb",
             "0.5cpu 3gb",
             "0.5cpu 4gb",
-            "0.5cpu NA",
+            "1cpu NA",
             "1cpu 2gb",
             "1cpu 4gb",
             "1cpu 8gb",
-            "1cpu NA",
+            "2cpu NA",
             "2cpu 4gb",
             "2cpu 8gb",
             "2cpu 16gb",
-            "2cpu NA",
+            "4cpu NA",
             "4cpu 4gb",
             "4cpu 16gb",
-            "4cpu 32gb",
-            "4cpu NA"
+            "4cpu 32gb"
         ),
         labels=c(
+            "0.25 CPUs",
             "0.25 CPUs\n0.5Gb RAM",
             "0.25 CPUs\n1Gb RAM",
             "0.25 CPUs\n2Gb RAM",
-            "0.25 CPUs",
+            "0.5 CPUs",
             "0.5 CPUs\n1Gb RAM",
             "0.5 CPUs\n2Gb RAM",
             "0.5 CPUs\n3Gb RAM",
             "0.5 CPUs\n4Gb RAM",
-            "0.5 CPUs",
+            "1 CPUs",
             "1 CPUs\n2Gb RAM",
             "1 CPUs\n4Gb RAM",
             "1 CPUs\n8Gb RAM",
-            "1 CPUs",
+            "2 CPUs",
             "2 CPUs\n4Gb RAM",
             "2 CPUs\n8Gb RAM",
             "2 CPUs\n16Gb RAM",
-            "2 CPUs",
+            "4 CPUs",
             "4 CPUs\n4Gb RAM",
             "4 CPUs\n16Gb RAM",
-            "4 CPUs\n30Gb RAM",
-            "4 CPUs"
+            "4 CPUs\n30Gb RAM"
         ))
 plot(p2)
 dev.off()
@@ -542,7 +548,9 @@ rm(p2)
 
 tiff("consumo_energia_benchmarks_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p3 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
-    geom_abline( mapping=aes(slope=0, intercept=summary(idle$consumo)[[3]], colour=idle$teste[[1]]), linetype="dashed")+
+    geom_hline( yintercept=summary(idle$consumo)[[3]], color='dark green',linetype="dashed")+
+    annotate(geom="text", x=21, y=195, label="Idle",
+             color="dark green", size=6)+
     geom_boxplot(outlier.shape = NA)+
     theme_classic()+
     theme(
@@ -573,51 +581,55 @@ p3 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
     scale_y_continuous(limits=c(150,550), breaks=seq(0,550,50))+
     scale_x_discrete(
         limits=c(
+            "0.25 NA",
             "0.25 0.5",
             "0.25 1",
             "0.25 2",
-            "0.25 NA",
+            "0.5 NA",
             "0.5 1",
             "0.5 2",
             "0.5 3",
             "0.5 4",
-            "0.5 NA",
+            "1 NA",
             "1 2",
             "1 4",
             "1 8",
-            "1 NA",
+            "2 NA",
             "2 4",
             "2 8",
             "2 16",
-            "2 NA",
+            "4 NA",
             "4 4",
             "4 16",
-            "4 32",
-            "4 NA"
+            "4 32"
         ),
         labels=c(
+            "0.25 CPUs",
             "0.25 CPUs\n0.5Gb RAM",
             "0.25 CPUs\n1Gb RAM",
             "0.25 CPUs\n2Gb RAM",
-            "0.25 CPUs",
+            "0.5 CPUs",
             "0.5 CPUs\n1Gb RAM",
             "0.5 CPUs\n2Gb RAM",
             "0.5 CPUs\n3Gb RAM",
             "0.5 CPUs\n4Gb RAM",
-            "0.5 CPUs",
+            "1 CPUs",
             "1 CPUs\n2Gb RAM",
             "1 CPUs\n4Gb RAM",
             "1 CPUs\n8Gb RAM",
-            "1 CPUs",
+            "2 CPUs",
             "2 CPUs\n4Gb RAM",
             "2 CPUs\n8Gb RAM",
             "2 CPUs\n16Gb RAM",
-            "2 CPUs",
+            "4 CPUs",
             "4 CPUs\n4Gb RAM",
             "4 CPUs\n16Gb RAM",
-            "4 CPUs\n30Gb RAM",
-            "4 CPUs"
-        ))
+            "4 CPUs\n30Gb RAM"
+        ))+
+    scale_color_discrete(
+        limits=c("0-stress","1-stream"),
+        labels=c("Stress","Stream")
+    )
 
 plot(p3)
 dev.off()

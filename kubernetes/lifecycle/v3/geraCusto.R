@@ -1,4 +1,4 @@
-packages <- c("ggplot2","dplyr","scales","ggsci","rjson")
+packages <- c("ggplot2","dplyr","scales","ggsci","rjson", "scales")
 
 for(package in packages){
     if(!require(package, character.only = TRUE)){
@@ -93,27 +93,27 @@ dt_tests <- rbind(pod_8192, pod_16384)
 dt_tests <- rbind(dt_tests, pod_32768)
 
 somaGrid_0 <- 183  * 0.000000114 * 3600
-somaGrid_1 <- mean(pod_8192$consumo) * 0.000000114 * 3600 - somaGrid_0
-somaGrid_2 <- mean(pod_16384$consumo) * 0.000000114 * 3600 - somaGrid_0
-somaGrid_3 <- 394 * 0.000000114 * 3600 - somaGrid_0
-somaGrid_4 <- mean(pod_32768$consumo) * 0.000000114 * 3600 - somaGrid_0
+somaGrid_1 <- (mean(pod_8192$consumo) * 0.000000114 * 3600 - somaGrid_0) / 8192
+somaGrid_2 <- (mean(pod_16384$consumo) * 0.000000114 * 3600 - somaGrid_0) / 16384
+somaGrid_3 <- (394 * 0.000000114 * 3600 - somaGrid_0) / 24576
+somaGrid_4 <- (mean(pod_32768$consumo) * 0.000000114 * 3600 - somaGrid_0) / 32768
 
 somaGrid_dolar_0 <- 183  * 0.000000114 / 5.44 * 3600
-somaGrid_dolar_1 <- mean(pod_8192$consumo) * 0.000000114 / 5.44 * 3600 - somaGrid_dolar_0
-somaGrid_dolar_2 <- mean(pod_16384$consumo) * 0.000000114 / 5.44 * 3600 - somaGrid_dolar_0
-somaGrid_dolar_3 <- 394 * 0.000000114 / 5.44 * 3600 - somaGrid_dolar_0
-somaGrid_dolar_4 <- mean(pod_32768$consumo) * 0.000000114 / 5.44 * 3600 - somaGrid_dolar_0
+somaGrid_dolar_1 <- (mean(pod_8192$consumo) * 0.000000114 / 5.44 * 3600 - somaGrid_dolar_0)  / 8192
+somaGrid_dolar_2 <- (mean(pod_16384$consumo) * 0.000000114 / 5.44 * 3600 - somaGrid_dolar_0) / 16384
+somaGrid_dolar_3 <- (394 * 0.000000114 / 5.44 * 3600 - somaGrid_dolar_0) / 24576
+somaGrid_dolar_4 <- (mean(pod_32768$consumo) * 0.000000114 / 5.44 * 3600 - somaGrid_dolar_0) / 32768
 
 somas <- c(somaGrid_1, somaGrid_2, somaGrid_3, somaGrid_4, 
-           0.0272,0.0272,0.0272,0.0272,
-           0.0544,0.0544,0.0544,0.0544,
-           0.0816, 0.0816, 0.0816, 0.0816
+           0.0272  ,0.0272 ,0.0272 ,0.0272 ,
+           0.0544  ,0.0544 ,0.0544 ,0.0544 ,
+           0.0816  , 0.0816 , 0.0816 , 0.0816 
 )
 
 somas_dolar <- c(somaGrid_dolar_1, somaGrid_dolar_2, somaGrid_dolar_3, somaGrid_dolar_4, 
-            0.0272 / 5.44,0.0272 / 5.44,0.0272 / 5.44,0.0272 / 5.44,
-            0.0544 / 5.44,0.0544 / 5.44,0.0544 / 5.44,0.0544 / 5.44,
-            0.0816 / 5.44,0.0816 / 5.44,0.0816 / 5.44,0.0816 / 5.44
+            (0.0272 / 5.44)  ,(0.0272 / 5.44) ,(0.0272 / 5.44) ,(0.0272 / 5.44) ,
+            (0.0544 / 5.44)  ,(0.0544 / 5.44) ,(0.0544 / 5.44) ,(0.0544 / 5.44) ,
+            (0.0816 / 5.44)  ,(0.0816 / 5.44) ,(0.0816 / 5.44) ,(0.0816 / 5.44) 
 )
 
 somas <- data.frame(somas, c("grid","grid","grid","grid",
@@ -168,7 +168,7 @@ p1 <- ggplot(data=somas, aes(x=ram, y=Preço, color = ModeloCusto ))+
         y="Preço (R$/h)",
         color= "Modelo de Custo"
     )+
-    scale_y_continuous(limits=c(0.025,0.09), breaks=seq(0.025,0.09,0.005))+
+    #scale_y_continuous(limits=c(0.025,0.09), breaks=seq(0.025,0.09,0.005))+
     scale_x_continuous(
         breaks=c(
             8,
@@ -185,7 +185,7 @@ p1 <- ggplot(data=somas, aes(x=ram, y=Preço, color = ModeloCusto ))+
     scale_color_discrete(
         limits=c("aws5","aws10","aws15","grid"),
         labels=c("Amazon 5%","Amazon 10%","Amazon 15%", "Modelo Proposto")
-    )
+    )+ scale_y_continuous(labels = comma)
 
 plot(p1)
 dev.off()
@@ -220,7 +220,7 @@ p2 <- ggplot(data=somas_dolar, aes(x=ram, y=Preço, color = ModeloCusto ))+
         y="Price (US$/h)",
         color= "Price Model"
     )+
-    scale_y_continuous(limits=c(0.004,0.018), breaks=seq(0.004,0.018,0.001))+
+    #scale_y_continuous(limits=c(0.004,0.018), breaks=seq(0.004,0.018,0.001))+
     scale_x_continuous(
         breaks=c(
             8,
@@ -237,7 +237,7 @@ p2 <- ggplot(data=somas_dolar, aes(x=ram, y=Preço, color = ModeloCusto ))+
     scale_color_discrete(
         limits=c("aws5","aws10","aws15","grid"),
         labels=c("5% Amazon","10% Amazon","15% Amazon", "Proposed Model")
-    )
+    )+ scale_y_continuous(labels = comma)
 
 plot(p2)
 dev.off()

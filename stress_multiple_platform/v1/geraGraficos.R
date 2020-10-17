@@ -550,17 +550,17 @@ p2 <- ggplot(data=dt_tests, aes(x=as.factor(cpus), y=consumo, color=plataforma))
         axis.text.x = element_text(
             angle = 0,
             hjust = 0.7,
-            size=10
+            size=14
         ),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
         axis.line = element_line(color = "black"),
-        axis.text.y = element_text(size=12),
-        axis.title.x = element_text(size=12),
-        axis.title.y = element_text(size=12),
-        legend.text = element_text(size=12),
-        legend.title = element_text(size=12),
+        axis.text.y = element_text(size=16),
+        axis.title.x = element_text(size=16),
+        axis.title.y = element_text(size=16),
+        legend.text = element_text(size=16),
+        legend.title = element_text(size=16),
         legend.key = element_blank(),
         legend.box = "vertical"
     )+

@@ -111,26 +111,134 @@ docker_2_40$total <- "80G"
 q <- quantile(docker_2_40$consumo, c(0.1, 0.9))
 docker_2_40 <- docker_2_40[docker_2_40$consumo >= q[1] & docker_2_40$consumo <= q[2], ]
 
+
+times<- read.table("fio2.times",header=FALSE,sep=";", stringsAsFactors = FALSE)
+names(times) <- c("plataforma","IO","start","end")
+times$start <- as.POSIXct(times$start,tz="UTC", format="%a %d %b %Y %I:%M:%S %p")
+times$end <- as.POSIXct(times$end,tz="UTC", format="%a %d %b %Y %I:%M:%S %p")
+times$execution_time <- times$end - times$start
+
+##########GETTING THE INFO OF JSON######################
+energy1 <- fromJSON(file="energy_1930833.json")
+
+#energy$items[[number_of_host]]
+energy1$items[[1]]$timestamps = as.POSIXct(energy1$items[[1]]$timestamps, origin="1970-01-01",tz="UTC")
+
+time <- energy1$items[[1]]$timestamps
+values <- energy1$items[[1]]$values
+
+energy1 <- data.frame(time,values)
+
+rm(time)
+rm(values)
+
+names(energy1) <- c("tempo","consumo")
+#-----------
+energy2 <- fromJSON(file="energy_1930776.json")
+
+#energy$items[[number_of_host]]
+energy2$items[[1]]$timestamps = as.POSIXct(energy2$items[[1]]$timestamps, origin="1970-01-01",tz="UTC")
+
+time <- energy2$items[[1]]$timestamps
+values <- energy2$items[[1]]$values
+
+energy2 <- data.frame(time,values)
+
+rm(time)
+rm(values)
+
+names(energy2) <- c("tempo","consumo")
+#-----------
+
+energy3 <- fromJSON(file="energy_1929918.json")
+
+#energy$items[[number_of_host]]
+energy3$items[[1]]$timestamps = as.POSIXct(energy3$items[[1]]$timestamps, origin="1970-01-01",tz="UTC")
+
+time <- energy3$items[[1]]$timestamps
+values <- energy3$items[[1]]$values
+
+energy3 <- data.frame(time,values)
+
+rm(time)
+rm(values)
+
+names(energy3) <- c("tempo","consumo")
+#-----------
+
+energy4 <- fromJSON(file="energy_1930213.json")
+
+#energy$items[[number_of_host]]
+energy4$items[[1]]$timestamps = as.POSIXct(energy4$items[[1]]$timestamps, origin="1970-01-01",tz="UTC")
+
+time <- energy4$items[[1]]$timestamps
+values <- energy4$items[[1]]$values
+
+energy4 <- data.frame(time,values)
+
+rm(time)
+rm(values)
+
+names(energy4) <- c("tempo","consumo")
+#-----------
+
+energy <- rbind(energy1, energy2)
+energy <- rbind(energy, energy3)
+energy <- rbind(energy, energy4)
+rm(energy1)
+rm(energy2)
+rm(energy3)
+rm(energy4)
+
+
+
+#1 Docker 60IO
+docker_1_60 <- energy %>% filter(
+    energy$tempo >= times$start[times$plataforma=="docker" & times$IO==60] &
+        energy$tempo <= times$end[times$plataforma=="docker" & times$IO==60]
+)
+docker_1_60$IO <- "60G"
+docker_1_60$dockers <- 1
+docker_1_60$total <- "60G"
+q <- quantile(docker_1_60$consumo, c(0.1, 0.9))
+docker_1_60 <- docker_1_60[docker_1_60$consumo >= q[1] & docker_1_60$consumo <= q[2], ]
+
+#1 docker 80IO
+docker_1_80 <- energy %>% filter(
+    energy$tempo >= times$start[times$plataforma=="docker" & times$IO==80] &
+        energy$tempo <= times$end[times$plataforma=="docker" & times$IO==80]
+)
+docker_1_80$IO <- "80G"
+docker_1_80$dockers <- 1
+docker_1_80$total <- "80G"
+q <- quantile(docker_1_80$consumo, c(0.1, 0.9))
+docker_80 <- docker_1_80[docker_1_80$consumo >= q[1] & docker_1_80$consumo <= q[2], ]
+
 # Combinando testes
-dt_tests <- rbind(idle_docker, docker_3_20)
-dt_tests <- rbind(dt_tests, docker_2_30)
+dt_tests <- rbind(docker_3_20, docker_2_30)
 dt_tests <- rbind(dt_tests, docker_6_10)
 dt_tests <- rbind(dt_tests, docker_8_10)
 dt_tests <- rbind(dt_tests, docker_4_20)
 dt_tests <- rbind(dt_tests, docker_2_40)
+dt_tests <- rbind(dt_tests, docker_1_60)
+dt_tests <- rbind(dt_tests, docker_1_80)
 
 #rm(idle)
-rm(idle_docker)
 rm(docker_3_20)
 rm(docker_2_30)
 rm(docker_6_10)
 rm(docker_8_10)
 rm(docker_4_20)
 rm(docker_2_40)
+rm(docker_1_60)
+rm(docker_1_80)
 
 tiff("fio_multiplatform_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p1 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
-    geom_boxplot(outlier.shape=NA, notch=FALSE,  position = position_dodge2(preserve = "single"))+
+    geom_boxplot(outlier.shape=NA, notch=FALSE, position = position_dodge2(preserve = "single"))+
+    geom_hline( yintercept=summary(idle_docker$consumo)[[3]], color='dark green',linetype="dashed")+
+    annotate(geom="text", x=2.5, y=195, label="Idle",
+             color="dark green", size=6)+
     theme_classic()+
     theme(
         legend.position="top",
@@ -160,8 +268,7 @@ p1 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
     scale_x_discrete(
         limits=c(
             "60G",
-            "80G",
-            "Idle"
+            "80G"
         ))
 # labels=c(
 #         "Idle",
@@ -185,6 +292,9 @@ rm(p1)
 tiff("fio_multiplatform_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p2 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
     geom_boxplot(outlier.shape=NA, notch=FALSE, position = position_dodge2(preserve = "single"))+
+    geom_hline( yintercept=summary(idle_docker$consumo)[[3]], color='dark green',linetype="dashed")+
+    annotate(geom="text", x=2.5, y=195, label="Idle",
+             color="dark green", size=6)+
     theme_classic()+
     theme(
         legend.position="top",
@@ -214,8 +324,7 @@ p2 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
     scale_x_discrete(
         limits=c(
             "60G",
-            "80G",
-            "Idle"
+            "80G"
         ))
 # labels=c(
 #         "Idle",

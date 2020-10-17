@@ -87,17 +87,17 @@ docker10 <- docker10[docker10$consumo >= q[1] & docker10$consumo <= q[2], ]
 dt_tests <- rbind(docker2_5, docker5)
 dt_tests <- rbind(dt_tests, docker10)
 
-somaGrid_0 <- 183  * 0.000000114 * 3600 + 0.054 * 0
-somaGrid_1 <- mean(docker2_5$consumo) * 0.000000114 * 3600 - somaGrid_0 + 0.054 * 2.5
-somaGrid_2 <- mean(docker5$consumo) * 0.000000114 * 3600 - somaGrid_0 + 0.054 * 5
-somaGrid_3 <- 370 * 0.000000114 * 3600 - somaGrid_0 + 0.054 * 7.5
-somaGrid_4 <- mean(docker10$consumo) * 0.000000114 * 3600 - somaGrid_0 + 0.054 * 10
+somaGrid_0 <- 183  * 0.000000114 * 3600 #+ 0.054 * 0
+somaGrid_1 <- mean(docker2_5$consumo) * 0.000000114 * 3600 - somaGrid_0 #+ 0.054 * 2.5
+somaGrid_2 <- mean(docker5$consumo) * 0.000000114 * 3600 - somaGrid_0 #+ 0.054 * 5
+somaGrid_3 <- 370 * 0.000000114 * 3600 - somaGrid_0 #+ 0.054 * 7.5
+somaGrid_4 <- mean(docker10$consumo) * 0.000000114 * 3600 - somaGrid_0 #+ 0.054 * 10
 
-somaGrid_dolar_0 <- 183  * 0.000000114 * 3600 /5.44 + 0.054 * 0 /5.44
-somaGrid_dolar_1 <- mean(docker2_5$consumo) * 0.000000114 / 5.44 *3600 - somaGrid_dolar_0 + 0.054 / 5.44 * 2.5
-somaGrid_dolar_2 <- mean(docker5$consumo) * 0.000000114/ 5.44 * 3600 - somaGrid_dolar_0 + 0.054/ 5.44 * 5
-somaGrid_dolar_3 <- 370 * 0.000000114/ 5.44 * 3600 - somaGrid_dolar_0 + 0.054/ 5.44 * 7.5
-somaGrid_dolar_4 <- mean(docker10$consumo) * 0.000000114/ 5.44 * 3600 - somaGrid_dolar_0 + 0.054/ 5.44 * 10
+somaGrid_dolar_0 <- 183  * 0.000000114 * 3600 /5.44 #+ 0.054 * 0 /5.44
+somaGrid_dolar_1 <- mean(docker2_5$consumo) * 0.000000114 / 5.44 *3600 - somaGrid_dolar_0 #+ 0.054 / 5.44 * 2.5
+somaGrid_dolar_2 <- mean(docker5$consumo) * 0.000000114/ 5.44 * 3600 - somaGrid_dolar_0 #+ 0.054/ 5.44 * 5
+somaGrid_dolar_3 <- 370 * 0.000000114/ 5.44 * 3600 - somaGrid_dolar_0 #+ 0.054/ 5.44 * 7.5
+somaGrid_dolar_4 <- mean(docker10$consumo) * 0.000000114/ 5.44 * 3600 - somaGrid_dolar_0 #+ 0.054/ 5.44 * 10
 
 
 somas <- c(somaGrid_1, somaGrid_2, somaGrid_3, somaGrid_4,
@@ -163,7 +163,7 @@ p1 <- ggplot(data=somas, aes(x=ram, y=Preço, color = ModeloCusto ))+
         y="Preço (R$/h)",
         color= "Modelo de Custo"
     )+
-    scale_y_continuous(limits=c(0.0,0.65), breaks=seq(0.00,0.65,0.05))+
+    scale_y_continuous(limits=c(0.0,0.55), breaks=seq(0.00,0.65,0.05))+
     scale_x_continuous(
         breaks=c(
             8,
@@ -217,7 +217,7 @@ p2 <- ggplot(data=somas_dolar, aes(x=ram, y=Preço, color = ModeloCusto ))+
         y="Price (US$/h)",
         color= "Price Model"
     )+
-    scale_y_continuous(limits=c(0.0,0.12), breaks=seq(0.0,0.12,0.01))+
+    scale_y_continuous(limits=c(0.0,0.10), breaks=seq(0.0,0.12,0.01))+
     scale_x_continuous(
         breaks=c(
             8,

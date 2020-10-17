@@ -179,8 +179,10 @@ rm(pod_32768)
 tiff("sysbench_kubernetes_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p1 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=as.factor(node)))+
     geom_boxplot(outlier.shape=NA, notch=FALSE)+
-    geom_abline( mapping=aes(slope=0, intercept=summary(idle$consumo)[[3]], 
-                             colour=as.factor(idle$total_containers[[1]])), linetype="dashed")+
+    geom_hline( yintercept=summary(idle$consumo)[[3]], 
+                             color="dark green", linetype="dashed")+
+    annotate(geom="text", x=10.2, y=190, label="Idle",
+             color="dark green", size=6)+
     theme_classic()+
     theme(
         legend.position="top",
@@ -204,7 +206,7 @@ p1 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=
     scale_y_continuous(limits=c(175,425), breaks=seq(175,425,25))+
     labs(
         x="Quantidade de Contêineres",
-        y="Consumo (W/s)",
+        y="Consumo (Watts/s)",
         color= "Tipo de hospedeiro"
     )+
     scale_x_discrete(
@@ -241,8 +243,10 @@ rm(p1)
 tiff("sysbench_kubernetes_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
 p2 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=as.factor(node)))+
     geom_boxplot(outlier.shape=NA, notch=FALSE)+
-    geom_abline( mapping=aes(slope=0, intercept=summary(idle$consumo)[[3]], 
-                             colour=as.factor(idle$total_containers[[1]])), linetype="dashed")+
+    geom_hline( yintercept=summary(idle$consumo)[[3]], 
+                color="dark green", linetype="dashed")+
+    annotate(geom="text", x=10.2, y=190, label="Idle",
+             color="dark green", size=6)+
     theme_classic()+
     theme(
         legend.position="top",

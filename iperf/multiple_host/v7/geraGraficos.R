@@ -415,6 +415,8 @@ tiff("iperf_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,comp
 p1 <- ggplot(data=dt_tests, aes(x=grp, y=consumo, color=as.factor(node)))+
     geom_abline( mapping=aes(slope=0, intercept=summary(idle$consumo)[[3]], 
                              colour=as.factor(idle$`Quantidade Clientes`[[1]])), linetype="dashed")+
+    annotate(geom="text", x=26.5, y=195, label="Idle",
+             color="dark green", size=6)+
     geom_boxplot(outlier.shape=NA)+
     # 1MB
     geom_rect(mapping=aes(xmin=0.55, xmax=1.45, ymin=175, ymax=450),
@@ -476,15 +478,15 @@ p1 <- ggplot(data=dt_tests, aes(x=grp, y=consumo, color=as.factor(node)))+
     geom_rect(mapping=aes(xmin=23.55, xmax=25.45, ymin=175, ymax=450),
               color='grey20', fill=alpha('light grey',0.01),  linetype=1, size=0.2) +
     geom_text(aes(x=23.55+(25.45-23.55)/2, y=460, label="5 GB"), size=2, color='black') +
-    # #10GB
+    #10GB
     geom_rect(mapping=aes(xmin=25.55, xmax=27.45, ymin=175, ymax=450),
               color='grey20', fill=alpha('light green',0),  linetype=1, size=0.2) +
     geom_text(aes(x=25.55+(27.45-25.55)/2, y=460, label="10 GB"), size=2, color='black') +
-    # #25GB
+    #25GB
     geom_rect(mapping=aes(xmin=27.55, xmax=28.45, ymin=175, ymax=450),
               color='grey20', fill=alpha('light green',0),  linetype=1, size=0.2) +
     geom_text(aes(x=27.55+(28.45-27.55)/2, y=460, label="25 GB"), size=2, color='black') +
-    # #50GB
+    #50GB
     geom_rect(mapping=aes(xmin=28.55, xmax=29.45, ymin=175, ymax=450),
               color='grey20', fill=alpha('light green',0),  linetype=1, size=0.2) +
     geom_text(aes(x=28.55+(29.45-28.55)/2, y=460, label="50 GB"), size=2, color='black') +
@@ -518,7 +520,7 @@ p1 <- ggplot(data=dt_tests, aes(x=grp, y=consumo, color=as.factor(node)))+
         y="Consumo (W/s)",
         color= "Tipo de configuração Iperf3"
     )+
-    scale_color_discrete(breaks = c("Idle","Cliente","Servidor"))+
+    scale_color_discrete(breaks = c("Cliente","Servidor"))+
     scale_y_continuous(limits=c(175,480), breaks=seq(175,450,25))+
     scale_x_discrete(
         limits=c(
@@ -612,6 +614,8 @@ tiff("iperf_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,c
 p2 <- ggplot(data=dt_tests, aes(x=grp, y=consumo, color=as.factor(node)))+
     geom_abline( mapping=aes(slope=0, intercept=summary(idle$consumo)[[3]], 
                              colour=as.factor(idle$`Quantidade Clientes`[[1]])), linetype="dashed")+
+    annotate(geom="text", x=26.5, y=195, label="Idle",
+             color="dark green", size=6)+
     geom_boxplot(outlier.shape=NA)+
     # 1MB
     geom_rect(mapping=aes(xmin=0.55, xmax=1.45, ymin=175, ymax=450),
@@ -715,7 +719,7 @@ p2 <- ggplot(data=dt_tests, aes(x=grp, y=consumo, color=as.factor(node)))+
         y="Consumption(Watts/s)",
         color= "iPerf3 settings"
     )+
-    scale_color_discrete(breaks = c("Idle","Cliente","Servidor"), labels= c("Idle","Client","Server"))+
+    scale_color_discrete(breaks = c("Cliente","Servidor"), labels= c("Client","Server"))+
     scale_y_continuous(limits=c(175,480), breaks=seq(175,450,25))+
     scale_x_discrete(
         limits=c(

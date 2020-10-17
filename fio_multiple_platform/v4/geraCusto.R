@@ -141,28 +141,28 @@ dt_tests <- rbind(dt_tests, docker_60)
 dt_tests <- rbind(dt_tests, docker_80)
 
 somaGrid_0 <- 183  * 0.000000114 * 3600 + 0.000113333 * 0
-somaGrid_1 <- mean(docker_20$consumo) * 0.000000114 * 3600 - somaGrid_0 + 0.000113333 * 20
-somaGrid_2 <- mean(docker_40$consumo) * 0.000000114 * 3600 - somaGrid_0 + 0.000113333 * 40
-somaGrid_3 <- mean(docker_60$consumo) * 0.000000114 * 3600 - somaGrid_0 + 0.000113333 * 60
-somaGrid_4 <- mean(docker_80$consumo) * 0.000000114 * 3600 - somaGrid_0 + 0.000113333 * 80
+somaGrid_1 <- mean(docker_20$consumo) * 0.000000114 * 3600 - somaGrid_0 #+ 0.000113333 * 20
+somaGrid_2 <- mean(docker_40$consumo) * 0.000000114 * 3600 - somaGrid_0 #+ 0.000113333 * 40
+somaGrid_3 <- mean(docker_60$consumo) * 0.000000114 * 3600 - somaGrid_0 #+ 0.000113333 * 60
+somaGrid_4 <- mean(docker_80$consumo) * 0.000000114 * 3600 - somaGrid_0 #+ 0.000113333 * 80
 
 
-somaGrid_dolar_0 <- 183  * 0.000000114/5.44 * 3600 + 0.000113333 * 0 /5.44
-somaGrid_dolar_1 <- mean(docker_20$consumo) * 0.000000114/5.44 * 3600 - somaGrid_dolar_0 + 0.000113333 * 20 /5.44
-somaGrid_dolar_2 <- mean(docker_40$consumo) * 0.000000114/5.44 * 3600 - somaGrid_dolar_0 + 0.000113333 * 40 /5.44
-somaGrid_dolar_3 <- mean(docker_60$consumo) * 0.000000114/5.44 * 3600 - somaGrid_dolar_0 + 0.000113333 * 60 /5.44
-somaGrid_dolar_4 <- mean(docker_80$consumo) * 0.000000114/5.44 * 3600 - somaGrid_dolar_0 + 0.000113333 * 80 /5.44
+somaGrid_dolar_0 <- 183  * 0.000000114/5.44 * 3600 #+ 0.000113333 * 0 /5.44
+somaGrid_dolar_1 <- mean(docker_20$consumo) * 0.000000114/5.44 * 3600 - somaGrid_dolar_0 #+ 0.000113333 * 20 /5.44
+somaGrid_dolar_2 <- mean(docker_40$consumo) * 0.000000114/5.44 * 3600 - somaGrid_dolar_0 #+ 0.000113333 * 40 /5.44
+somaGrid_dolar_3 <- mean(docker_60$consumo) * 0.000000114/5.44 * 3600 - somaGrid_dolar_0 #+ 0.000113333 * 60 /5.44
+somaGrid_dolar_4 <- mean(docker_80$consumo) * 0.000000114/5.44 * 3600 - somaGrid_dolar_0 #+ 0.000113333 * 80 /5.44
 
 somas <- c(somaGrid_1, somaGrid_2, somaGrid_3, somaGrid_4, 
-           0.000755556 * 20,0.000755556 * 40,0.000755556 * 60,0.000755556 * 80, 
-           0.000503704 * 20,0.000503704 * 40,0.000503704 * 60,0.000503704 * 80, 
-           0.000251852 * 20,0.000251852 * 40,0.000251852 * 60,0.000251852 * 80
+           0.000755556 * 80,0.000755556 * 80,0.000755556 * 80,0.000755556 * 80, 
+           0.000503704 * 80,0.000503704 * 80,0.000503704 * 80,0.000503704 * 80, 
+           0.000251852 * 80,0.000251852 * 80,0.000251852 * 80,0.000251852 * 80
 )
 
 somas_dolar <- c(somaGrid_dolar_1, somaGrid_dolar_2, somaGrid_dolar_3, somaGrid_dolar_4, 
-                 0.000755556 * 20 /5.44,0.000755556 * 40 /5.44,0.000755556 * 60 /5.44,0.000755556 * 80 /5.44, 
-                 0.000503704 * 20 /5.44,0.000503704 * 40 /5.44,0.000503704 * 60 /5.44,0.000503704 * 80 /5.44, 
-                 0.000251852 * 20 /5.44,0.000251852 * 40 /5.44,0.000251852 * 60 /5.44,0.000251852 * 80 /5.44
+                 0.000755556 * 80 /5.44,0.000755556 * 80 /5.44,0.000755556 * 80 /5.44,0.000755556 * 80 /5.44, 
+                 0.000503704 * 80 /5.44,0.000503704 * 80 /5.44,0.000503704 * 80 /5.44,0.000503704 * 80 /5.44, 
+                 0.000251852 * 80 /5.44,0.000251852 * 80 /5.44,0.000251852 * 80 /5.44,0.000251852 * 80 /5.44
 )
 
 somas <- data.frame(somas, c("grid","grid","grid","grid",
