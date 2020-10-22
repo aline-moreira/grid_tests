@@ -121,7 +121,7 @@ somas <- data.frame(somas, c("grid","grid","grid","grid",
      8,16,24,32,
      8,16,24,32
 ))
-names(somas) <- c("Preço","ModeloCusto","ram")
+names(somas) <- c("Preço","ModeloCusto","network")
 
 somas_dolar <- data.frame(somas_dolar, c("grid","grid","grid","grid",
                              "aws15","aws15","aws15","aws15",
@@ -132,10 +132,10 @@ somas_dolar <- data.frame(somas_dolar, c("grid","grid","grid","grid",
      8,16,24,32,
      8,16,24,32
 ))
-names(somas_dolar) <- c("Preço","ModeloCusto","ram")
+names(somas_dolar) <- c("Preço","ModeloCusto","network")
 
 tiff("precoIperf.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-p1 <- ggplot(data=somas, aes(x=ram, y=Preço, color = ModeloCusto ))+
+p1 <- ggplot(data=somas, aes(x=network, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
     theme_classic()+
@@ -189,7 +189,7 @@ rm(p1)
 
 
 tiff("precoIperf_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-p2 <- ggplot(data=somas_dolar, aes(x=ram, y=Preço, color = ModeloCusto ))+
+p2 <- ggplot(data=somas_dolar, aes(x=network, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
     theme_classic()+

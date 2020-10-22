@@ -164,6 +164,7 @@ rownames(spider_aws_15_100) <- spider_aws_15_100$benchmark
 spider_aws_15_100$benchmark <- NULL
 colnames(spider_aws_15_100) <- "100%"
 
+
 spider_0 <- data.frame(spider_epcc_0,spider_aws_5_0,spider_aws_10_0,spider_aws_15_0)
 colnames(spider_0) <- c("EPCC","5% AWS","10% AWS", "15% AWS")
 rownames(spider_0) <- rownames(spider_epcc_25)
@@ -184,6 +185,10 @@ spider_100 <- data.frame(spider_epcc_100,spider_aws_5_100,spider_aws_10_100,spid
 colnames(spider_100) <- c("EPCC","5% AWS","10% AWS", "15% AWS")
 rownames(spider_100) <- rownames(spider_epcc_25)
 
+spider_0['Storage','EPCC'] <- spider_100['Storage','EPCC'] * 0
+spider_25['Storage','EPCC'] <- spider_100['Storage','EPCC'] *0.25
+spider_50['Storage','EPCC'] <- spider_100['Storage','EPCC'] * 0.50
+spider_75['Storage','EPCC'] <- spider_100['Storage','EPCC'] * 0.75
 
 rm(spider_epcc_0)
 rm(spider_epcc_25)
