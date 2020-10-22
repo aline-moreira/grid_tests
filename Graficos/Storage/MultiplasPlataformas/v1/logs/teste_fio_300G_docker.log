@@ -1,0 +1,17 @@
+Running 300G.fio
+teste_fio_300G_docker: (g=0): rw=randread, bs=32K-32K/32K-32K/32K-32K, ioengine=libaio, iodepth=64
+fio-2.1.11
+Starting 1 process
+teste_fio_300G_docker: Laying out IO file(s) (1 file(s) / 307200MB)
+
+teste_fio_300G_docker: (groupid=0, jobs=1): err=122 (file:filesetup.c:165, func=write, error=Disk quota exceeded): pid=11: Fri May  1 21:32:04 2020
+  read : io=32768B, bw=16000KB/s, iops=500, runt=     2msec
+  cpu          : usr=100.00%, sys=0.00%, ctx=4, majf=0, minf=14
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=50.0%, 4=50.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=1/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: io=32KB, aggrb=16000KB/s, minb=16000KB/s, maxb=16000KB/s, mint=2msec, maxt=2msec

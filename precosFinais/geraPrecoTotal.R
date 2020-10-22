@@ -357,17 +357,13 @@ colors_border=c( rgb(255/255,89/255,89/255,1),
                  rgb(73/255,190/255,183/255,1), 
                  rgb(8/255,95/255,99/255,1),
                  rgb(0/255,0/255,153/255,1))
-colors_in=c( rgb(255/255,89/255,89/255,1),
-             rgb(250/255, 207/255, 90/255, 1),
-             rgb(73/255,190/255,183/255,1),
-             rgb(8/255,95/255,99/255,1),
-             rgb(0/255,0/255,153/255,1))
-# colors_in=c( rgb(255/255,89/255,89/255,0.4), 
-#              rgb(250/255, 207/255, 90/255, 0.4),
-#              rgb(73/255,190/255,183/255,0.4), 
-#              rgb(8/255,95/255,99/255,0.4),
-#              rgb(0/255,0/255,153/255,0.4))
-#------------------------
+
+colors_in=c( rgb(255/255,89/255,89/255,0.4),
+             rgb(250/255, 207/255, 90/255, 0.4),
+             rgb(73/255,190/255,183/255,0.4),
+             rgb(8/255,95/255,99/255,0.4),
+             rgb(0/255,0/255,153/255,0.4))
+# ------------------------
 t_spider_0 <- transpose(spider_0)
 colnames(t_spider_0) <- rownames(spider_0)
 rownames(t_spider_0) <- colnames(spider_0)
@@ -380,15 +376,15 @@ rownames(spider_0_radar) <- rownames(t_spider_0)
 spider_0_radar$group <- NULL
 
 tiff("radar0.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-r1 <- radarchart(spider_0_radar, axistype=0 , maxmin=F,
+r1 <- radarchart(spider_0_radar, axistype=1 , maxmin=F,
                  #custom polygon
-                 pcol=colors_border ,  plwd=4 , plty=1,
+                 pcol=colors_border ,  plwd=2 , plty=1, 
                  #custom the grid
-                 cglcol="grey", cglty=1, axislabcol="black", cglwd=0.8, 
+                 cglcol="grey", cglty=1, axislabcol="grey", cglwd=0.8, caxislabels=seq(0,100,25), 
                  #custom labels
                  vlcex=0.8 
 )
-legend("bottom", legend = rownames(spider_0_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_in , text.col = "black", cex=1, pt.cex=3)
+legend("bottom", legend = rownames(spider_0_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=1, pt.cex=3)
 dev.off()
 #---------------------------------------
 #------------------------
@@ -404,15 +400,15 @@ rownames(spider_25_radar) <- rownames(t_spider_25)
 spider_25_radar$group <- NULL
 
 tiff("radar25.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-r2 <- radarchart(spider_25_radar, axistype=0 , maxmin=F,
+r2 <- radarchart(spider_25_radar, axistype=1 , maxmin=F,
                  #custom polygon
-                 pcol=colors_border ,  plwd=4 , plty=1,
+                 pcol=colors_border ,  plwd=2 , plty=1, 
                  #custom the grid
-                 cglcol="grey", cglty=1, axislabcol="black", cglwd=0.8, 
+                 cglcol="grey", cglty=1, axislabcol="grey", cglwd=0.8, caxislabels=seq(0,100,25), 
                  #custom labels
                  vlcex=0.8 
 )
-legend("bottom", legend = rownames(spider_25_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_in , text.col = "black", cex=1, pt.cex=3)
+legend("bottom", legend = rownames(spider_25_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=1, pt.cex=3)
 #plot(r2)
 dev.off()
 #---------------------------------------
@@ -428,15 +424,15 @@ rownames(spider_50_radar) <- rownames(t_spider_50)
 
 spider_50_radar$group <- NULL
 tiff("radar50.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-r3 <- radarchart(spider_50_radar, axistype=0 , maxmin=F,
+r3 <- radarchart(spider_50_radar, axistype=1 , maxmin=F,
                  #custom polygon
-                 pcol=colors_border ,  plwd=4 , plty=1,
+                 pcol=colors_border ,  plwd=2 , plty=1, 
                  #custom the grid
-                 cglcol="grey", cglty=1, axislabcol="black", cglwd=0.8, 
+                 cglcol="grey", cglty=1, axislabcol="grey", cglwd=0.8, caxislabels=seq(0,100,25), 
                  #custom labels
                  vlcex=0.8 
 )
-legend("bottom", legend = rownames(spider_50_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_in , text.col = "black", cex=1, pt.cex=3)
+legend("bottom", legend = rownames(spider_50_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=1, pt.cex=3)
 #plot(r3)
 dev.off()
 #---------------------------------------
@@ -452,15 +448,15 @@ rownames(spider_75_radar) <- rownames(t_spider_75)
 
 spider_75_radar$group <- NULL
 tiff("radar75.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-r4 <- radarchart(spider_75_radar, axistype=0 , maxmin=F,
+r4 <- radarchart(spider_75_radar, axistype=1 , maxmin=F,
                  #custom polygon
-                 pcol=colors_border ,  plwd=4 , plty=1,
+                 pcol=colors_border ,  plwd=2 , plty=1, 
                  #custom the grid
-                 cglcol="grey", cglty=1, axislabcol="black", cglwd=0.8, 
+                 cglcol="grey", cglty=1, axislabcol="grey", cglwd=0.8, caxislabels=seq(0,100,25), 
                  #custom labels
                  vlcex=0.8 
 )
-legend("bottom", legend = rownames(spider_75_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_in , text.col = "black", cex=0.8, pt.cex=3)
+legend("bottom", legend = rownames(spider_75_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=0.8, pt.cex=3)
 #plot(r4)
 dev.off()
 #---------------------------------------
@@ -476,15 +472,15 @@ rownames(spider_100_radar) <- rownames(t_spider_100)
 
 spider_100_radar$group <- NULL
 tiff("radar100.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-r5 <- radarchart(spider_100_radar, axistype=0 , maxmin=F,
+r5 <- radarchart(spider_100_radar, axistype=1 , maxmin=F,
                  #custom polygon
-                 pcol=colors_border ,  plwd=4 , plty=1,
+                 pcol=colors_border ,  plwd=2 , plty=1, 
                  #custom the grid
-                 cglcol="grey", cglty=1, axislabcol="black", cglwd=0.8, 
+                 cglcol="grey", cglty=1, axislabcol="grey", cglwd=0.8, caxislabels=seq(0,100,25), 
                  #custom labels
                  vlcex=0.8 
 )
-legend("bottom", legend = rownames(spider_100_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_in , text.col = "black", cex=1, pt.cex=3)
+legend("bottom", legend = rownames(spider_100_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=1, pt.cex=3)
 #plot(r5)
 dev.off()
 #---------------------------------------
@@ -494,7 +490,7 @@ spider_total <- data.frame(somas_dolar$Preço[somas_dolar$ModeloCusto=="grid"],
                            somas_dolar$Preço[somas_dolar$ModeloCusto=="aws10"],
                            somas_dolar$Preço[somas_dolar$ModeloCusto=="aws15"]
                            )
-colnames(spider_total) <- c("grid","aws5","aws10","aws15")
+colnames(spider_total) <- c("EPCC","5% AWS","10% AWS","15% AWS")
 rownames(spider_total) <- c("0%","25%","50%","75%","100%")
 
 
@@ -509,15 +505,16 @@ rownames(spider_total_radar) <- rownames(t_spider_total)
 
 spider_total_radar$group <- NULL
 tiff("radarTotal.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-r6 <- radarchart(spider_total_radar, axistype=0 , maxmin=F,
+r6 <- radarchart(spider_total_radar, axistype=1 , maxmin=F,
                  #custom polygon
-                 pcol=colors_border ,  plwd=4 , plty=1,
+                 pcol=colors_border ,  plwd=2 , plty=1, 
                  #custom the grid
-                 cglcol="grey", cglty=1, axislabcol="black", cglwd=0.8, 
+                 cglcol="grey", cglty=1, axislabcol="grey", cglwd=0.8, caxislabels=seq(0,100,25),
+
                  #custom labels
-                 vlcex=0.8 
+                 vlcex=1 
 )
-legend("bottom", legend = rownames(spider_total_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_in , text.col = "black", cex=1, pt.cex=3)
+legend("bottom", legend = rownames(spider_total_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=1, pt.cex=3)
 #plot(r5)
 dev.off()
 #---------------------------------------

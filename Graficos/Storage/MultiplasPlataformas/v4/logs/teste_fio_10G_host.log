@@ -1,0 +1,21 @@
+teste_fio_10G_host: (g=0): rw=randread, bs=(R) 32.0KiB-32.0KiB, (W) 32.0KiB-32.0KiB, (T) 32.0KiB-32.0KiB, ioengine=libaio, iodepth=64
+fio-3.12
+Starting 1 process
+teste_fio_10G_host: Laying out IO file (1 file / 10240MiB)
+
+teste_fio_10G_host: (groupid=0, jobs=1): err= 0: pid=3905: Sun May 10 16:08:58 2020
+  read: IOPS=10.7k, BW=333MiB/s (349MB/s)(300GiB/923009msec)
+   bw (  KiB/s): min=195200, max=358720, per=99.99%, avg=340792.55, stdev=28013.07, samples=1846
+   iops        : min= 6100, max=11210, avg=10649.76, stdev=875.40, samples=1846
+  cpu          : usr=3.74%, sys=11.48%, ctx=7970848, majf=0, minf=542
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=9830400,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=333MiB/s (349MB/s), 333MiB/s-333MiB/s (349MB/s-349MB/s), io=300GiB (322GB), run=923009-923009msec
+
+Disk stats (read/write):
+  sda: ios=9780924/7, merge=48499/2, ticks=58594550/32, in_queue=29137852, util=98.73%

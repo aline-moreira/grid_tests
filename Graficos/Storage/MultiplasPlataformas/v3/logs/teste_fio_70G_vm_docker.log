@@ -1,0 +1,20 @@
+Running 70G.fio
+teste_fio_70G_vm_docker: (g=0): rw=randread, bs=32K-32K/32K-32K/32K-32K, ioengine=libaio, iodepth=64
+fio-2.1.11
+Starting 1 process
+teste_fio_70G_vm_docker: Laying out IO file(s) (1 file(s) / 71680MB)
+
+teste_fio_70G_vm_docker: (groupid=0, jobs=1): err= 0: pid=11: Wed May  6 21:04:07 2020
+  read : io=71680MB, bw=1818.1MB/s, iops=58178, runt= 39426msec
+  cpu          : usr=14.58%, sys=83.12%, ctx=39141, majf=0, minf=518
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued    : total=r=2293760/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: io=71680MB, aggrb=1818.1MB/s, minb=1818.1MB/s, maxb=1818.1MB/s, mint=39426msec, maxt=39426msec
+
+Disk stats (read/write):
+  vda: ios=2292007/4, merge=0/1, ticks=194051/1, in_queue=173576, util=99.49%
