@@ -456,8 +456,8 @@ r4 <- radarchart(spider_75_radar, axistype=1 , maxmin=F,
                  #custom labels
                  vlcex=0.8 
 )
-legend("bottom", legend = rownames(spider_75_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=0.8, pt.cex=3)
-#plot(r4)
+legend("bottom", legend = rownames(spider_75_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=1, pt.cex=3)
+
 dev.off()
 #---------------------------------------
 #------------------------

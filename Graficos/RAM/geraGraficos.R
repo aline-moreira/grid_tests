@@ -268,7 +268,6 @@ stream_4_4$cpu <- 4
 stream_4_4$ram <- 4
 q <- quantile(stream_4_4$consumo, c(0.05, 0.95))
 stream_4_4 <- stream_4_4[stream_4_4$consumo >= q[1] & stream_4_4$consumo <= q[2], ]
-# stream_4_4$consumo <- stream_4_4$consumo + 80
 
 #4 16
 stream_4_16 <- energy %>% filter(
