@@ -64,6 +64,15 @@ sum_100_aws5_dolar <- sum(valores$v4[valores$plataforma=="aws5"])
 sum_100_aws10_dolar <- sum(valores$v4[valores$plataforma=="aws10"])
 sum_100_aws15_dolar <- sum(valores$v4[valores$plataforma=="aws15"])
 
+tabela_final <- data.frame(
+  c(sum_25_grid_dolar, sum_50_grid_dolar, sum_75_grid_dolar, sum_100_grid_dolar),
+  c(sum_25_aws5_dolar, sum_50_aws5_dolar,sum_75_aws5_dolar,sum_100_aws5_dolar),
+  c(sum_25_aws10_dolar,sum_50_aws10_dolar,sum_75_aws10_dolar,sum_100_aws10_dolar),  
+  c(sum_25_aws15_dolar,sum_50_aws15_dolar,sum_75_aws15_dolar,sum_100_aws15_dolar)
+  )
+colnames(tabela_final) <- c("EPCC","5% AWS", "10% AWS", "15% AWS")
+rownames(tabela_final) <- c("25%", "50%", "75%", "100%")
+
 spider_epcc_0 <- data.frame(c(idle_dolar,idle_dolar,idle_dolar,idle_dolar,idle_dolar))
 rownames(spider_epcc_0) <- spider_epcc_0$benchmark
 spider_epcc_0$benchmark <- NULL
