@@ -506,7 +506,6 @@ legend("bottom", legend = rownames(spider_total_radar), inset=c(0,1), xpd=TRUE, 
 dev.off()
 #---------------------------------------
 
-rm(r1)
 rm(r2)
 rm(r3)
 rm(r4)
