@@ -176,7 +176,7 @@ rm(pod_8192)
 rm(pod_16384)
 rm(pod_32768)
 
-tiff("sysbench_kubernetes_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("sysbench_kubernetes_benchmark.pdf",width=10)
 p1 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=as.factor(node)))+
     geom_boxplot(outlier.shape=NA, notch=FALSE)+
     geom_hline( yintercept=summary(idle$consumo)[[3]], 
@@ -240,7 +240,7 @@ dev.off()
 
 rm(p1)
 
-tiff("sysbench_kubernetes_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("sysbench_kubernetes_benchmark_en.pdf",width=10)
 p2 <- ggplot(data=dt_tests, aes(x=as.factor(total_containers), y=consumo, color=as.factor(node)))+
     geom_boxplot(outlier.shape=NA, notch=FALSE)+
     geom_hline( yintercept=summary(idle$consumo)[[3]], 
@@ -304,6 +304,4 @@ dev.off()
 
 rm(p2)
 
-system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.png; do convert $f ${f%.*}.pdf; done;")
-system("rm *.tiff")
+system("for f in *.pdf; do pdfcrop $f $f; done;")

@@ -374,7 +374,7 @@ rm(dt_temp)
 #Fazendo o plot
 energy_bench$grp <- paste(energy_bench$cpu,energy_bench$ram)
 
-tiff("consumo_energia_benchmarks.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("consumo_energia_benchmarks.pdf", width=10)
 p1 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
     geom_hline( yintercept=summary(idle$consumo)[[3]], color='dark green',linetype="dashed")+
     annotate(geom="text", x=21, y=195, label="Idle",
@@ -465,7 +465,7 @@ rm(p1)
 
 consumo_cpu_bench$grp <- paste(consumo_cpu_bench$cpu,consumo_cpu_bench$ram)
 
-tiff("consumo_cpu_benchmarks.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("consumo_cpu_benchmarks.pdf", width=10)
 p2 <- ggplot(data=consumo_cpu_bench, aes(x=grp, y=consumo_cpu, color=teste))+
     geom_boxplot(outlier.shape = NA)+
     theme_classic()+
@@ -546,7 +546,7 @@ plot(p2)
 dev.off()
 rm(p2)
 
-tiff("consumo_energia_benchmarks_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("consumo_energia_benchmarks_en.pdf", width=10)
 p3 <- ggplot(data=energy_bench, aes(x=grp, y=consumo, color=teste))+
     geom_hline( yintercept=summary(idle$consumo)[[3]], color='dark green',linetype="dashed")+
     annotate(geom="text", x=21, y=195, label="Idle",
@@ -636,8 +636,4 @@ dev.off()
 rm(p3)
 
 #Convertendo e movendo os graficos para a respectiva pasta
-system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
-system("mv *.png graficos")
-system("mv *.pdf graficos")
-system("rm *.tiff")
+system("for f in *.pdf; do pdfcrop $f $f; done;")

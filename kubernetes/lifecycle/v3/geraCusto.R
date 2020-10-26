@@ -139,7 +139,7 @@ somas_dolar <- data.frame(somas_dolar, c("grid","grid","grid","grid",
 names(somas) <- c("Preço","ModeloCusto","Containers")
 names(somas_dolar) <- c("Preço","ModeloCusto","Containers")
 
-tiff("precoKubernetes.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("precoKubernetes.pdf",width=10)
 p1 <- ggplot(data=somas, aes(x=Containers, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
@@ -188,7 +188,7 @@ plot(p1)
 dev.off()
 
 rm(p1)
-tiff("precoKubernetes_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("precoKubernetes_en.pdf",width=10)
 p2 <- ggplot(data=somas_dolar, aes(x=Containers, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
@@ -237,7 +237,7 @@ plot(p2)
 dev.off()
 
 rm(p2)
-tiff("precoKubernetes_EPCC_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("precoKubernetes_EPCC_en.pdf",width=10)
 p3 <- ggplot(data=somas_dolar[somas_dolar$ModeloCusto=="grid",], aes(x=Containers, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
@@ -287,6 +287,4 @@ dev.off()
 
 rm(p3)
 
-system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.png; do convert $f ${f%.*}.pdf; done;")
-system("rm *.tiff")
+system("for f in *.pdf; do pdfcrop $f $f; done;")

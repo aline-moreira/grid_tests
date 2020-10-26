@@ -250,7 +250,7 @@ c(0, 25,50,75,100)
 )
 names(somas_dolar) <- c("Preço","ModeloCusto","Utilizacao")
 
-tiff("precoFinal.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("precoFinal.pdf", width=10)
 p1 <- ggplot(data=somas, aes(x=Utilizacao, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
@@ -305,7 +305,7 @@ dev.off()
 
 rm(p1)
 
-tiff("precoFinal_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("precoFinal_en.pdf", width=10)
 p2 <- ggplot(data=somas_dolar, aes(x=Utilizacao, y=Preço, color = ModeloCusto ))+
     geom_point()+
     geom_line()+
@@ -372,29 +372,7 @@ colors_in=c( rgb(255/255,89/255,89/255,0.4),
              rgb(73/255,190/255,183/255,0.4),
              rgb(8/255,95/255,99/255,0.4),
              rgb(0/255,0/255,153/255,0.4))
-# ------------------------
-t_spider_0 <- transpose(spider_0)
-colnames(t_spider_0) <- rownames(spider_0)
-rownames(t_spider_0) <- colnames(spider_0)
 
-t_spider_0 %>%
-  mutate_at(vars(),funs(rescale)) -> spider_0_radar
-
-rownames(spider_0_radar) <- rownames(t_spider_0)
-
-spider_0_radar$group <- NULL
-
-tiff("radar0.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
-r1 <- radarchart(spider_0_radar, axistype=1 , maxmin=F,
-                 #custom polygon
-                 pcol=colors_border ,  plwd=2 , plty=1, 
-                 #custom the grid
-                 cglcol="grey", cglty=1, axislabcol="grey", cglwd=0.8, caxislabels=seq(0,100,25), 
-                 #custom labels
-                 vlcex=0.8 
-)
-legend("bottom", legend = rownames(spider_0_radar), inset=c(0,1), xpd=TRUE, horiz=TRUE, pch=20 , col=colors_border , text.col = "black", cex=1, pt.cex=3)
-dev.off()
 #---------------------------------------
 #------------------------
 t_spider_25 <- transpose(spider_25)
@@ -408,7 +386,7 @@ rownames(spider_25_radar) <- rownames(t_spider_25)
 
 spider_25_radar$group <- NULL
 
-tiff("radar25.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("radar25.pdf", width=10)
 r2 <- radarchart(spider_25_radar, axistype=1 , maxmin=F,
                  #custom polygon
                  pcol=colors_border ,  plwd=2 , plty=1, 
@@ -432,7 +410,7 @@ t_spider_50 %>%
 rownames(spider_50_radar) <- rownames(t_spider_50)
 
 spider_50_radar$group <- NULL
-tiff("radar50.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("radar50.pdf", width=10)
 r3 <- radarchart(spider_50_radar, axistype=1 , maxmin=F,
                  #custom polygon
                  pcol=colors_border ,  plwd=2 , plty=1, 
@@ -456,7 +434,7 @@ t_spider_75 %>%
 rownames(spider_75_radar) <- rownames(t_spider_75)
 
 spider_75_radar$group <- NULL
-tiff("radar75.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("radar75.pdf", width=10)
 r4 <- radarchart(spider_75_radar, axistype=1 , maxmin=F,
                  #custom polygon
                  pcol=colors_border ,  plwd=2 , plty=1, 
@@ -480,7 +458,7 @@ t_spider_100 %>%
 rownames(spider_100_radar) <- rownames(t_spider_100)
 
 spider_100_radar$group <- NULL
-tiff("radar100.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("radar100.pdf", width=10)
 r5 <- radarchart(spider_100_radar, axistype=1 , maxmin=F,
                  #custom polygon
                  pcol=colors_border ,  plwd=2 , plty=1, 
@@ -513,7 +491,7 @@ t_spider_total %>%
 rownames(spider_total_radar) <- rownames(t_spider_total)
 
 spider_total_radar$group <- NULL
-tiff("radarTotal.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("radarTotal.pdf", width=10)
 r6 <- radarchart(spider_total_radar, axistype=1 , maxmin=F,
                  #custom polygon
                  pcol=colors_border ,  plwd=2 , plty=1, 
@@ -535,6 +513,4 @@ rm(r4)
 rm(r5)
 rm(r6)
 
-system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.png; do convert $f ${f%.*}.pdf; done;")
-system("rm *.tiff")
+system("for f in *.pdf; do pdfcrop $f $f; done;")

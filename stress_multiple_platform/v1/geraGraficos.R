@@ -479,7 +479,7 @@ rm(vm_docker_32)
 rm(vm_docker_64)
 rm(vm_docker_128)
 
-tiff("stress.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("stress.pdf", width= 10)
 p1 <- ggplot(data=dt_tests, aes(x=as.factor(cpus), y=consumo, color=plataforma))+
     geom_boxplot(outlier.shape=NA, notch=FALSE)+
     theme_classic()+
@@ -488,17 +488,17 @@ p1 <- ggplot(data=dt_tests, aes(x=as.factor(cpus), y=consumo, color=plataforma))
         axis.text.x = element_text(
             angle = 0,
             hjust = 0.7,
-            size=10
+            size=14
         ),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
         axis.line = element_line(color = "black"),
-        axis.text.y = element_text(size=12),
-        axis.title.x = element_text(size=12),
-        axis.title.y = element_text(size=12),
-        legend.text = element_text(size=12),
-        legend.title = element_text(size=12),
+        axis.text.y = element_text(size=16),
+        axis.title.x = element_text(size=16),
+        axis.title.y = element_text(size=16),
+        legend.text = element_text(size=16),
+        legend.title = element_text(size=16),
         legend.key = element_blank(),
         legend.box = "vertical"
     )+
@@ -532,7 +532,7 @@ p1 <- ggplot(data=dt_tests, aes(x=as.factor(cpus), y=consumo, color=plataforma))
             "128"
         ))+
     scale_color_discrete(
-        limits=c("Host","Docker","MV","Docker sobre MV"),
+        limits=c("1-Host","2-Docker","3-MV","4-Docker sobre MV"),
         labels=c("Bare Metal","Contêiner","MV","Contêiner sobre MV")
     )
 
@@ -541,7 +541,7 @@ dev.off()
 
 rm(p1)
 
-tiff("stress_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("stress_en.pdf", width=10)
 p2 <- ggplot(data=dt_tests, aes(x=as.factor(cpus), y=consumo, color=plataforma))+
     geom_boxplot(outlier.shape=NA, notch=FALSE)+
     theme_classic()+
@@ -603,6 +603,4 @@ dev.off()
 
 rm(p2)
 
-system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
-system("rm *.tiff")
+system("for f in *.pdf; do pdfcrop $f $f; done;")

@@ -233,7 +233,7 @@ rm(docker_2_40)
 rm(docker_1_60)
 rm(docker_1_80)
 
-tiff("fio_multiplatform_benchmark.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("fio_multiplatform_benchmark.pdf", width=10)
 p1 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
     geom_boxplot(outlier.shape=NA, notch=FALSE, position = position_dodge2(preserve = "single"))+
     geom_hline( yintercept=summary(idle_docker$consumo)[[3]], color='dark green',linetype="dashed")+
@@ -245,17 +245,17 @@ p1 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
         axis.text.x = element_text(
             angle = 0,
             hjust = 0.7,
-            size=10
+            size=14
         ),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
         axis.line = element_line(color = "black"),
-        axis.text.y = element_text(size=12),
-        axis.title.x = element_text(size=12),
-        axis.title.y = element_text(size=12),
-        legend.text = element_text(size=12),
-        legend.title = element_text(size=12),
+        axis.text.y = element_text(size=16),
+        axis.title.x = element_text(size=16),
+        axis.title.y = element_text(size=16),
+        legend.text = element_text(size=16),
+        legend.title = element_text(size=16),
         legend.key = element_blank(),
         legend.box = "vertical"
     )+
@@ -289,7 +289,7 @@ dev.off()
 
 rm(p1)
 
-tiff("fio_multiplatform_benchmark_en.tiff", width= 3600, height= 2200, units="px", res=400,compression = 'lzw')
+pdf("fio_multiplatform_benchmark_en.pdf", width=10)
 p2 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
     geom_boxplot(outlier.shape=NA, notch=FALSE, position = position_dodge2(preserve = "single"))+
     geom_hline( yintercept=summary(idle_docker$consumo)[[3]], color='dark green',linetype="dashed")+
@@ -301,17 +301,17 @@ p2 <- ggplot(data=dt_tests, aes(x=total, y=consumo, color=as.factor(dockers)))+
         axis.text.x = element_text(
             angle = 0,
             hjust = 0.7,
-            size=10
+            size=14
         ),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
         axis.line = element_line(color = "black"),
-        axis.text.y = element_text(size=12),
-        axis.title.x = element_text(size=12),
-        axis.title.y = element_text(size=12),
-        legend.text = element_text(size=12),
-        legend.title = element_text(size=12),
+        axis.text.y = element_text(size=16),
+        axis.title.x = element_text(size=16),
+        axis.title.y = element_text(size=16),
+        legend.text = element_text(size=16),
+        legend.title = element_text(size=16),
         legend.key = element_blank(),
         legend.box = "vertical"
     )+
@@ -345,6 +345,4 @@ dev.off()
 
 rm(p2)
 
-system("for f in *.tiff; do convert -trim $f ${f%.*}.png; done;")
-system("for f in *.tiff; do tiff2pdf -o ${f%.*}.pdf $f; done;")
-system("rm *.tiff")
+system("for f in *.pdf; do pdfcrop $f $f; done;")

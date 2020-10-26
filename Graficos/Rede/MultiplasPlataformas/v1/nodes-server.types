@@ -1,7 +1,0 @@
-vm;server;normal;debian
-vm;server;normal;debian
-vm_docker;server;normal;debian
-host;server;normal;yeti-4.grenoble.grid5000.fr
-host;server;normal;yeti-4.grenoble.grid5000.fr
-docker;server;normal;yeti-4.grenoble.grid5000.fr
-docker;server;normal;yeti-4.grenoble.grid5000.fr
